@@ -13,5 +13,81 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{e00c9e65-819b-4b3f-b551-63a27c0b9a4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External Sources">
+      <UniqueIdentifier>{74934844-5e16-42b8-925f-f194fed0e6cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External Sources\imgui">
+      <UniqueIdentifier>{70c346fa-ddb7-48e1-9f97-6b3f07045181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External Sources\glad">
+      <UniqueIdentifier>{05b2b393-7e35-4a68-9124-30d925332f5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logging">
+      <UniqueIdentifier>{a9a9498c-dbfe-4765-b9b9-05d60c708e9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GL">
+      <UniqueIdentifier>{ec92354b-5926-40cb-b739-82a2983bb486}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\src\glad.c">
+      <Filter>External Sources\glad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\imgui\imgui.cpp">
+      <Filter>External Sources\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\imgui\imgui_demo.cpp">
+      <Filter>External Sources\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\imgui\imgui_draw.cpp">
+      <Filter>External Sources\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_glfw_gl3.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Libraries\imgui\imconfig.h">
+      <Filter>External Sources\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Libraries\imgui\imgui.h">
+      <Filter>External Sources\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Libraries\imgui\imgui_internal.h">
+      <Filter>External Sources\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Libraries\imgui\stb_rect_pack.h">
+      <Filter>External Sources\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Libraries\imgui\stb_textedit.h">
+      <Filter>External Sources\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Libraries\imgui\stb_truetype.h">
+      <Filter>External Sources\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Logging.h">
+      <Filter>Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="LoggingGL.h">
+      <Filter>Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="GL_init.h">
+      <Filter>GL</Filter>
+    </ClInclude>
+    <ClInclude Include="GL_include.h">
+      <Filter>GL</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_glfw_gl3.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_init.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
