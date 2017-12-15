@@ -110,7 +110,7 @@ namespace The5
 			// ---------------------------------------
 			if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 			{
-				ERR("Failed to initialize GLAD via gladLoadGLLoader()! Trying gladLoadGL().");
+				ERR("Failed to initialize GLAD via gladLoadGLLoader()! Trying gladLoadGL()...");
 				if (!gladLoadGL())
 				{
 					ERR("Failed tu use gladLoadGL()!");
@@ -143,7 +143,7 @@ namespace The5
 			glfwMakeContextCurrent(window); //GL context!
 			if (window == NULL)
 			{
-				ERR("Failed to create GLFW window");
+				ERR("Failed to create GLFW window!");
 				glfwTerminate();
 				return nullptr;
 			}
@@ -183,5 +183,7 @@ namespace The5
 
 			return window;
 		}
+
+
 	}
 }

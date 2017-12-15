@@ -5,16 +5,55 @@
 #include <iostream>
 
 #include "Logging.h"
+#include "Application.h"
 #include "GL_init.h"
 #include "imgui_init.h"
 
-int main(int argc, char *argv[]) 
-{ 
-	GLFWwindow* window = The5::GL::initGL();
+#include "Mesh.h"
+#include "Shader.h"
 
-	The5::imgui::init(window);
+using namespace The5;
+using namespace std;
+using namespace glm;
 
-	std::cin.get();
+std::string RESOURCE_PATH = "D:/Dev/Projects/GL_Framework_F01/GL_Framework_F01/";
+std::string GLOBAL_RESOURCE_PATH = "D:/Dev/Assets/";
+
+std::string SHADER_PATH = "D:/Dev/Projects/GL_Framework_F01/GL_Framework_F01/Assets/Shaders/";
+
+std::string DEFAULT_SHADER_FRAG = SHADER_PATH + "default.frag.glsl";
+std::string DEFAULT_SHADER_VERT = SHADER_PATH + "default.vert.glsl";
+
+
+int main(int argc, char *argv[])
+{
+	Application appliation;
+
+	GLFWwindow* window = appliation.makeWindow(1024,720,"Epos");
+	appliation.startGameLoop();
+
+
+	string file_model_sponza = GLOBAL_RESOURCE_PATH + "Sponza_Atrium/sponza.obj";
+	string file_model_nanosuit = GLOBAL_RESOURCE_PATH + "Nanosuit/nanosuit.obj";
+
+	//Model model = Model(file_model_nanosuit);
+
+	vec3List positions = { vec3(0.0,0.0,0.0), vec3(1.0,0.0,0.0), vec3(1.0,1.0,0.0), vec3(0.0,1.0,0.0) };
+	uintList indices = { 0,1,2,0,2,3 };
+
+	Mesh mesh01(positions, indices);
+	Shader shader01(DEFAULT_SHADER_VERT, DEFAULT_SHADER_FRAG);
+
+	shader01.uniform("modelMatrix", mat4(1.0f));
+	shader01.uniform("viewMatrix", mat4(1.0f));
+	shader01.uniform("projMatrix", mat4(1.0f));
+
+	shader01.use();
+	mesh01.draw();
+
+	//std::cin.get();
+
+	appliation.terminate();
 	return 1;
 }
 

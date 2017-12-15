@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="imgui">
-      <UniqueIdentifier>{e00c9e65-819b-4b3f-b551-63a27c0b9a4d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="External Sources">
       <UniqueIdentifier>{74934844-5e16-42b8-925f-f194fed0e6cf}</UniqueIdentifier>
     </Filter>
@@ -25,11 +22,32 @@
     <Filter Include="External Sources\glad">
       <UniqueIdentifier>{05b2b393-7e35-4a68-9124-30d925332f5a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Logging">
+    <Filter Include="Source Files\asimp">
+      <UniqueIdentifier>{81c8222e-5656-4323-9415-79dc683cec19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GL">
+      <UniqueIdentifier>{ec92354b-5926-40cb-b739-82a2983bb486}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\imgui">
+      <UniqueIdentifier>{e00c9e65-819b-4b3f-b551-63a27c0b9a4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logging">
       <UniqueIdentifier>{a9a9498c-dbfe-4765-b9b9-05d60c708e9e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GL">
-      <UniqueIdentifier>{ec92354b-5926-40cb-b739-82a2983bb486}</UniqueIdentifier>
+    <Filter Include="Source Files\Helper">
+      <UniqueIdentifier>{bcd740d9-089b-485a-b8a2-483b116fae94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{feaeb0e2-3098-4138-93bc-19deb5cb9d33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Assets">
+      <UniqueIdentifier>{2c23947f-1dbe-4229-990c-2c57cdb9b767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{1a6b8824-a178-4165-902a-fd013461f0ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\STL">
+      <UniqueIdentifier>{a1d74e8b-3298-4ba0-90de-5438f81e9327}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -49,7 +67,7 @@
       <Filter>External Sources\imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_glfw_gl3.cpp">
-      <Filter>imgui</Filter>
+      <Filter>Source Files\imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,22 +90,85 @@
       <Filter>External Sources\imgui</Filter>
     </ClInclude>
     <ClInclude Include="Logging.h">
-      <Filter>Logging</Filter>
+      <Filter>Source Files\Logging</Filter>
     </ClInclude>
     <ClInclude Include="LoggingGL.h">
-      <Filter>Logging</Filter>
+      <Filter>Source Files\Logging</Filter>
     </ClInclude>
     <ClInclude Include="GL_init.h">
-      <Filter>GL</Filter>
+      <Filter>Source Files\GL</Filter>
     </ClInclude>
     <ClInclude Include="GL_include.h">
-      <Filter>GL</Filter>
+      <Filter>Source Files\GL</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_glfw_gl3.h">
-      <Filter>imgui</Filter>
+      <Filter>Source Files\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui_init.h">
-      <Filter>imgui</Filter>
+      <Filter>Source Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="drawTriangle.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="assimp_include.h">
+      <Filter>Source Files\asimp</Filter>
+    </ClInclude>
+    <ClInclude Include="stl_include.h">
+      <Filter>Source Files\STL</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Source Files\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Source Files\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="assimp_init.h">
+      <Filter>Source Files\asimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Source Files\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Source Files\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Importer.h">
+      <Filter>Source Files\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Paths.h">
+      <Filter>Source Files\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Source Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Source Files\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderable.h">
+      <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="GL_Wrapper.h">
+      <Filter>Source Files\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="IComponent.h">
+      <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="IManager.h">
+      <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitives.h">
+      <Filter>Source Files\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Source Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Source Files\Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
