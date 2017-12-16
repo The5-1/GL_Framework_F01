@@ -119,6 +119,8 @@
     <ClCompile Include="..\..\..\Libraries\imgui\imgui_demo.cpp" />
     <ClCompile Include="..\..\..\Libraries\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\..\..\Libraries\src\glad.c" />
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="GL_init.cpp" />
     <ClCompile Include="imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -142,7 +144,6 @@
     <ClInclude Include="Importer.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Logging.h" />
-    <ClInclude Include="LoggingGL.h" />
     <ClInclude Include="IManager.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />

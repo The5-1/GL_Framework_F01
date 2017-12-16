@@ -69,6 +69,12 @@
     <ClCompile Include="imgui_impl_glfw_gl3.cpp">
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="GL_init.cpp">
+      <Filter>Source Files\GL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Libraries\imgui\imconfig.h">
@@ -90,9 +96,6 @@
       <Filter>External Sources\imgui</Filter>
     </ClInclude>
     <ClInclude Include="Logging.h">
-      <Filter>Source Files\Logging</Filter>
-    </ClInclude>
-    <ClInclude Include="LoggingGL.h">
       <Filter>Source Files\Logging</Filter>
     </ClInclude>
     <ClInclude Include="GL_init.h">

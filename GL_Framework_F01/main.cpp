@@ -1,7 +1,5 @@
 #define GLEW_STATIC //Using the static lib, so we need to enable it
 
-
-
 #include <iostream>
 
 #include "Logging.h"
@@ -27,11 +25,17 @@ std::string DEFAULT_SHADER_VERT = SHADER_PATH + "default.vert.glsl";
 
 int main(int argc, char *argv[])
 {
+	/*
 	Application appliation;
-
 	GLFWwindow* window = appliation.makeWindow(1024,720,"Epos");
+	appliation.startInputManager();
 	appliation.startGameLoop();
+	*/
 
+	//Application::initApplication();
+	Application::initWindow(1024, 720, "Epos");
+	Application::initInputManager();
+	Application::startGameLoop();
 
 	string file_model_sponza = GLOBAL_RESOURCE_PATH + "Sponza_Atrium/sponza.obj";
 	string file_model_nanosuit = GLOBAL_RESOURCE_PATH + "Nanosuit/nanosuit.obj";
@@ -53,7 +57,7 @@ int main(int argc, char *argv[])
 
 	//std::cin.get();
 
-	appliation.terminate();
+	Application::terminate();
 	return 1;
 }
 

@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 
 #include "GL_include.h"
 #include "assimp_include.h"

@@ -2,66 +2,47 @@
 
 #include "stl_include.h"
 #include "GL_include.h"
-#include "GL_init.h"
-#include "Logging.h"
 #include "InputManager.h"
 
 namespace The5 {
-
-	struct DestroyglfwWin {
-
-		void operator()(GLFWwindow* ptr) {
-			glfwDestroyWindow(ptr);
-		}
-
+	
+	//using unique_ptr with GLFWwindow needs the explicit destructor
+	//--------------------------------------------------------------
+	struct DestroyGLFWwindow {
+		void operator()(GLFWwindow* ptr){glfwDestroyWindow(ptr);}
 	};
 
-	typedef std::unique_ptr<GLFWwindow, DestroyglfwWin> GLFWwindowUP;
+	class Application;
 
-	typedef std::unique_ptr<InputManager> inputManagerUP;
+	typedef std::unique_ptr<GLFWwindow, DestroyGLFWwindow> GLFWwindowUP;
+	//typedef std::unique_ptr<The5::Application> ApplicationUP;
+	typedef std::unique_ptr<The5::InputManager> inputManagerUP;
 
+	//Static object initialization is undefined
+	//https://isocpp.org/wiki/faq/ctors#static-init-order
 	class Application
 	{
 	public:
 
-		GLFWwindowUP window;
-		
-		inputManagerUP inputManager;
+		//use a namespace-global object instead of singleton or statics? https://www.ics.com/designpatterns/book/namespace-example.html
 
-		Application()
-		{ 
-			inputManager = inputManagerUP(new InputManager());
-		}
+		//static Application* application();
+		static GLFWwindow* window();
+		static InputManager* inputManager();
 
-		GLFWwindow* makeWindow(unsigned int width = 1024, unsigned int height = 720, const char* title = "GLFW window")
-		{
-			window = GLFWwindowUP(The5::GL::initGL(width,height,title));
-			return window.get();
-		}
-		
-		void startGameLoop()
-		{
-			if (window == nullptr)
-			{
-				ERR("Application can't start GameLoop because window is NULL!");
-				return;
-			}
+		//static void initApplication();
+		static void initWindow(unsigned int width, unsigned int height, const char* title);
+		static void initInputManager();	
+		static void startGameLoop();
+		static void terminate();
 
-			while (!glfwWindowShouldClose(window.get()))
-			{
-				inputManager->processInput(window.get());
+	private:
 
-				glfwSwapBuffers(window.get());
-				glfwPollEvents();
-			}
-		}
+		//static ApplicationUP mApplication;
+		static GLFWwindowUP mWindow;
+		static inputManagerUP mInputManager;
 
-
-		void terminate()
-		{
-			glfwTerminate();
-		}
-
+		Application(); //private constructor since the user shall not create more applications
 	};
 
 
