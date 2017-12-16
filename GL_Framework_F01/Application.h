@@ -29,6 +29,7 @@ namespace The5 {
 
 		//ctor
 		Application();
+		~Application();
 
 		//member functions
 		void initApplication();
@@ -41,6 +42,13 @@ namespace The5 {
 		//private members
 		GLFWwindowUP mWindow;
 		inputManagerUP mInputManager;
+
+		bool gameLoopRunning;
+
+		void gameLoop();
+
+		bool checkWindowExists();
+		bool checkInputManagerExists();
 	};
 
 }

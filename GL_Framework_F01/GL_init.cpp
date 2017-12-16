@@ -89,8 +89,6 @@ namespace The5
 		}
 
 
-
-
 		// glfw: whenever the window size changed (by OS or user resize) this callback function executes
 		// ---------------------------------------------------------------------------------------------
 		void glfw_windowsize_callback(GLFWwindow* window, int width, int height)
@@ -98,6 +96,17 @@ namespace The5
 			// make sure the viewport matches the new window dimensions; note that width and 
 			// height will be significantly larger than specified on retina displays.
 			glViewport(0, 0, width, height);
+		}
+
+		//glfw is a C libary and needs a static wrapper callback to handle per-object member functions as callbacks
+		// ---------------------------------------------------------------------------------------------
+		//https://gamedev.stackexchange.com/questions/58541/how-can-i-associate-a-key-callback-with-a-wrapper-class-instance
+		//https://stackoverflow.com/questions/7676971/pointing-to-a-function-that-is-a-class-member-glfw-setkeycallback/28660673#28660673
+		//https://github.com/glfw/glfw/issues/815
+		//http://www.glfw.org/docs/latest/window_guide.html#window_userptr
+		void glfw_key_wrapper_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+		{
+
 		}
 
 		int initGLAD()
@@ -146,7 +155,7 @@ namespace The5
 			glfwSetErrorCallback(glfw_error_callback);
 
 			glfwSetFramebufferSizeCallback(window, glfw_windowsize_callback);	//resize callback
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);	// tell GLFW to capture our mouse
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);	//GLFW_CURSOR_DISABLED = tell GLFW to capture our mouse
 			glfwSwapInterval(1);	// Enable vsync
 
 			return window;

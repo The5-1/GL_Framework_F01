@@ -21,11 +21,12 @@ namespace The5 {
 		initApplication();
 	}
 
-
 	void Application::initApplication()
 	{
 		mWindow = nullptr;
 		mInputManager = nullptr;
+
+		gameLoopRunning = false;
 	}
 	
 	void Application::initWindow(unsigned int width = 1024, unsigned int height = 720, const char* title = "GLFW window")
@@ -35,7 +36,8 @@ namespace The5 {
 
 	void Application::initInputManager()
 	{
-		mInputManager = inputManagerUP(new InputManager(this));
+		if (!checkWindowExists()) return;
+		mInputManager = inputManagerUP(new InputManager(this,this->window()));
 	}
 
 	GLFWwindow* Application::window()
@@ -50,26 +52,59 @@ namespace The5 {
 
 	void Application::startGameLoop()
 	{
-		if (mWindow.get() == nullptr)
-		{
-			ERR("Application can't start GameLoop because window is NULL!");
-			return;
-		}
+		if (!checkWindowExists()) return;
+		if (!checkInputManagerExists()) return;
 
-		while (!glfwWindowShouldClose(mWindow.get()))
-		{
-			mInputManager->processInput(mWindow.get());
+		gameLoopRunning = true;
 
-			glfwSwapBuffers(mWindow.get());
+		gameLoop();
+
+	}
+
+	void Application::gameLoop()
+	{
+		while (!glfwWindowShouldClose(this->window()) && gameLoopRunning == true)
+		{
+			glfwSwapBuffers(this->window());
+
+			//Event processing must be done regularly while you have any windows and is normally done each frame after buffer swapping.
+			//http://www.glfw.org/docs/latest/input_guide.html#events
 			glfwPollEvents();
 		}
 	}
 
-
 	void Application::terminate()
 	{
-		glfwSetWindowShouldClose(mWindow.get(), true);
+		gameLoopRunning = false;
+
+		glfwSetWindowShouldClose(this->window(), true);
+
 		glfwTerminate();
 	}
 
+	bool Application::checkWindowExists()
+	{
+		if (this->window() == nullptr)
+		{
+			ERR("Application window is NULL! Make sure Application::initWindow() was called!");
+			return false;
+		}
+		else return true;
+	}
+
+	bool Application::checkInputManagerExists()
+	{
+		if (this->inputManager() == nullptr)
+		{
+			ERR("Application inputManager is NULL! Make sure Application::initInputManager() was called!");
+			return false;
+		}
+		else return true;
+	}
+
+
+	Application::~Application()
+	{
+		terminate();
+	}
 }

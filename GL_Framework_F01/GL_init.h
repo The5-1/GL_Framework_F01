@@ -28,6 +28,8 @@ namespace The5
 
 		void glfw_windowsize_callback(GLFWwindow* window, int width, int height);
 
+		static void glfw_key_wrapper_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+
 		int initGLAD();
 
 		int initGLFW();

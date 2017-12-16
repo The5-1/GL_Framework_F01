@@ -124,6 +124,7 @@
     <ClCompile Include="imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Libraries\imgui\imconfig.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stl_include.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
