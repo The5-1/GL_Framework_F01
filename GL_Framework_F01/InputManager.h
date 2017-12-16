@@ -1,28 +1,19 @@
 #pragma once
 
-
-#include "GL_include.h"
 #include "Application.h"
-
+#include "GL_include.h"
 
 namespace The5 {
 
 	class InputManager
 	{
-
 	public:
-		//Application* application;
-		//InputManager(Application* application) : application(application) 
-		//{}
+		InputManager(Application* application);
 
+		void processInput(GLFWwindow* window);
 
-		void processInput(GLFWwindow *window)
-		{
-			if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-			{
-				//glfwSetWindowShouldClose(window, true);
-			}
-		}
+	private:
+		Application* mApplication;
 		
 	};
 

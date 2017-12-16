@@ -2,21 +2,32 @@
 #include "GL_init.h"
 
 #include "Application.h"
+#include "InputManager.h"
 
 namespace The5 {
 
+	//extern members are declared in headers
+	//but must be defined in one cpp file
+	//https://stackoverflow.com/questions/10422034/when-to-use-extern-in-c
+
+	//Static object initialization is undefined
+	//https://isocpp.org/wiki/faq/ctors#static-init-order
+
 	//static members must be defined and optionally initialized in the namespace!
 	//https://stackoverflow.com/questions/16049306/error-lnk2001-unresolved-external-symbol-private-static-class
-	GLFWwindowUP Application::mWindow = nullptr;
-	inputManagerUP Application::mInputManager = nullptr;
 
-	/*
+	Application::Application()
+	{
+		initApplication();
+	}
+
+
 	void Application::initApplication()
 	{
-		mApplication = ApplicationUP(new Application());
+		mWindow = nullptr;
+		mInputManager = nullptr;
 	}
-	*/
-
+	
 	void Application::initWindow(unsigned int width = 1024, unsigned int height = 720, const char* title = "GLFW window")
 	{
 		mWindow = GLFWwindowUP(The5::GL::initGL(width, height, title));
@@ -24,15 +35,8 @@ namespace The5 {
 
 	void Application::initInputManager()
 	{
-		mInputManager = inputManagerUP(new InputManager());
+		mInputManager = inputManagerUP(new InputManager(this));
 	}
-
-	/*
-	Application* Application::application()
-	{
-		return mApplication.get();
-	}
-	*/
 
 	GLFWwindow* Application::window()
 	{
@@ -46,7 +50,7 @@ namespace The5 {
 
 	void Application::startGameLoop()
 	{
-		if (window == nullptr)
+		if (mWindow.get() == nullptr)
 		{
 			ERR("Application can't start GameLoop because window is NULL!");
 			return;
@@ -66,22 +70,6 @@ namespace The5 {
 	{
 		glfwSetWindowShouldClose(mWindow.get(), true);
 		glfwTerminate();
-	}
-
-
-
-	Application::Application()
-	{
-		/*
-		if (application == nullptr)
-		{
-			application = this;
-		}
-		else
-		{
-			ERR("There already is a Application object! Can't create another.");
-		}
-		*/
 	}
 
 }

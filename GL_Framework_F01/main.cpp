@@ -32,10 +32,10 @@ int main(int argc, char *argv[])
 	appliation.startGameLoop();
 	*/
 
-	//Application::initApplication();
-	Application::initWindow(1024, 720, "Epos");
-	Application::initInputManager();
-	Application::startGameLoop();
+	Application* application = new Application();
+	application->initWindow(1024, 720, "Epos");
+	application->initInputManager();
+	application->startGameLoop();
 
 	string file_model_sponza = GLOBAL_RESOURCE_PATH + "Sponza_Atrium/sponza.obj";
 	string file_model_nanosuit = GLOBAL_RESOURCE_PATH + "Nanosuit/nanosuit.obj";
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 
 	//std::cin.get();
 
-	Application::terminate();
+	application->terminate();
 	return 1;
 }
 
