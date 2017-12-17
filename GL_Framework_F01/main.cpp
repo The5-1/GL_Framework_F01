@@ -4,8 +4,8 @@
 
 #include "Logging.h"
 #include "Application.h"
-#include "GL_init.h"
-#include "imgui_init.h"
+//#include "GL_init.h"
+//#include "imgui_init.h"
 
 #include "Mesh.h"
 #include "Shader.h"
@@ -32,9 +32,7 @@ int main(int argc, char *argv[])
 	appliation.startGameLoop();
 	*/
 
-	Application* application = new Application();
-	application->initWindow(1024, 720, "Epos");
-	application->initInputManager();
+	Application* application = new Application(1024, 720, "Epos");
 	application->startGameLoop();
 
 	string file_model_sponza = GLOBAL_RESOURCE_PATH + "Sponza_Atrium/sponza.obj";

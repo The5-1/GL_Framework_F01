@@ -5,50 +5,53 @@
 
 namespace The5 {
 
-	class Application;
-	class InputManager;
-	
 	//using unique_ptr with GLFWwindow needs the explicit destructor
 	//--------------------------------------------------------------
+	/*
 	struct DestroyGLFWwindow {
 		void operator()(GLFWwindow* ptr){glfwDestroyWindow(ptr);}
 	};
-
-
 	typedef std::unique_ptr<GLFWwindow, DestroyGLFWwindow> GLFWwindowUP;
-	typedef std::unique_ptr<The5::Application> ApplicationUP;
-	typedef std::unique_ptr<The5::InputManager> inputManagerUP;
+	*/
+
+	//forward declarations + typedefs
+	class Application;
+	typedef std::unique_ptr<The5::Application> Application_uptr;
+
+	class Window;
+	typedef std::unique_ptr<The5::Window> Window_uptr;
+
+	class InputManager;
+	typedef std::unique_ptr<The5::InputManager> InputManager_uptr;
 
 	class Application
 	{
 	public:
-
-		//private member accessor functions
-		GLFWwindow* window();
-		InputManager* inputManager();
-
 		//ctor
-		Application();
+		Application(unsigned int width, unsigned int height, const char* title);
 		~Application();
 
 		//member functions
-		void initApplication();
-		void initWindow(unsigned int width, unsigned int height, const char* title);
-		void initInputManager();	
+		Window_uptr addWindow(unsigned int width, unsigned int height, const char* title);
+
 		void startGameLoop();
 		void terminate();
 
-	private:
-		//private members
-		GLFWwindowUP mWindow;
-		inputManagerUP mInputManager;
+		//private member accessor functions
+		Window* getWindow();
 
+	private:
+		//state
 		bool gameLoopRunning;
 
-		void gameLoop();
+		//owned Objects
+		Window_uptr mWindow_uptr;
+		std::vector<Window_uptr> mSubWindows;
 
+		void initApplication(unsigned int width, unsigned int height, const char* title);
+
+		//helper functions
 		bool checkWindowExists();
-		bool checkInputManagerExists();
 	};
 
 }

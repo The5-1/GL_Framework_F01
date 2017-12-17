@@ -1,11 +1,10 @@
 #pragma once //better than include guards
 
-//include guards example:
+//old-style include guards example:
 //#ifndef INCLUDE_GL
 //#define INCLUDE_GL
 //... inclusions here
 //#endif /*INCLUDE_GL*/
-
 
 /************************************************************************
 The "OpenGL32.lib" does __NOT__ go into our D:/Dev/... folder!

@@ -120,7 +120,6 @@
     <ClCompile Include="..\..\..\Libraries\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\..\..\Libraries\src\glad.c" />
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="GL_init.cpp" />
     <ClCompile Include="imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -138,8 +137,6 @@
     <ClInclude Include="assimp_include.h" />
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="drawTriangle.h" />
-    <ClInclude Include="GL_init.h" />
-    <ClInclude Include="GL_Wrapper.h" />
     <ClInclude Include="imgui_impl_glfw_gl3.h" />
     <ClInclude Include="GL_include.h" />
     <ClInclude Include="imgui_init.h" />
@@ -147,6 +144,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Logging.h" />
     <ClInclude Include="IManager.h" />
+    <ClInclude Include="LoggingGL.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />

@@ -1,7 +1,7 @@
-#include "Logging.h"
-#include "GL_init.h"
 
+#include "Logging.h"
 #include "Application.h"
+#include "Window.h"
 #include "InputManager.h"
 
 namespace The5 {
@@ -16,75 +16,45 @@ namespace The5 {
 	//static members must be defined and optionally initialized in the namespace!
 	//https://stackoverflow.com/questions/16049306/error-lnk2001-unresolved-external-symbol-private-static-class
 
-	Application::Application()
+	Application::Application(unsigned int width = 1024, unsigned int height = 720, const char* title = "GLFW window")
 	{
-		initApplication();
+		initApplication(width, height, title);
 	}
 
-	void Application::initApplication()
+	void Application::initApplication(unsigned int width, unsigned int height, const char* title)
 	{
-		mWindow = nullptr;
-		mInputManager = nullptr;
-
+		mWindow_uptr = nullptr;
 		gameLoopRunning = false;
+		mWindow_uptr = addWindow(width, height, title);
 	}
 	
-	void Application::initWindow(unsigned int width = 1024, unsigned int height = 720, const char* title = "GLFW window")
+	Window_uptr Application::addWindow(unsigned int width = 1024, unsigned int height = 720, const char* title = "GLFW window")
 	{
-		mWindow = GLFWwindowUP(The5::GL::initGL(width, height, title));
+		return Window_uptr(new The5::Window(width, height, title));
 	}
 
-	void Application::initInputManager()
+	Window* Application::getWindow()
 	{
-		if (!checkWindowExists()) return;
-		mInputManager = inputManagerUP(new InputManager(this,this->window()));
-	}
-
-	GLFWwindow* Application::window()
-	{
-		return mWindow.get();
-	}
-
-	InputManager* Application::inputManager()
-	{
-		return mInputManager.get();
+		return mWindow_uptr.get();
 	}
 
 	void Application::startGameLoop()
 	{
 		if (!checkWindowExists()) return;
-		if (!checkInputManagerExists()) return;
 
 		gameLoopRunning = true;
-
-		gameLoop();
-
-	}
-
-	void Application::gameLoop()
-	{
-		while (!glfwWindowShouldClose(this->window()) && gameLoopRunning == true)
-		{
-			glfwSwapBuffers(this->window());
-
-			//Event processing must be done regularly while you have any windows and is normally done each frame after buffer swapping.
-			//http://www.glfw.org/docs/latest/input_guide.html#events
-			glfwPollEvents();
-		}
+		getWindow()->runGameLoop();
 	}
 
 	void Application::terminate()
 	{
 		gameLoopRunning = false;
-
-		glfwSetWindowShouldClose(this->window(), true);
-
-		glfwTerminate();
+		getWindow()->terminate();	
 	}
 
 	bool Application::checkWindowExists()
 	{
-		if (this->window() == nullptr)
+		if (getWindow() == nullptr)
 		{
 			ERR("Application window is NULL! Make sure Application::initWindow() was called!");
 			return false;
@@ -92,6 +62,14 @@ namespace The5 {
 		else return true;
 	}
 
+	Application::~Application()
+	{
+		terminate();
+
+		glfwTerminate();
+	}
+
+	/*
 	bool Application::checkInputManagerExists()
 	{
 		if (this->inputManager() == nullptr)
@@ -101,10 +79,5 @@ namespace The5 {
 		}
 		else return true;
 	}
-
-
-	Application::~Application()
-	{
-		terminate();
-	}
+	*/
 }

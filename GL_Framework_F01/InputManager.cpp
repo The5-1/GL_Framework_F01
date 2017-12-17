@@ -1,4 +1,5 @@
 #include "GL_include.h"
+
 #include "Application.h"
 #include "InputManager.h"
 #include "Logging.h"
