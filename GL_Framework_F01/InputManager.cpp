@@ -1,58 +1,83 @@
 #include "GL_include.h"
 
 #include "Application.h"
+#include "Window.h"
 #include "InputManager.h"
 #include "Logging.h"
 
 namespace The5 {
 
-	InputManager::InputManager(Application* application, GLFWwindow* window) : mApplication(application), mWindow(window)
+	InputManager::InputManager(Application* application, Window* window) : mApplication(application), mWindow(window)
 	{
-		context = InputContext::inGame;
-
-		//glfw is a clibrary and can't handle object methods in callbacks
-		//https://gamedev.stackexchange.com/questions/58541/how-can-i-associate-a-key-callback-with-a-wrapper-class-instance
-		glfwSetWindowUserPointer(this->mWindow, this);
-		glfwSetKeyCallback(this->mWindow, glfw_key_callback);
-		//glfwSetWindowUserPointer(this->mWindow, this->mWindow);
+		context = InputContext::disabled;
 	}
 
 	void InputManager::changeContext(InputContext newContext)
 	{
+		InputContext oldContext = context;
 		context = newContext;
+		LOG("Window: " << getWindow()->title << " context changed: " << oldContext <<"->"  << context);
 	}
 
-	void InputManager::glfw_key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+	void InputManager::handleKeyboardInput(int key, int scancode, int action, int mods)
 	{
-		//get the input manager that is associated with the GLFWwindow
-		InputManager* im = static_cast<InputManager*>(glfwGetWindowUserPointer(window));
+		LOG("Window: " << getWindow()->title << " context: " << context << " key:" << key << " action: " << action);
 
-		if (im->context == InputContext::mainMenu)
+		switch (context)
 		{
-			im->processInputMainMenu(key, scancode, action, mods);
-		}			 
-		else if (im->context == InputContext::inGame)
-		{
-			im->processInputInGame(key, scancode, action, mods);
+			case InputContext::disabled:
+			{
+				LOG("Window: " << getWindow()->title << " has its input disabled!");
+				return;
+			}
+			case InputContext::mainMenu:
+			{
+				processInputMainMenu(key, scancode, action, mods);
+				return;
+			}
+			case InputContext::inGame:
+			{
+				processInputInGame(key, scancode, action, mods);
+				return;
+			}
 		}
 	}
-	
+
+	Application* InputManager::getApplication()
+	{
+		return mApplication;
+	}
+
+	Window* InputManager::getWindow()
+	{
+		return mWindow;
+	}
+
+
+	//private:
+
 	void InputManager::processInputMainMenu(int key, int scancode, int action, int mods)
 	{
-		LOG("Main Menu key ["<< key << "] pressed.");
+		//LOG("Main Menu key ["<< key << "] pressed.");
 
 		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		{
 			mApplication->terminate();
 			return;
 		}
+		else if (key != GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		{
+			changeContext(InputContext::inGame);
+			return;
+		}
 	}
 
 	void InputManager::processInputInGame(int key, int scancode, int action, int mods)
 	{
+		//LOG("In Game key [" << key << "] pressed.");
+
 		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		{
-			LOG("In Game key [" << key << "] pressed.");
 			changeContext(InputContext::mainMenu);
 			return;
 		}

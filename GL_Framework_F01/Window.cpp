@@ -2,6 +2,8 @@
 #include "Logging.h"
 #include "LoggingGL.h"
 
+#include "InputManager.h"
+
 namespace The5
 {
 
@@ -11,7 +13,7 @@ namespace The5
 	bool Window::mGLAD_initialized = false;
 	bool Window::mGL_initialized = false;
 
-	Window::Window(unsigned int width, unsigned int height, const char* title) : width(width), height(height), title(title)
+	Window::Window(Application* application, unsigned int width, unsigned int height, const char* title) : mApplication(application), width(width), height(height), title(title)
 	{
 		initGLFW(); //init GLFW and set window hints
 		initGLFWwindow(width, height, title); //create the GLFWwindow-object
@@ -57,15 +59,30 @@ namespace The5
 			return;
 		}
 		glfwSetInputMode(getGLFWwindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);	//GLFW_CURSOR_DISABLED = lock mouse in screen
+
+		initInputManager();
 	}
 	
 	void Window::activate()
 	{
 		glfwMakeContextCurrent(getGLFWwindow()); //set the GL context to this window
-		glfwSetWindowUserPointer(getGLFWwindow(), this); //set GLFW to use this The5::window as object passed for callbacks
-		glfwSetFramebufferSizeCallback(getGLFWwindow(), Window::windowResize_callback); //assign resize callback
-		glfwSetWindowRefreshCallback(getGLFWwindow(), Window::windowRefresh_callback); //assign refresh callback
-		glfwSwapInterval(1); // Enable vsync
+		glfwSwapInterval(1); // Enable vsync for the current context
+
+		registerGLFWCallbacks();
+
+	}
+
+	void Window::registerGLFWCallbacks()
+	{
+		//********************* Static Callback Funcionts ***********************************//
+		//for this GLFWwindow set the The5::Window as the user pointer
+		//you can get the associated user pointer from the GLFW window when handling __static__ callback functions
+		//callbacks must be static since C-Style libraries cant handle object-owned callback functions
+		glfwSetWindowUserPointer(getGLFWwindow(), this);
+		//for the GLFWwindow associated to this The5::Window register the __static__ callbacks
+		glfwSetFramebufferSizeCallback(getGLFWwindow(), Window::windowResize_callback); //resize
+		glfwSetKeyCallback(getGLFWwindow(), Window::windowKey_callback); //keyboard mouse input
+		glfwSetWindowRefreshCallback(getGLFWwindow(), Window::windowRefresh_callback); //refresh
 	}
 
 	void Window::initGLAD()
@@ -93,8 +110,15 @@ namespace The5
 		}
 	}
 
-//**************************************************//
+//**************** Input Manager ****************//
 
+	void Window::initInputManager()
+	{
+		mInputManager_uptr = InputManager_uptr(new InputManager(getApplication(),this));
+	}
+
+
+//***********************************************//
 
 	void Window::runGameLoop()
 	{
@@ -115,10 +139,22 @@ namespace The5
 		glfwSetWindowShouldClose(getGLFWwindow(), true);
 	}
 
+
+	Application* Window::getApplication()
+	{
+		return mApplication;
+	}
+
 	GLFWwindow* Window::getGLFWwindow()
 	{
 		return mGLFWwindow_uptr.get();
 	}
+
+	InputManager* Window::getInputManager()
+	{
+		return mInputManager_uptr.get();
+	}
+
 
 
 	void Window::setTitle(const char* title)

@@ -21,9 +21,6 @@ namespace The5 {
 	class Window;
 	typedef std::unique_ptr<The5::Window> Window_uptr;
 
-	class InputManager;
-	typedef std::unique_ptr<The5::InputManager> InputManager_uptr;
-
 	class Application
 	{
 	public:

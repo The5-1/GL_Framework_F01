@@ -30,7 +30,7 @@ namespace The5 {
 	
 	Window_uptr Application::addWindow(unsigned int width = 1024, unsigned int height = 720, const char* title = "GLFW window")
 	{
-		return Window_uptr(new The5::Window(width, height, title));
+		return Window_uptr(new The5::Window(this,width, height, title));
 	}
 
 	Window* Application::getWindow()

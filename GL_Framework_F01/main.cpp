@@ -3,9 +3,15 @@
 #include <iostream>
 
 #include "Logging.h"
-#include "Application.h"
-//#include "GL_init.h"
+#include "GL_init.h"
+
 //#include "imgui_init.h"
+
+
+#include "Application.h"
+#include "Window.h"
+#include "InputManager.h"
+
 
 #include "Mesh.h"
 #include "Shader.h"
@@ -25,15 +31,8 @@ std::string DEFAULT_SHADER_VERT = SHADER_PATH + "default.vert.glsl";
 
 int main(int argc, char *argv[])
 {
-	/*
-	Application appliation;
-	GLFWwindow* window = appliation.makeWindow(1024,720,"Epos");
-	appliation.startInputManager();
-	appliation.startGameLoop();
-	*/
-
-	Application* application = new Application(1024, 720, "Epos");
-	application->startGameLoop();
+	Application* application = new Application(1024,720,"Epos");
+	application->getWindow()->getInputManager()->changeContext(InputContext::inGame);
 
 	string file_model_sponza = GLOBAL_RESOURCE_PATH + "Sponza_Atrium/sponza.obj";
 	string file_model_nanosuit = GLOBAL_RESOURCE_PATH + "Nanosuit/nanosuit.obj";
@@ -53,9 +52,14 @@ int main(int argc, char *argv[])
 	shader01.use();
 	mesh01.draw();
 
-	//std::cin.get();
+
+
+
+	application->startGameLoop();
 
 	application->terminate();
+
+	//std::cin.get();
 	return 1;
 }
 
