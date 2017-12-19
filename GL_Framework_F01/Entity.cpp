@@ -12,7 +12,7 @@ namespace The5 {
 
 		parent = nullptr;
 		mComponents = std::map<ComponentType, Component_uptr>();
-		mChilds = Entity_uptrList();
+		mChilds = std::vector<Entity_uptr>();
 	}
 
 	void Entity::addComponent(IComponent* component)

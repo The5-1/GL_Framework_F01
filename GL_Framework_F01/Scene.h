@@ -2,10 +2,9 @@
 
 #include "stl_include.h"
 
-namespace The5 {
+#include "ForwardDeclarations.h"
 
-	class Entity;
-	typedef std::unique_ptr<The5::Entity> Entity_uptr;
+namespace The5 {
 
 	class Scene
 	{

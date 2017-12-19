@@ -3,22 +3,20 @@
 #include "stl_include.h"
 #include "GL_include.h"
 
+#include "ForwardDeclarations.h"
+
 #include "Logging.h"
 #include "InputManager.h"
 
-struct GLFWwindow;
 
 namespace The5
 {
-	class Application;
-
 	//using unique_ptr with GLFWwindow needs the explicit destructor
 	struct DestroyGLFWwindow {
 		void operator()(GLFWwindow* ptr) { glfwDestroyWindow(ptr); }
 	};
 	typedef std::unique_ptr<GLFWwindow, DestroyGLFWwindow> GLFWwindow_uptr;
 
-	typedef std::unique_ptr<The5::InputManager> InputManager_uptr;
 
 	///OpenGL GLFW wrapper
 	///https://gamedev.stackexchange.com/questions/58541/how-can-i-associate-a-key-callback-with-a-wrapper-class-instance

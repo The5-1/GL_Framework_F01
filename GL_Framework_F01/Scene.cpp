@@ -6,6 +6,8 @@
 
 namespace The5 {
 
+	typedef std::unique_ptr<The5::Entity> Entity_uptr;
+
 	Scene::Scene(std::string name) : name(name)
 	{
 		std::string rootname = name;

@@ -1,13 +1,14 @@
 #include "Renderable.h"
 
-#include "Entity.h"
+#include "GL_include.h"
 
+#include "Entity.h"
 #include "Mesh.h"
 #include "Texture.h"
 #include "Shader.h"
 #include "Material.h"
 
-#include "GL_include.h"
+
 
 namespace The5 {
 

@@ -4,7 +4,7 @@
 
 namespace The5 {
 
-	struct Texture {
+	class Texture {
 		unsigned int id;
 		std::string type;
 		aiString path;

@@ -15,13 +15,6 @@ namespace The5 {
 	- fiddling with cache coherency and unloading comes WAY later
 	********************/
 	
-	typedef std::unique_ptr<IComponent> Component_uptr;
-	typedef std::vector<Component_uptr> Component_uptrList;
-
-	class Entity;
-	typedef std::unique_ptr<Entity> Entity_uptr;
-	typedef std::vector<Entity_uptr> Entity_uptrList;
-
 	class Entity
 	{
 	public:
@@ -39,7 +32,7 @@ namespace The5 {
 
 	private:
 		Entity* mParent;
-		Entity_uptrList mChilds; //a entity owns its children, children are destroyed when parent is destroyed
+		std::vector<Entity_uptr> mChilds; //a entity owns its children, children are destroyed when parent is destroyed
 
 		std::map<ComponentType,Component_uptr> mComponents;
 

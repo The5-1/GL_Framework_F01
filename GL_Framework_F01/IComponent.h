@@ -1,11 +1,12 @@
 #pragma once
 
+#include "ForwardDeclarations.h"
+
+
 namespace The5 {
 
 
 	enum ComponentType { Renderable };
-
-	class Entity;
 
 	class IComponent
 	{

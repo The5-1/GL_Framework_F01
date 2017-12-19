@@ -1,12 +1,13 @@
+#include "Application.h"
 
 #include "Logging.h"
 
-#include "Application.h"
 #include "Window.h"
 #include "Scene.h"
 #include "Renderer.h"
 #include "AssetManager.h"
 #include "InputManager.h"
+#include "Entity.h"
 
 
 namespace The5 {

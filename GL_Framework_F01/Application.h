@@ -3,32 +3,9 @@
 #include "stl_include.h"
 #include "GL_include.h"
 
+#include "ForwardDeclarations.h"
+
 namespace The5 {
-
-	//using unique_ptr with GLFWwindow needs the explicit destructor
-	//--------------------------------------------------------------
-	/*
-	struct DestroyGLFWwindow {
-		void operator()(GLFWwindow* ptr){glfwDestroyWindow(ptr);}
-	};
-	typedef std::unique_ptr<GLFWwindow, DestroyGLFWwindow> GLFWwindowUP;
-	*/
-
-	//forward declarations + typedefs
-	class Application;
-	typedef std::unique_ptr<The5::Application> Application_uptr;
-
-	class Window;
-	typedef std::unique_ptr<The5::Window> Window_uptr;
-
-	class Scene;
-	typedef std::unique_ptr<The5::Scene> Scene_uptr;
-
-	class AssetManager;
-	typedef std::unique_ptr<AssetManager> AssetManager_uptr;
-
-	class Renderer;
-	typedef std::unique_ptr<Renderer> Renderer_uptr;
 
 	class Application
 	{

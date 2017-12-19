@@ -194,5 +194,8 @@
     <ClInclude Include="AssetManager.h">
       <Filter>Source Files\Managers</Filter>
     </ClInclude>
+    <ClInclude Include="ForwardDeclarations.h">
+      <Filter>Source Files\Helper</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

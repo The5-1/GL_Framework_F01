@@ -13,7 +13,6 @@
 #include "Window.h"
 #include "InputManager.h"
 
-
 #include "Mesh.h"
 #include "Shader.h"
 
