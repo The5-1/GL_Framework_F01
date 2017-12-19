@@ -21,15 +21,24 @@ namespace The5 {
 	class Window;
 	typedef std::unique_ptr<The5::Window> Window_uptr;
 
+	class Scene;
+	typedef std::unique_ptr<The5::Scene> Scene_uptr;
+
+	class AssetManager;
+	typedef std::unique_ptr<AssetManager> AssetManager_uptr;
+
+	class Renderer;
+	typedef std::unique_ptr<Renderer> Renderer_uptr;
+
 	class Application
 	{
 	public:
 		//ctor
-		Application(unsigned int width, unsigned int height, const char* title);
+		Application(unsigned int width, unsigned int height, std::string title);
 		~Application();
 
 		//member functions
-		Window_uptr addWindow(unsigned int width, unsigned int height, const char* title);
+		Window_uptr addWindow(unsigned int width, unsigned int height, std::string title);
 
 		void startGameLoop();
 		void terminate();
@@ -37,18 +46,29 @@ namespace The5 {
 		//private member accessor functions
 		Window* getWindow();
 
+		Scene* getScene(unsigned int i);
+
+		AssetManager* getAssetManager();
+
 	private:
 		//state
 		bool gameLoopRunning;
 
 		//owned Objects
-		Window_uptr mWindow_uptr;
+		Window_uptr mWindow;
 		std::vector<Window_uptr> mSubWindows;
 
-		void initApplication(unsigned int width, unsigned int height, const char* title);
+		std::vector<Scene_uptr> mScenes;
+
+
+		void initApplication(unsigned int width, unsigned int height, std::string title);
 
 		//helper functions
 		bool checkWindowExists();
+
+		//Managers
+		Renderer_uptr mRenderer = nullptr;
+		AssetManager_uptr mAssetManager = nullptr;
 	};
 
 }

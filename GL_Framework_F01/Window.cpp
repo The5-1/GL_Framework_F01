@@ -13,7 +13,7 @@ namespace The5
 	bool Window::mGLAD_initialized = false;
 	bool Window::mGL_initialized = false;
 
-	Window::Window(Application* application, unsigned int width, unsigned int height, const char* title) : mApplication(application), width(width), height(height), title(title)
+	Window::Window(Application* application, unsigned int width, unsigned int height, std::string title) : mApplication(application), width(width), height(height), title(title)
 	{
 		initGLFW(); //init GLFW and set window hints
 		initGLFWwindow(width, height, title); //create the GLFWwindow-object
@@ -49,9 +49,9 @@ namespace The5
 		}
 	}
 
-	void Window::initGLFWwindow(unsigned int width = 1024, unsigned int height = 720, const char* title = "GLFW window")
+	void Window::initGLFWwindow(unsigned int width = 1024, unsigned int height = 720, std::string title = "GLFW window")
 	{
-		mGLFWwindow_uptr = GLFWwindow_uptr(glfwCreateWindow(width, height, title, NULL, NULL));
+		mGLFWwindow_uptr = GLFWwindow_uptr(glfwCreateWindow(width, height, title.c_str(), NULL, NULL));
 		if (getGLFWwindow() == NULL)
 		{
 			ERR("Failed to create GLFW window! Terminating GLFW!");
@@ -126,6 +126,9 @@ namespace The5
 		{
 
 
+			glClearColor(0.05f, 0.1f, 0.15f, 0.0f);
+			glClear(GL_COLOR_BUFFER_BIT);
+
 
 			glfwSwapBuffers(getGLFWwindow());
 			//Event processing must be done regularly while you have any windows and is normally done each frame after buffer swapping.
@@ -157,9 +160,9 @@ namespace The5
 
 
 
-	void Window::setTitle(const char* title)
+	void Window::setTitle(std::string title)
 	{
-		glfwSetWindowTitle(getGLFWwindow(), title);
+		glfwSetWindowTitle(getGLFWwindow(), title.c_str());
 		this->title = title;
 	}
 
