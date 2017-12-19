@@ -16,18 +16,18 @@ namespace The5 {
 	{
 		InputContext oldContext = context;
 		context = newContext;
-		LOG("Window: " << getWindow()->title << " context changed: " << oldContext <<"->"  << context);
+		LOG("Window \"" << getWindow()->title << "\" context changed: " << oldContext <<"->"  << context);
 	}
 
 	void InputManager::handleKeyboardInput(int key, int scancode, int action, int mods)
 	{
-		LOG("Window: " << getWindow()->title << " context: " << context << " key:" << key << " action: " << action);
+		LOG("Window \"" << getWindow()->title << "\" context: " << context << " key:" << key << " action: " << action);
 
 		switch (context)
 		{
 			case InputContext::disabled:
 			{
-				LOG("Window: " << getWindow()->title << " has its input disabled!");
+				LOG("Window \"" << getWindow()->title << "\" has its input disabled!");
 				return;
 			}
 			case InputContext::mainMenu:

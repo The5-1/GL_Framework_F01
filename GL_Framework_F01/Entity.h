@@ -1,12 +1,20 @@
 #pragma once
 
 #include "stl_include.h"
-#include "IComponent.h"
 #include "GL_include.h"
+
+#include "IComponent.h"
 
 
 namespace The5 {
 
+	/********************
+	For now:
+	- we only have one scene
+	- if i were to load multiple levels later on, that would be unloading/loading stuff into that one scene
+	- fiddling with cache coherency and unloading comes WAY later
+	********************/
+	
 	class Entity
 	{
 	public:
@@ -15,21 +23,18 @@ namespace The5 {
 
 		glm::mat4 transformation; //every entity exists in our scene, but must not be renderable (everything that does not is a global manager)
 
-		std::unique_ptr<std::vector<IComponent>> components;
+		Entity(std::string name, Entity* parent);
+		Entity* getParent();
+		Entity* getChild(unsigned int i);
 
-		std::unique_ptr<std::vector<Entity>> childs;
-
-
-		Entity()
-		{
-			name = "";
-			transformation = glm::mat4(1.0f);
-			components = std::unique_ptr<std::vector<IComponent>>();
-			childs = std::unique_ptr<std::vector<Entity>>();
-		}
+		void addComponent(IComponent* component);
+		IComponent* getComponent(ComponentType type);
 
 	private:
+		Entity* mParent;
+		std::vector<Entity_uptr> mChilds; //a entity owns its children, children are destroyed when parent is destroyed
 
+		std::map<ComponentType,Component_uptr> mComponents;
 
 	};
 

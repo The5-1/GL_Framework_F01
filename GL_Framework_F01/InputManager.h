@@ -2,7 +2,7 @@
 
 #include "GL_include.h"
 
-#include "Application.h"
+#include "ForwardDeclarations.h"
 
 namespace The5 {
 

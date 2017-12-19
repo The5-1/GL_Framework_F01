@@ -3,7 +3,8 @@
 #include <iostream>
 
 #include "Logging.h"
-#include "GL_init.h"
+//#include "GL_init.h"
+//#include "LoggingGL.h"
 
 //#include "imgui_init.h"
 
@@ -11,7 +12,6 @@
 #include "Application.h"
 #include "Window.h"
 #include "InputManager.h"
-
 
 #include "Mesh.h"
 #include "Shader.h"
@@ -31,11 +31,14 @@ std::string DEFAULT_SHADER_VERT = SHADER_PATH + "default.vert.glsl";
 
 int main(int argc, char *argv[])
 {
+	string file_model_sponza = GLOBAL_RESOURCE_PATH + "Sponza_Atrium/sponza.obj";
+	string file_model_nanosuit = GLOBAL_RESOURCE_PATH + "Nanosuit/nanosuit.obj";
+
+
 	Application* application = new Application(1024,720,"Epos");
 	application->getWindow()->getInputManager()->changeContext(InputContext::inGame);
 
-	string file_model_sponza = GLOBAL_RESOURCE_PATH + "Sponza_Atrium/sponza.obj";
-	string file_model_nanosuit = GLOBAL_RESOURCE_PATH + "Nanosuit/nanosuit.obj";
+
 
 	//Model model = Model(file_model_nanosuit);
 
@@ -45,13 +48,15 @@ int main(int argc, char *argv[])
 	Mesh mesh01(positions, indices);
 	Shader shader01(DEFAULT_SHADER_VERT, DEFAULT_SHADER_FRAG);
 
+	/*
 	shader01.uniform("modelMatrix", mat4(1.0f));
 	shader01.uniform("viewMatrix", mat4(1.0f));
 	shader01.uniform("projMatrix", mat4(1.0f));
+	*/
 
 	shader01.use();
 	mesh01.draw();
-
+	
 
 
 

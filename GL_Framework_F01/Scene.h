@@ -1,17 +1,24 @@
 #pragma once
 
-#include "Entity.h"
+#include "stl_include.h"
+
+#include "ForwardDeclarations.h"
 
 namespace The5 {
-	namespace Scene {
 
-		class Scene
-		{
-		public:
+	class Scene
+	{
+	public:
 
-			The5::Entity root;
+		std::string name;
 
-		};
+		Scene(std::string name);
 
-	}
+		Entity* getRoot();
+
+	private:
+
+		///one entity is the root, that then handles it's own children
+		Entity_uptr mRoot;
+	};
 }

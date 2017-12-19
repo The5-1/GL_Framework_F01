@@ -1,8 +1,14 @@
+#include "Application.h"
 
 #include "Logging.h"
-#include "Application.h"
+
 #include "Window.h"
+#include "Scene.h"
+#include "Renderer.h"
+#include "AssetManager.h"
 #include "InputManager.h"
+#include "Entity.h"
+
 
 namespace The5 {
 
@@ -16,26 +22,26 @@ namespace The5 {
 	//static members must be defined and optionally initialized in the namespace!
 	//https://stackoverflow.com/questions/16049306/error-lnk2001-unresolved-external-symbol-private-static-class
 
-	Application::Application(unsigned int width = 1024, unsigned int height = 720, const char* title = "GLFW window")
+	Application::Application(unsigned int width = 1024, unsigned int height = 720, std::string title = "GLFW window")
 	{
 		initApplication(width, height, title);
 	}
 
-	void Application::initApplication(unsigned int width, unsigned int height, const char* title)
+	void Application::initApplication(unsigned int width, unsigned int height, std::string title)
 	{
-		mWindow_uptr = nullptr;
+		mWindow = nullptr;
 		gameLoopRunning = false;
-		mWindow_uptr = addWindow(width, height, title);
+		mWindow = addWindow(width, height, title);
 	}
 	
-	Window_uptr Application::addWindow(unsigned int width = 1024, unsigned int height = 720, const char* title = "GLFW window")
+	Window_uptr Application::addWindow(unsigned int width = 1024, unsigned int height = 720, std::string title = "GLFW window")
 	{
 		return Window_uptr(new The5::Window(this,width, height, title));
 	}
 
 	Window* Application::getWindow()
 	{
-		return mWindow_uptr.get();
+		return mWindow.get();
 	}
 
 	void Application::startGameLoop()
@@ -61,6 +67,19 @@ namespace The5 {
 		}
 		else return true;
 	}
+
+
+	Scene* Application::getScene(unsigned int i)
+	{
+		return mScenes.at(i).get();
+	}
+
+
+	AssetManager* Application::getAssetManager()
+	{
+		return mAssetManager.get();
+	}
+
 
 	Application::~Application()
 	{
