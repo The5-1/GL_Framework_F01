@@ -11,6 +11,9 @@
 #include "Application.h"
 #include "Window.h"
 #include "InputManager.h"
+#include "Scene.h"
+#include "Entity.h"
+#include "RenderableC.h"
 
 #include "Mesh.h"
 #include "Shader.h"
@@ -32,9 +35,18 @@ int main(int argc, char *argv[])
 	string file_model_sponza = GLOBAL_RESOURCE_PATH + "Sponza_Atrium/sponza.obj";
 	string file_model_nanosuit = GLOBAL_RESOURCE_PATH + "Nanosuit/nanosuit.obj";
 
-
 	Application* application = new Application(1024,720,"Epos");
-	application->getWindow()->getInputManager()->changeContext(InputContext::inGame);
+
+	Window* mainWindow = application->getWindow();
+	InputManager* inputManager = mainWindow->getInputManager();
+	Scene* mainScene = application->getScene();
+	Entity* root = mainScene->getRoot();
+	Entity* test01 = root->addChild("test01");
+	RenderableC* renderable01 = static_cast<RenderableC*>(test01->addComponent(ComponentType::RenderableType));
+
+	inputManager->changeContext(InputContext::inGame);
+
+
 
 
 
@@ -42,7 +54,6 @@ int main(int argc, char *argv[])
 
 	vec3List positions = { vec3(0.0,0.0,0.0), vec3(1.0,0.0,0.0), vec3(1.0,1.0,0.0), vec3(0.0,1.0,0.0) };
 	indexList indices = { 0,1,2,0,2,3 };
-
 	Mesh mesh01(positions, indices);
 	Shader shader01(DEFAULT_SHADER_VERT, DEFAULT_SHADER_FRAG);
 

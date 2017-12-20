@@ -14,11 +14,14 @@ namespace The5
 
 		IComponentProcessor();
 
-		IComponent* getComponent(unsigned int i);
+		static IComponent* getComponent(unsigned int i);
+
+		static void registerComponentPointer(IComponent* component);
+		static void removeComponentPointer(IComponent* component);
 
 	private:
 
 		///The Entity owns the component! No unique_ptr here!
-		std::vector<IComponent*> mComponentPointers;
+		static std::vector<IComponent*> mComponentPointers;
 	};
 }

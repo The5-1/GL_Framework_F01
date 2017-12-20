@@ -8,14 +8,19 @@
 namespace The5
 {
 
-	class MoveableC: IComponent
+	class MoveableC: public IComponent
 	{
-
 	public:
+		friend ComponentFactory;
+		ComponentType getType();
 
 	private:
-		glm::vec3 mVelocity;
-		
+		MoveableC(Entity* entity);
+
+		void registerAtComponentProcessor();
+		void removeFromComponentProcessor();
+
+		glm::vec3 mVelocity;	
 	};
 }
 

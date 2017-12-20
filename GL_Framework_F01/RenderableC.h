@@ -1,26 +1,27 @@
 #pragma once
 
-#include "stl_include.h"
-#include "GL_include.h"
+//#include "stl_include.h"
+//#include "GL_include.h"
 
 #include "ForwardDeclarations.h"
 #include "IComponent.h"
 
 namespace The5 {
 
-	class RenderableC: IComponent
+	//public Base inheritance = allows casting and automatically calls base constructor
+
+	class RenderableC: public IComponent
 	{
 	public:
-
-		RenderableC(Entity* entity);
-
+		friend ComponentFactory;
 		ComponentType getType();
 
-		void update();
-		void draw();
-
 	private:
+		RenderableC(Entity* entity);
+		void registerAtComponentProcessor() override;
+		void removeFromComponentProcessor() override;
 
+		///Assets used by renderable are owned by global Asset Manager
 		//std::vector<Mesh> mMeshes;
 		//std::vector<Material> mMaterials;
 

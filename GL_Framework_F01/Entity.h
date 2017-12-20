@@ -3,6 +3,7 @@
 #include "stl_include.h"
 #include "GL_include.h"
 
+#include "ForwardDeclarations.h"
 #include "IComponent.h"
 
 
@@ -18,25 +19,35 @@ namespace The5 {
 	class Entity
 	{
 	public:
+		friend Scene;
 
-		unsigned int ID; //might be used if we manage to have entities and components adressed via same index in memory
+		unsigned int ID; //
 
-		std::string name; //some non-unique name
+		std::string name; //some non-unique name	
 
-		glm::mat4 transformation; //every entity exists in our scene, but must not be renderable (everything that does not is a global manager)
+		mat4 transformation; //every entity exists in our scene, but must not be renderable (everything that does not is a global manager)
 
-		Entity(std::string name, Entity* parent);
+		Entity* addChild(std::string name);
+		void addChild(Entity* entity);
 		Entity* getParent();
 		Entity* getChild(unsigned int i);
 
-		void addComponent(IComponent* component);
+		IComponent* addComponent(ComponentType type);
 		IComponent* getComponent(ComponentType type);
+		void destroyComponent(ComponentType type);
 
 	private:
+
+		///A Scene may construct one root node, otherwise the constructor is private
+		Entity(std::string name, Entity* parent);
+
 		Entity* mParent;
 		std::vector<Entity_uptr> mChilds; //a entity owns its children, children are destroyed when parent is destroyed
 
 		std::map<ComponentType,IComponent_uptr> mComponents;
+
+
+		void addComponent(IComponent* component);
 
 	};
 

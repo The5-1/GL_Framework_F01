@@ -12,3 +12,6 @@
 
 //smartpointers
 #include <memory> 
+
+//algorithms
+#include <algorithm> //std::remove

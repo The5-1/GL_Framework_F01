@@ -60,8 +60,10 @@ namespace The5
 	//Components
 	class IComponent;
 	typedef std::unique_ptr<The5::IComponent> IComponent_uptr;
-	enum ComponentType { RenderableType, MoveableType };
 
+	class ComponentFactory;
+	enum ComponentType { RenderableType, MoveableType };
+	
 	class RenderableC;
 	typedef std::unique_ptr<The5::RenderableC> RenderableC_uptr;
 

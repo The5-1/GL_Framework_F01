@@ -87,5 +87,10 @@ If you get linker errors that something can not be found it might be this!
 //*****************************
 //OpenGL Math Library
 //-----------------------------
-#include <glm/glm.hpp>
+#include <glm/glm.hpp> //everything known from GLSL: types, exponential.hpp, geometry.hpp, integer.hpp, matrix.hpp, packing.hpp, trigonometric.hpp, vector_relational.hpp
+#include <glm/gtc/matrix_access.hpp> //get set whole rows and columns
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtc/matrix_inverse.hpp>
+//#include <glm/gtc/reciprocal.hpp> //cotangent, secant, cosecant
 //***************************

@@ -1,4 +1,5 @@
 #include "RenderableC.h"
+#include "RendererCP.h"
 
 #include "GL_include.h"
 
@@ -10,11 +11,11 @@
 
 
 
-namespace The5 {
-
-	RenderableC::RenderableC(Entity* entity) : IComponent(entity)
+namespace The5 
+{
+	RenderableC::RenderableC(Entity * entity): IComponent(entity)
 	{
-		
+
 	}
 
 	ComponentType RenderableC::getType()
@@ -22,13 +23,13 @@ namespace The5 {
 		return ComponentType::RenderableType;
 	}
 
-	void RenderableC::update()
+	void RenderableC::registerAtComponentProcessor()
 	{
-		//TODO
+		RendererCP::registerComponentPointer(this);
 	}
 
-	void RenderableC::draw()
+	void RenderableC::removeFromComponentProcessor()
 	{
-
+		RendererCP::removeComponentPointer(this);
 	}
 }

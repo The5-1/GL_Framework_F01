@@ -22,27 +22,47 @@ namespace The5 {
 	//static members must be defined and optionally initialized in the namespace!
 	//https://stackoverflow.com/questions/16049306/error-lnk2001-unresolved-external-symbol-private-static-class
 
-	Application::Application(unsigned int width = 1024, unsigned int height = 720, std::string title = "GLFW window")
+	Application::Application(unsigned int width, unsigned int height, std::string title)
 	{
 		initApplication(width, height, title);
 	}
 
 	void Application::initApplication(unsigned int width, unsigned int height, std::string title)
 	{
-		mWindow = nullptr;
 		gameLoopRunning = false;
-		mWindow = addWindow(width, height, title);
+
+		addWindow(width, height, title);
+
+		std::string scenetitle = title;
+		scenetitle += "_scene";
+		addScene(scenetitle);
 	}
 	
-	Window_uptr Application::addWindow(unsigned int width = 1024, unsigned int height = 720, std::string title = "GLFW window")
+	Window* Application::addWindow(unsigned int width, unsigned int height, std::string title)
 	{
-		return Window_uptr(new The5::Window(this,width, height, title));
+		Window* window = new Window(this, width, height, title);
+		mWindows.push_back(Window_uptr(window));
+		return window;
 	}
 
-	Window* Application::getWindow()
+	Window* Application::getWindow(unsigned int i)
 	{
-		return mWindow.get();
+		return mWindows.at(i).get();
 	}
+
+	Scene* Application::addScene(std::string name)
+	{
+		Scene* scene = new Scene(name);
+		mScenes.push_back(Scene_uptr(scene));
+		return scene;
+	}
+
+	Scene* Application::getScene(unsigned int i)
+	{
+		return mScenes.at(i).get();
+	}
+
+
 
 	void Application::startGameLoop()
 	{
@@ -67,13 +87,6 @@ namespace The5 {
 		}
 		else return true;
 	}
-
-
-	Scene* Application::getScene(unsigned int i)
-	{
-		return mScenes.at(i).get();
-	}
-
 
 	AssetManager* Application::getAssetManager()
 	{
