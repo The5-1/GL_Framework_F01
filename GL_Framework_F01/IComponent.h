@@ -2,23 +2,23 @@
 
 #include "ForwardDeclarations.h"
 
-
 namespace The5 {
 
-
-	enum ComponentType { Renderable };
-
+	///The Entity owns the Component
 	class IComponent
 	{
 	public:
 
 		IComponent(Entity* entity);
 
-		//pure virtual
 		virtual ComponentType getType() = 0;
+
+		Entity* getParent();
+
 		virtual void update() = 0;
 
-		Entity* parentEntity;
+	private:
+		Entity* mParentEntity;
 	};
 
 }

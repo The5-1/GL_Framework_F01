@@ -19,6 +19,8 @@ namespace The5 {
 	{
 	public:
 
+		unsigned int ID; //might be used if we manage to have entities and components adressed via same index in memory
+
 		std::string name; //some non-unique name
 
 		glm::mat4 transformation; //every entity exists in our scene, but must not be renderable (everything that does not is a global manager)
@@ -34,7 +36,7 @@ namespace The5 {
 		Entity* mParent;
 		std::vector<Entity_uptr> mChilds; //a entity owns its children, children are destroyed when parent is destroyed
 
-		std::map<ComponentType,Component_uptr> mComponents;
+		std::map<ComponentType,IComponent_uptr> mComponents;
 
 	};
 

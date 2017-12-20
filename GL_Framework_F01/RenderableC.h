@@ -8,11 +8,11 @@
 
 namespace The5 {
 
-	class Renderable: IComponent
+	class RenderableC: IComponent
 	{
 	public:
 
-		Renderable(Entity* entity);
+		RenderableC(Entity* entity);
 
 		ComponentType getType();
 
@@ -21,7 +21,7 @@ namespace The5 {
 
 	private:
 
-		std::vector<Mesh> mMeshes;
+		//std::vector<Mesh> mMeshes;
 		//std::vector<Material> mMaterials;
 
 	};

@@ -11,13 +11,13 @@ namespace The5 {
 		transformation = glm::mat4(1.0f);
 
 		parent = nullptr;
-		mComponents = std::map<ComponentType, Component_uptr>();
+		mComponents = std::map<ComponentType, IComponent_uptr>();
 		mChilds = std::vector<Entity_uptr>();
 	}
 
 	void Entity::addComponent(IComponent* component)
 	{
-		this->mComponents.insert(std::make_pair(component->getType(),Component_uptr(component)));
+		this->mComponents.insert(std::make_pair(component->getType(),IComponent_uptr(component)));
 	}
 
 	IComponent* Entity::getComponent(ComponentType type)

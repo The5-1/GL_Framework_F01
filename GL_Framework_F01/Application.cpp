@@ -4,7 +4,7 @@
 
 #include "Window.h"
 #include "Scene.h"
-#include "Renderer.h"
+#include "RendererCP.h"
 #include "AssetManager.h"
 #include "InputManager.h"
 #include "Entity.h"

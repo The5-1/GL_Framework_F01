@@ -8,7 +8,6 @@
 
 //#include "imgui_init.h"
 
-
 #include "Application.h"
 #include "Window.h"
 #include "InputManager.h"
@@ -18,7 +17,6 @@
 
 using namespace The5;
 using namespace std;
-using namespace glm;
 
 std::string RESOURCE_PATH = "D:/Dev/Projects/GL_Framework_F01/GL_Framework_F01/";
 std::string GLOBAL_RESOURCE_PATH = "D:/Dev/Assets/";
@@ -43,7 +41,7 @@ int main(int argc, char *argv[])
 	//Model model = Model(file_model_nanosuit);
 
 	vec3List positions = { vec3(0.0,0.0,0.0), vec3(1.0,0.0,0.0), vec3(1.0,1.0,0.0), vec3(0.0,1.0,0.0) };
-	uintList indices = { 0,1,2,0,2,3 };
+	indexList indices = { 0,1,2,0,2,3 };
 
 	Mesh mesh01(positions, indices);
 	Shader shader01(DEFAULT_SHADER_VERT, DEFAULT_SHADER_FRAG);

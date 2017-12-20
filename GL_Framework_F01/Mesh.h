@@ -4,44 +4,38 @@
 #include "GL_include.h"
 #include "assimp_include.h"
 
-#include "Shader.h"
 #include "Logging.h"
+
+#include "ForwardDeclarations.h"
+
+#include "Shader.h"
 
 
 namespace The5 {
 
-	class Mesh;
-
-	struct Vertex;
-
-	typedef std::vector<glm::vec3> vec3List;
-	typedef std::vector<glm::vec2> vec2List;
-	typedef std::vector<unsigned int> uintList;
-	typedef std::vector<The5::Vertex> vertList;
-
 	struct Vertex {
 	public:
 		// position
-		glm::vec3 position;
+		vec3 position;
 		// normal
-		glm::vec3 normal;
+		vec3 normal;
 		// tangent
-		glm::vec3 tangent;
+		vec3 tangent;
 		// bitangent
-		glm::vec3 bitangent;
+		vec3 bitangent;
 		// texCoords
-		glm::vec2 uv0;
+		vec2 uv0;
 		// vertex colors
-		glm::vec3 color0;
+		vec3 color0;
 
-		Vertex(glm::vec3 pos)
+		Vertex(vec3 pos)
 		{
 			position = pos;
 		}
 
-		static vertList makeVertices(vec3List points)
+		static vertexList makeVertices(vec3List points)
 		{
-			vertList verts;
+			vertexList verts;
 			for (auto const& pos : points) 
 			{
 				verts.push_back(Vertex(pos));
@@ -54,20 +48,20 @@ namespace The5 {
 
 	class Mesh {
 	public:
-		vertList vertices;
-		uintList indices;
+		vertexList vertices;
+		indexList indices;
 		unsigned int VAO; //stores state of vertex attributes
 
-		Mesh(vertList vertices, uintList indices)
+		Mesh(vertexList vertices, indexList indices)
 		{
 			this->vertices = vertices;
 			this->indices = indices;
 			createBuffers();
 		}
 
-		Mesh(vec3List positions, uintList indices)
+		Mesh(vec3List positions, indexList indices)
 		{
-			vertList vertices = Vertex::makeVertices(positions);
+			vertexList vertices = Vertex::makeVertices(positions);
 			this->vertices = vertices;
 			this->indices = indices;
 			createBuffers();
