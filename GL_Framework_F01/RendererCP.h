@@ -16,6 +16,8 @@ namespace The5 {
 	public:
 		static void drawAll();
 
+	private:
+		std::vector<RendererCP*> mComponentPointers;
 	};
 
 }

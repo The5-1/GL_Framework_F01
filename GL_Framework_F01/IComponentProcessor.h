@@ -19,7 +19,7 @@ namespace The5
 		static void registerComponentPointer(IComponent* component);
 		static void removeComponentPointer(IComponent* component);
 
-	private:
+	protected:
 
 		///The Entity owns the component! No unique_ptr here!
 		static std::vector<IComponent*> mComponentPointers;

@@ -7,7 +7,12 @@ namespace The5
 
 	void RendererCP::drawAll()
 	{
-		LOG("Renderer draws all");
+		/*
+		for (int i = 0; i < mComponentPointers.size(); i++)
+		{
+			//mComponentPointers.at(i).
+		}
+		*/
 	}
 
 }

@@ -63,6 +63,12 @@ namespace The5
 
 	class ComponentFactory;
 	enum ComponentType { RenderableType, MoveableType };
+	/*
+	std::map<ComponentType, std::string> ComponentTypeString =	{
+																	std::make_pair(ComponentType::RenderableType, "Renderable"), 
+																	std::make_pair(ComponentType::MoveableType, "Moveable"),
+																};
+																*/
 	
 	class RenderableC;
 	typedef std::unique_ptr<The5::RenderableC> RenderableC_uptr;

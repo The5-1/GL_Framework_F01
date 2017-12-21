@@ -158,6 +158,7 @@
     <ClInclude Include="Logging.h" />
     <ClInclude Include="IManager.h" />
     <ClInclude Include="LoggingGL.h" />
+    <ClInclude Include="Macros.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />

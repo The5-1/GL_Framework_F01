@@ -16,6 +16,8 @@ namespace The5 {
 
 		//member functions
 
+		std::string name;
+
 		void startGameLoop();
 		void terminate();
 
@@ -27,6 +29,8 @@ namespace The5 {
 		Scene* addScene(std::string name);
 
 		AssetManager* getAssetManager();
+
+		std::string getInfo();
 
 	private:
 		//state

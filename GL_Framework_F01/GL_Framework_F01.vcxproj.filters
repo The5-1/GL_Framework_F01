@@ -224,5 +224,8 @@
     <ClInclude Include="ComponentFactory.h">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Macros.h">
+      <Filter>Source Files\Helper</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

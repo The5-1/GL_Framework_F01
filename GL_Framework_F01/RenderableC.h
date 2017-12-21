@@ -14,12 +14,20 @@ namespace The5 {
 	{
 	public:
 		friend ComponentFactory;
+
 		ComponentType getType();
+
+		Mesh* mesh;
+		Shader* shader;
+
+		void draw();
 
 	private:
 		RenderableC(Entity* entity);
 		void registerAtComponentProcessor() override;
 		void removeFromComponentProcessor() override;
+
+
 
 		///Assets used by renderable are owned by global Asset Manager
 		//std::vector<Mesh> mMeshes;

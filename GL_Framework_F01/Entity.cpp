@@ -41,6 +41,11 @@ namespace The5 {
 		return this->mComponents.at(type).get();
 	}
 
+	unsigned int Entity::getComponentCount()
+	{
+		return this->mComponents.size();
+	}
+
 	void Entity::destroyComponent(ComponentType type)
 	{
 		this->mComponents.erase(type); //underlying component-object will be deleted by unique_ptr;
@@ -61,6 +66,37 @@ namespace The5 {
 		return this->mChilds.at(i).get();
 	}
 
+	unsigned int Entity::getCildCount()
+	{
+		return this->mChilds.size();
+	}
+
+	std::string Entity::getEntityInfo(Entity* e, unsigned int indent)
+	{
+		if (e != nullptr)
+		{
+			std::string info = "";
+
+			info += std::string(indent, ' ') + e->name + " [Entity] : ";
+			info += std::to_string(e->getComponentCount()) + " [Components]";
+			info += "\n";
+			
+			/*
+			for (auto const& c : e->mComponents)
+			{
+				info += std::string(indent+1, ' ') + static_cast<IComponent>(c);
+			}
+			*/
+
+			for (unsigned int i = 0; i < e->getCildCount(); i++)
+			{
+				info += getEntityInfo(e->getChild(i),indent+1);
+			}
+
+
+			return info;
+		}
+	}
 
 
 }

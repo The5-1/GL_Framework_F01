@@ -31,9 +31,13 @@ namespace The5 {
 		void addChild(Entity* entity);
 		Entity* getParent();
 		Entity* getChild(unsigned int i);
+		unsigned int getCildCount();
+
+		static std::string getEntityInfo(Entity * e, unsigned int depth);
 
 		IComponent* addComponent(ComponentType type);
 		IComponent* getComponent(ComponentType type);
+		unsigned int getComponentCount();
 		void destroyComponent(ComponentType type);
 
 	private:

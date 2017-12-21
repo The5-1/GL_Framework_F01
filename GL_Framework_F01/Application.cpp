@@ -22,7 +22,7 @@ namespace The5 {
 	//static members must be defined and optionally initialized in the namespace!
 	//https://stackoverflow.com/questions/16049306/error-lnk2001-unresolved-external-symbol-private-static-class
 
-	Application::Application(unsigned int width, unsigned int height, std::string title)
+	Application::Application(unsigned int width, unsigned int height, std::string title) : name(title)
 	{
 		initApplication(width, height, title);
 	}
@@ -93,6 +93,22 @@ namespace The5 {
 		return mAssetManager.get();
 	}
 
+	std::string Application::getInfo()
+	{
+		std::string info = "";
+		info += "Application: " + this->name + "\n";
+
+		info += " Scenes:\n";
+		for (auto& s : mScenes)
+		{
+			info += "  " + s.get()->name + "[Scene] \n";
+			int indent = 3;
+			info += Entity::getEntityInfo(s->getRoot(), indent);
+			info += "\n";
+		}
+
+		return info;
+	}
 
 	Application::~Application()
 	{

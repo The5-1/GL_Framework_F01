@@ -10,7 +10,6 @@
 #include "Material.h"
 
 
-
 namespace The5 
 {
 	RenderableC::RenderableC(Entity * entity): IComponent(entity)
