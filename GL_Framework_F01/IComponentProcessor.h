@@ -7,7 +7,7 @@ namespace The5
 {
 
 	///The Entity owns the Component
-	///A Component signs itself up with a Componentn Processor
+	///A Component signs itself up with a Component Processor
 	class IComponentProcessor
 	{
 	public:

@@ -31,7 +31,9 @@ namespace The5 {
 
 	IComponent* Entity::addComponent(ComponentType type)
 	{
-		return ComponentFactory::createComponent(type,this);
+		IComponent* comp = ComponentFactory::createComponent(type,this);
+		mComponents.insert(std::make_pair(comp->getType(), IComponent_uptr(comp)));
+		return comp;
 	}
 
 	IComponent* Entity::getComponent(ComponentType type)
