@@ -5,14 +5,29 @@
 
 namespace The5 {
 
-	IComponent::IComponent(Entity* entity) : mParentEntity(entity) 
+	IComponent::IComponent(IComponentProcessor<IComponent>* processor, Entity* entity) : mProcessor(processor), mParentEntity(entity)
 	{
-		registerAtComponentProcessor();
+		init();
 	}
 
 	Entity* IComponent::getEntity()
 	{
 		return mParentEntity;
+	}
+
+	void IComponent::init()
+	{
+		registerAtComponentProcessor();
+	}
+
+	void IComponent::registerAtComponentProcessor()
+	{
+		mProcessor->registerComponentPointer(this);
+	}
+
+	void IComponent::removeFromComponentProcessor()
+	{
+		mProcessor->removeComponentPointer(this);
 	}
 
 	void IComponent::destroy()

@@ -8,20 +8,23 @@ namespace The5
 
 	///The Entity owns the Component
 	///A Component signs itself up with a Component Processor
+	template<typename T>
 	class IComponentProcessor
 	{
 	public:
 
-		IComponentProcessor();
+		IComponentProcessor(Application* application);
 
-		static IComponent* getComponent(unsigned int i);
+		T* getComponent(unsigned int i);
 
-		static void registerComponentPointer(IComponent* component);
-		static void removeComponentPointer(IComponent* component);
+		void registerComponentPointer(T* component);
+		void removeComponentPointer(T* component);
+
+		Application* application;
 
 	protected:
 
 		///The Entity owns the component! No unique_ptr here!
-		static std::vector<IComponent*> mComponentPointers;
+		std::vector<T*> mComponentPointers;
 	};
 }

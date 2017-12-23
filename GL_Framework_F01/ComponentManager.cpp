@@ -1,11 +1,16 @@
-#include "ComponentFactory.h"
+#include "ComponentManager.h"
 
 #include "RenderableC.h"
 #include "MoveableC.h"
 
 namespace The5
 {
-	IComponent* The5::ComponentFactory::createComponent(ComponentType type, Entity* entity)
+	ComponentManager::ComponentManager(Application * application) : application(application)
+	{
+
+	}
+
+	IComponent* The5::ComponentManager::createComponent(ComponentType type, Entity* entity)
 	{
 		switch (type) {
 		default:

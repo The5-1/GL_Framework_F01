@@ -13,7 +13,9 @@ namespace The5 {
 	class RenderableC: public IComponent
 	{
 	public:
-		friend ComponentFactory;
+		friend ComponentManager;
+
+		RenderableC(IComponentProcessor<IComponent>* processor, Entity* parentEntity);
 
 		ComponentType getType();
 
@@ -23,11 +25,6 @@ namespace The5 {
 		void draw();
 
 	private:
-		RenderableC(Entity* entity);
-		void registerAtComponentProcessor() override;
-		void removeFromComponentProcessor() override;
-
-
 
 		///Assets used by renderable are owned by global Asset Manager
 		//std::vector<Mesh> mMeshes;

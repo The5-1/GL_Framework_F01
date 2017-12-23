@@ -4,6 +4,10 @@
 
 namespace The5 
 {
+	RendererCP::RendererCP(Application * application) : IComponentProcessor<RenderableC>(application)
+	{
+
+	}
 
 	void RendererCP::drawAll()
 	{

@@ -8,6 +8,7 @@
 #include "AssetManager.h"
 #include "InputManager.h"
 #include "Entity.h"
+#include "ComponentManager.h"
 
 
 namespace The5 {
@@ -38,6 +39,12 @@ namespace The5 {
 		addScene(scenetitle);
 	}
 	
+	void Application::createComponentManager()
+	{
+		this->mComponentManager = ComponentManager_uptr(new ComponentManager(this));
+	}
+
+
 	Window* Application::addWindow(unsigned int width, unsigned int height, std::string title)
 	{
 		Window* window = new Window(this, width, height, title);
@@ -61,8 +68,6 @@ namespace The5 {
 	{
 		return mScenes.at(i).get();
 	}
-
-
 
 	void Application::startGameLoop()
 	{

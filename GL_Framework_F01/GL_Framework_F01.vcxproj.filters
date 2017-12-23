@@ -108,7 +108,7 @@
     <ClCompile Include="RenderableC.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentFactory.cpp">
+    <ClCompile Include="ComponentManager.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -221,11 +221,11 @@
     <ClInclude Include="RenderableC.h">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentFactory.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Macros.h">
       <Filter>Source Files\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentManager.h">
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

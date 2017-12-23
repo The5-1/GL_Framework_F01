@@ -61,7 +61,8 @@ namespace The5
 	class IComponent;
 	typedef std::unique_ptr<The5::IComponent> IComponent_uptr;
 
-	class ComponentFactory;
+	class ComponentManager;
+	typedef std::unique_ptr<The5::ComponentManager> ComponentManager_uptr;
 	enum ComponentType { RenderableType, MoveableType };
 	/*
 	std::map<ComponentType, std::string> ComponentTypeString =	{
@@ -77,8 +78,7 @@ namespace The5
 	typedef std::unique_ptr<The5::MoveableC> MoveableC_uptr;
 
 	//Component Processors
-	class IComponentProcessor;
-	typedef std::unique_ptr<The5::IComponent> IComponentProcessor_uptr;
+	template<typename T> class IComponentProcessor;
 
 	class RendererCP;
 	typedef std::unique_ptr<The5::RendererCP> RendererCP_uptr;

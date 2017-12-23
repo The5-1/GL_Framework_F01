@@ -46,8 +46,13 @@ namespace The5 {
 		bool checkWindowExists();
 
 		//Managers
-		RendererCP_uptr mRenderer = nullptr;
-		AssetManager_uptr mAssetManager = nullptr;
+		ComponentManager_uptr mComponentManager = nullptr;
+		void createComponentManager();
+
+		//AssetManager_uptr mAssetManager = nullptr;
+		//void createAssetManager();
+
+
 	};
 
 }

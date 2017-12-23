@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
 	Scene* mainScene = application->getScene();
 	Entity* root = mainScene->getRoot();
 	Entity* test01 = root->addChild("test01");
+	test01->addComponent(ComponentType::RenderableType);
 	Entity* test02 = root->addChild("test02");
 	Entity* test03 = test02->addChild("test03");
 	RenderableC* renderable01 = static_cast<RenderableC*>(test01->addComponent(ComponentType::RenderableType));
@@ -59,7 +60,7 @@ int main(int argc, char *argv[])
 	Mesh mesh01(positions, indices);
 	Shader shader01(DEFAULT_SHADER_VERT, DEFAULT_SHADER_FRAG);
 
-	
+	/*
 	shader01.uniform("modelMatrix", mat4(1.0f));
 	shader01.uniform("viewMatrix", mat4(1.0f));
 	shader01.uniform("projMatrix", mat4(1.0f));
@@ -67,7 +68,7 @@ int main(int argc, char *argv[])
 
 	shader01.use();
 	mesh01.draw();
-	
+	*/
 
 
 

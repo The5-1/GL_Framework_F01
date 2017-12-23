@@ -11,7 +11,7 @@ namespace The5
 	class MoveableC: public IComponent
 	{
 	public:
-		friend ComponentFactory;
+		friend ComponentManager;
 		ComponentType getType();
 
 	private:

@@ -11,13 +11,13 @@
 
 namespace The5 {
 
-	class RendererCP : public IComponentProcessor
+	class RendererCP : public IComponentProcessor<RenderableC>
 	{
 	public:
-		static void drawAll();
 
-	private:
-		std::vector<RendererCP*> mComponentPointers;
+		RendererCP(Application* application);
+
+		void drawAll();
 	};
 
 }

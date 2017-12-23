@@ -12,7 +12,7 @@
 
 namespace The5 
 {
-	RenderableC::RenderableC(Entity * entity): IComponent(entity)
+	RenderableC::RenderableC(IComponentProcessor<RenderableC>* processor, Entity* parentEntity): IComponent(processor,parentEntity)
 	{
 
 	}
@@ -20,15 +20,5 @@ namespace The5
 	ComponentType RenderableC::getType()
 	{
 		return ComponentType::RenderableType;
-	}
-
-	void RenderableC::registerAtComponentProcessor()
-	{
-		RendererCP::registerComponentPointer(this);
-	}
-
-	void RenderableC::removeFromComponentProcessor()
-	{
-		RendererCP::removeComponentPointer(this);
 	}
 }
