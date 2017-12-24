@@ -16,7 +16,7 @@ namespace The5
 
 		Application* application;
 
-		IComponent* createComponent(ComponentType type, Entity* entity);
+		IComponent* createComponent(ComponentType type, Entity* entity); //
 
 		IComponentProcessor<IComponent>* getComponentProcessor(ComponentType type);
 

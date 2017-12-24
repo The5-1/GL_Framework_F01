@@ -59,7 +59,7 @@ namespace The5 {
 
 	Scene* Application::addScene(std::string name)
 	{
-		Scene* scene = new Scene(name);
+		Scene* scene = new Scene(name,this);
 		mScenes.push_back(Scene_uptr(scene));
 		return scene;
 	}

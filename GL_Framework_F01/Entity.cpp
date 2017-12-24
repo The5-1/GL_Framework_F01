@@ -55,7 +55,7 @@ namespace The5 {
 
 	ComponentManager * Entity::getComponentManager()
 	{
-		return this->mApplication->getComponentManager();
+		return mApplication->getComponentManager();
 	}
 
 	Application * Entity::getApplication()

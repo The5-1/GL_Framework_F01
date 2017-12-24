@@ -6,6 +6,9 @@
 namespace The5
 {
 
+	//template definitions must be in the header
+	//https://stackoverflow.com/questions/1639797/template-issue-causes-linker-error-c
+
 	///The Entity owns the Component
 	///A Component signs itself up with a Component Processor
 	template<typename T>

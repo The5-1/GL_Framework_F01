@@ -51,7 +51,7 @@ namespace The5 {
 		ComponentManager_uptr mComponentManager = nullptr;
 		void createComponentManager();
 
-		//AssetManager_uptr mAssetManager = nullptr;
+		AssetManager_uptr mAssetManager = nullptr;
 		//void createAssetManager();
 
 

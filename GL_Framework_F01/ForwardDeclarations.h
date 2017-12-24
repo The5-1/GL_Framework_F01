@@ -69,10 +69,13 @@ namespace The5
 	class ComponentManager;
 	typedef std::unique_ptr<The5::ComponentManager> ComponentManager_uptr;
 
+	
 	template<typename T> class IComponentProcessor;
+	//typedef std::unique_ptr<The5::IComponentProcessor> IComponentProcessor_uptr;
 
 	class IComponent;
 	typedef std::unique_ptr<The5::IComponent> IComponent_uptr;
+	//template<typename T> class IComponent;
 
 	class RendererCP;
 	typedef std::unique_ptr<The5::RendererCP> RendererCP_uptr;

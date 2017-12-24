@@ -10,8 +10,6 @@ namespace The5 {
 		init();
 	}
 
-
-
 	Entity* IComponent::getEntity()
 	{
 		return mParentEntity;
@@ -35,12 +33,12 @@ namespace The5 {
 
 	void IComponent::registerAtComponentProcessor()
 	{
-		mProcessor->registerComponentPointer(this);
+		getComponentProcessor()->registerComponentPointer(this);
 	}
 
 	void IComponent::removeFromComponentProcessor()
 	{
-		mProcessor->removeComponentPointer(this);
+		getComponentProcessor()->removeComponentPointer(this);
 	}
 
 	void IComponent::destroy()

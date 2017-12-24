@@ -1,6 +1,7 @@
 #include "ComponentManager.h"
 
 #include "RenderableC.h"
+#include "RendererCP.h"
 //#include "MoveableC.h"
 
 namespace The5
@@ -37,7 +38,7 @@ namespace The5
 		}
 		case (ComponentType::RenderableType):
 		{
-			return mRendererCP.get();
+			return (IComponentProcessor<IComponent>*)mRendererCP.get();
 		}
 		case (ComponentType::MoveableType):
 			return nullptr;

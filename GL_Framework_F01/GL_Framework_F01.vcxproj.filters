@@ -37,9 +37,6 @@
     <Filter Include="Source Files\Helper">
       <UniqueIdentifier>{bcd740d9-089b-485a-b8a2-483b116fae94}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Entities">
-      <UniqueIdentifier>{feaeb0e2-3098-4138-93bc-19deb5cb9d33}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Assets">
       <UniqueIdentifier>{2c23947f-1dbe-4229-990c-2c57cdb9b767}</UniqueIdentifier>
     </Filter>
@@ -51,9 +48,6 @@
     </Filter>
     <Filter Include="Source Files\Components">
       <UniqueIdentifier>{84b70f31-3e3e-45b1-951f-8a8b582a4edd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ComponentProcessors">
-      <UniqueIdentifier>{88e3c513-7b70-4cf0-a2dd-f870731281f3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,23 +78,11 @@
     <ClCompile Include="Window.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="AssetManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="IComponent.cpp">
       <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="IComponentProcessor.cpp">
-      <Filter>Source Files\ComponentProcessors</Filter>
-    </ClCompile>
-    <ClCompile Include="RendererCP.cpp">
-      <Filter>Source Files\ComponentProcessors</Filter>
     </ClCompile>
     <ClCompile Include="MoveableC.cpp">
       <Filter>Source Files\Components</Filter>
@@ -109,6 +91,18 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="ComponentManager.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="IComponentProcessor.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RendererCP.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -167,17 +161,11 @@
     <ClInclude Include="Texture.h">
       <Filter>Source Files\Assets</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Source Files\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Importer.h">
       <Filter>Source Files\Assets</Filter>
     </ClInclude>
     <ClInclude Include="Paths.h">
       <Filter>Source Files\Helper</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Source Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>Source Files\Assets</Filter>
@@ -209,12 +197,6 @@
     <ClInclude Include="IManager.h">
       <Filter>Source Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="IComponentProcessor.h">
-      <Filter>Source Files\ComponentProcessors</Filter>
-    </ClInclude>
-    <ClInclude Include="RendererCP.h">
-      <Filter>Source Files\ComponentProcessors</Filter>
-    </ClInclude>
     <ClInclude Include="MoveableC.h">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
@@ -225,6 +207,18 @@
       <Filter>Source Files\Helper</Filter>
     </ClInclude>
     <ClInclude Include="ComponentManager.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="IComponentProcessor.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererCP.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Source Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
