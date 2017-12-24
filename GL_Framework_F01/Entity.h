@@ -40,18 +40,21 @@ namespace The5 {
 		unsigned int getComponentCount();
 		void destroyComponent(ComponentType type);
 
-	private:
+		Application* getApplication();
+		ComponentManager* getComponentManager();
 
+	private:
 		///A Scene may construct one root node, otherwise the constructor is private
-		Entity(std::string name, Entity* parent);
+		Entity(std::string name, Entity* parent, Application* application);
 
 		Entity* mParent;
 		std::vector<Entity_uptr> mChilds; //a entity owns its children, children are destroyed when parent is destroyed
 
 		std::map<ComponentType,IComponent_uptr> mComponents;
-
-
 		void addComponent(IComponent* component);
+
+
+		Application* mApplication;
 
 	};
 

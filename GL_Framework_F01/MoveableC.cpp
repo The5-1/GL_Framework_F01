@@ -1,3 +1,5 @@
+#if 0
+
 #include "MoveableC.h"
 
 namespace The5
@@ -23,3 +25,5 @@ namespace The5
 	}
 
 }
+
+#endif

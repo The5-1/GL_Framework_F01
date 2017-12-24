@@ -115,6 +115,11 @@ namespace The5 {
 		return info;
 	}
 
+	ComponentManager * Application::getComponentManager()
+	{
+		return mComponentManager.get();
+	}
+
 	Application::~Application()
 	{
 		terminate();

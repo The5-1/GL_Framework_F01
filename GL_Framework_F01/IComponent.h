@@ -17,10 +17,12 @@ namespace The5 {
 
 		std::string name; //TODO: use this if i need more than one component of a type
 
-		IComponent(IComponentProcessor<IComponent>* processor, Entity* parentEntity);
+		///The corresponding Application is fetched from the entity
+		IComponent(Entity* parentEntity);
 
 		Entity* getEntity();
-		virtual ComponentType getType() = 0; //pure virtual, must be overridden
+		virtual ComponentType getType();
+		virtual IComponentProcessor<IComponent>* getProcessor();
 
 		~IComponent();
 
@@ -33,8 +35,8 @@ namespace The5 {
 
 		void destroy();
 
-		IComponentProcessor<IComponent>* mProcessor;
 		Entity* mParentEntity;
+		Application* mApplication;
 
 		//IComponentProcessor* mProcessor; //static instead
 	};

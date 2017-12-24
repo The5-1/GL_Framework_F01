@@ -58,7 +58,7 @@ namespace The5
 	typedef std::unique_ptr<The5::Entity> Entity_uptr;
 
 	//Component
-	enum ComponentType { RenderableType, MoveableType };
+	enum ComponentType { none, RenderableType, MoveableType };
 	/*
 	std::map<ComponentType, std::string> ComponentTypeString =	{
 	std::make_pair(ComponentType::RenderableType, "Renderable"),
@@ -83,7 +83,8 @@ namespace The5
 	class MoveableC;
 	typedef std::unique_ptr<The5::MoveableC> MoveableC_uptr;
 
-
+	class MoveableCP;
+	typedef std::unique_ptr<The5::MoveableCP> MoveableCP_uptr;
 
 
 }

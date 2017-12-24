@@ -32,6 +32,8 @@ namespace The5 {
 
 		std::string getInfo();
 
+		ComponentManager* getComponentManager();
+
 	private:
 		//state
 		bool gameLoopRunning = false;

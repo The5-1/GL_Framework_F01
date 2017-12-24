@@ -15,7 +15,7 @@ namespace The5 {
 	public:
 		friend ComponentManager;
 
-		RenderableC(RendererCP* processor, Entity* parentEntity);
+		RenderableC(Entity* parentEntity);
 
 		ComponentType getType();
 		
@@ -25,7 +25,11 @@ namespace The5 {
 
 		void draw();
 
+		RendererCP* getProcessor();
+
 	private:
+
+		Application* mApplication;
 
 		///Assets used by renderable are owned by global Asset Manager
 		//std::vector<Mesh> mMeshes;

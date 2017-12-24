@@ -1,7 +1,7 @@
 #include "ComponentManager.h"
 
 #include "RenderableC.h"
-#include "MoveableC.h"
+//#include "MoveableC.h"
 
 namespace The5
 {
@@ -19,10 +19,11 @@ namespace The5
 		}
 		case (ComponentType::RenderableType):
 		{
-			return new RenderableC(entity);
+			return new RenderableC(;
 		}
 		case (ComponentType::MoveableType):
-			return new MoveableC(entity);
+			return nullptr;
+			//return new MoveableC(entity);
 		}
 
 	}

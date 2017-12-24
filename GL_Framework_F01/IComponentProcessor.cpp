@@ -20,12 +20,12 @@ namespace The5
 		return IComponentProcessor<T>::mComponentPointers.at(i);
 	}
 
-	template <typename T> void IComponentProcessor::registerComponentPointer(T* component)
+	template <typename T> void IComponentProcessor<T>::registerComponentPointer(T* component)
 	{
 		IComponentProcessor<T>::mComponentPointers.push_back(component);
 	}
 
-	template <typename T> void IComponentProcessor::removeComponentPointer(T* component)
+	template <typename T> void IComponentProcessor<T>::removeComponentPointer(T* component)
 	{
 		//https://en.wikipedia.org/wiki/Erase%E2%80%93remove_idiom
 		//https://stackoverflow.com/questions/39912/how-do-i-remove-an-item-from-a-stl-vector-with-a-certain-value

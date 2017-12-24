@@ -10,9 +10,21 @@ namespace The5 {
 		init();
 	}
 
+
+
 	Entity* IComponent::getEntity()
 	{
 		return mParentEntity;
+	}
+
+	ComponentType IComponent::getType()
+	{
+		return ComponentType::none;
+	}
+
+	IComponentProcessor<IComponent>* IComponent::getProcessor()
+	{
+		return nullptr;
 	}
 
 	void IComponent::init()

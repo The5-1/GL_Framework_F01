@@ -1,3 +1,5 @@
+#if 0
+
 #pragma once
 
 #include "ForwardDeclarations.h"
@@ -15,7 +17,7 @@ namespace The5
 		ComponentType getType();
 
 	private:
-		MoveableC(Entity* entity);
+		MoveableC(MoveableCP* processor, Entity* parentEntity);
 
 		void registerAtComponentProcessor();
 		void removeFromComponentProcessor();
@@ -23,4 +25,6 @@ namespace The5
 		glm::vec3 mVelocity;	
 	};
 }
+
+#endif
 

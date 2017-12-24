@@ -4,11 +4,13 @@
 #include "IComponent.h"
 #include "GL_include.h"
 
-#include "ComponentFactory.h"
+#include "Application.h"
+#include "ComponentManager.h"
+
 
 namespace The5 {
 
-	Entity::Entity(std::string name, Entity* parent) : name(name), mParent(parent)
+	Entity::Entity(std::string name, Entity* parent, Application* application) : name(name), mParent(parent), mApplication(application)
 	{
 		transformation = glm::mat4(1.0f);
 
@@ -19,7 +21,7 @@ namespace The5 {
 
 	Entity* Entity::addChild(std::string name)
 	{
-		Entity* entity = new Entity(name, this);
+		Entity* entity = new Entity(name, this, mApplication);
 		mChilds.push_back(Entity_uptr(entity));
 		return entity;
 	}
@@ -31,7 +33,7 @@ namespace The5 {
 
 	IComponent* Entity::addComponent(ComponentType type)
 	{
-		IComponent* comp = ComponentManager::createComponent(type,this);
+		IComponent* comp = getComponentManager()->createComponent(type,this);
 		mComponents.insert(std::make_pair(comp->getType(), IComponent_uptr(comp)));
 		return comp;
 	}
@@ -49,6 +51,16 @@ namespace The5 {
 	void Entity::destroyComponent(ComponentType type)
 	{
 		this->mComponents.erase(type); //underlying component-object will be deleted by unique_ptr;
+	}
+
+	ComponentManager * Entity::getComponentManager()
+	{
+		return this->mApplication->getComponentManager();
+	}
+
+	Application * Entity::getApplication()
+	{
+		return mApplication;
 	}
 
 	Entity* Entity::getParent()

@@ -1,0 +1,13 @@
+
+Application:
+- pointers to all managers, processors, windows, scenes
+-- owing unique_prt where it makes semse (e.g. managers, processors, scenes)
+- getter functions to get these pointers
+
+Every other Object:
+- pointer to it's parent application
+--> every constructor requires application pointer!
+
+
+Finding the matching component processors etc:
+- go to parent application -> call the corresponding getter
