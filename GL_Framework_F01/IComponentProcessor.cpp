@@ -4,10 +4,10 @@
 
 namespace The5
 {
+	//template class definitions must be in the header
+	//https://stackoverflow.com/questions/1639797/template-issue-causes-linker-error-c
 
-	///Static variables need to be declared and initialized in the cpp file!!! https://stackoverflow.com/questions/16049306/error-lnk2001-unresolved-external-symbol-private-static-class
-	//std::vector<IComponent*> IComponentProcessor::mComponentPointers = std::vector<IComponent*>();
-
+	/*
 	template <typename T> IComponentProcessor<T>::IComponentProcessor(Application* application): application(application)
 	{
 		//static_assert(std::is_base_of<BaseClass, Derived>::value, "IComponentPocessor must use a Type derived from IComponent!");
@@ -31,4 +31,5 @@ namespace The5
 		//https://stackoverflow.com/questions/39912/how-do-i-remove-an-item-from-a-stl-vector-with-a-certain-value
 		IComponentProcessor<T>::mComponentPointers.erase(std::remove(mComponentPointers.begin(), mComponentPointers.end(), component), mComponentPointers.end());
 	}
+	*/
 }
