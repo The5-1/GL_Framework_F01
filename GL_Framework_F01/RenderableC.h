@@ -15,9 +15,10 @@ namespace The5 {
 	public:
 		friend ComponentManager;
 
-		RenderableC(IComponentProcessor<IComponent>* processor, Entity* parentEntity);
+		RenderableC(RendererCP* processor, Entity* parentEntity);
 
 		ComponentType getType();
+		
 
 		Mesh* mesh;
 		Shader* shader;

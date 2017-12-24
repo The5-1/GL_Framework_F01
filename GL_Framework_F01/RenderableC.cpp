@@ -12,7 +12,7 @@
 
 namespace The5 
 {
-	RenderableC::RenderableC(IComponentProcessor<RenderableC>* processor, Entity* parentEntity): IComponent(processor,parentEntity)
+	RenderableC::RenderableC(RendererCP* processor, Entity* parentEntity): IComponent(processor,parentEntity)
 	{
 
 	}

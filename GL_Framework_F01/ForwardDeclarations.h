@@ -57,19 +57,25 @@ namespace The5
 	class Entity;
 	typedef std::unique_ptr<The5::Entity> Entity_uptr;
 
-	//Components
-	class IComponent;
-	typedef std::unique_ptr<The5::IComponent> IComponent_uptr;
-
-	class ComponentManager;
-	typedef std::unique_ptr<The5::ComponentManager> ComponentManager_uptr;
+	//Component
 	enum ComponentType { RenderableType, MoveableType };
 	/*
 	std::map<ComponentType, std::string> ComponentTypeString =	{
-																	std::make_pair(ComponentType::RenderableType, "Renderable"), 
-																	std::make_pair(ComponentType::MoveableType, "Moveable"),
-																};
-																*/
+	std::make_pair(ComponentType::RenderableType, "Renderable"),
+	std::make_pair(ComponentType::MoveableType, "Moveable"),
+	};
+	*/
+
+	class ComponentManager;
+	typedef std::unique_ptr<The5::ComponentManager> ComponentManager_uptr;
+
+	template<typename T> class IComponentProcessor;
+
+	class IComponent;
+	typedef std::unique_ptr<The5::IComponent> IComponent_uptr;
+
+	class RendererCP;
+	typedef std::unique_ptr<The5::RendererCP> RendererCP_uptr;
 	
 	class RenderableC;
 	typedef std::unique_ptr<The5::RenderableC> RenderableC_uptr;
@@ -77,11 +83,7 @@ namespace The5
 	class MoveableC;
 	typedef std::unique_ptr<The5::MoveableC> MoveableC_uptr;
 
-	//Component Processors
-	template<typename T> class IComponentProcessor;
 
-	class RendererCP;
-	typedef std::unique_ptr<The5::RendererCP> RendererCP_uptr;
 
 
 }
