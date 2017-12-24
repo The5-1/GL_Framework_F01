@@ -1,7 +1,9 @@
 #include "IComponent.h"
 #include "IComponentProcessor.h"
+#include "ComponentManager.h"
 
 #include "Entity.h"
+#include "Application.h"
 
 namespace The5 {
 
@@ -22,7 +24,7 @@ namespace The5 {
 
 	IComponentProcessor<IComponent>* IComponent::getComponentProcessor()
 	{
-		return nullptr;
+		return mApplication->getComponentManager()->getComponentProcessor(getType()); //TODO: implement
 	}
 
 	void IComponent::init()

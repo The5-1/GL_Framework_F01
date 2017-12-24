@@ -19,6 +19,7 @@ namespace The5
 
 		IComponentProcessor(Application* application) : mApplication(application) 
 		{		
+			mComponentPointers = std::vector<T*>();
 		}
 
 		T* IComponentProcessor<T>::getComponent(unsigned int i)
@@ -28,7 +29,7 @@ namespace The5
 
 		void registerComponentPointer(T* component)
 		{
-			mComponentPointers.push_back(component); //TODO this here crashes, maybe because i cast stuff where calling this
+			mComponentPointers.push_back(component); //TODO this here crashes, implement IComponent::getComponentProcessor
 		}
 
 		void removeComponentPointer(T* component)

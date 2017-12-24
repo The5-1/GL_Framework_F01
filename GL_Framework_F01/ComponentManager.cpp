@@ -28,8 +28,8 @@ namespace The5
 		}
 
 	}
-
-	IComponentProcessor<IComponent>* ComponentManager::getComponentProcessor(ComponentType type)
+	
+	IComponentProcessor<IComponent>* ComponentManager::getComponentProcessor(ComponentType type)  //TODO: implement
 	{
 		switch (type) {
 		default:
