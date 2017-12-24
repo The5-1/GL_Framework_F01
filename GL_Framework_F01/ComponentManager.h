@@ -18,8 +18,9 @@ namespace The5
 
 		IComponent* createComponent(ComponentType type, Entity* entity);
 
-	private:
+		IComponentProcessor<IComponent>* getComponentProcessor(ComponentType type);
 
+	private:
 
 		RendererCP_uptr mRendererCP;
 	};

@@ -21,4 +21,10 @@ namespace The5 {
 	{
 		return this->mRoot.get();
 	}
+
+	Application * Scene::getApplication()
+	{
+		return mApplication;
+	}
+
 }

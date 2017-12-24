@@ -5,7 +5,7 @@
 
 namespace The5 {
 
-	IComponent::IComponent(IComponentProcessor<IComponent>* processor, Entity* entity) : mProcessor(processor), mParentEntity(entity)
+	IComponent::IComponent(Entity* entity) : mParentEntity(entity)
 	{
 		init();
 	}
@@ -22,13 +22,14 @@ namespace The5 {
 		return ComponentType::none;
 	}
 
-	IComponentProcessor<IComponent>* IComponent::getProcessor()
+	IComponentProcessor<IComponent>* IComponent::getComponentProcessor()
 	{
 		return nullptr;
 	}
 
 	void IComponent::init()
 	{
+		mApplication = mParentEntity->getApplication();
 		registerAtComponentProcessor();
 	}
 

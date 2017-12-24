@@ -15,10 +15,7 @@ namespace The5 {
 
 		Entity* getRoot();
 
-		Application* getApplication()
-		{
-			return mApplication;
-		}
+		Application* getApplication();
 
 	private:
 

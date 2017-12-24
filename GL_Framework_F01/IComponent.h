@@ -22,7 +22,8 @@ namespace The5 {
 
 		Entity* getEntity();
 		virtual ComponentType getType();
-		virtual IComponentProcessor<IComponent>* getProcessor();
+
+		virtual IComponentProcessor<IComponent>* getComponentProcessor();
 
 		~IComponent();
 

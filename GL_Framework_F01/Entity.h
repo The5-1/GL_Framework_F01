@@ -41,7 +41,6 @@ namespace The5 {
 		void destroyComponent(ComponentType type);
 
 		Application* getApplication();
-		ComponentManager* getComponentManager();
 
 	private:
 		///A Scene may construct one root node, otherwise the constructor is private
@@ -52,7 +51,6 @@ namespace The5 {
 
 		std::map<ComponentType,IComponent_uptr> mComponents;
 		void addComponent(IComponent* component);
-
 
 		Application* mApplication;
 

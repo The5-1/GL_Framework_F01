@@ -1,4 +1,8 @@
 
+https://stackoverflow.com/questions/1213366/can-template-polymorphism-be-used-in-place-of-oo-polymorphism
+MyTemplate<X> and MyTemplate<Y> are completely unrelated classes even if X and Y are related!
+
+
 Application:
 - pointers to all managers, processors, windows, scenes
 -- owing unique_prt where it makes semse (e.g. managers, processors, scenes)
