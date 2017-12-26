@@ -14,7 +14,7 @@ namespace The5
 {
 	RenderableC::RenderableC(Entity* parentEntity): IComponent(parentEntity)
 	{
-
+		name = "RenderableC";
 	}
 
 	ComponentType RenderableC::getType()

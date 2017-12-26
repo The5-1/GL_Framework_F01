@@ -29,7 +29,8 @@ namespace The5
 
 	}
 	
-	IComponentProcessor<IComponent>* ComponentManager::getComponentProcessor(ComponentType type)  //TODO: implement
+	//TODO: Problem: Templates are differenc classes at runtime! IComponentProcessor<IComponent> got nothing to do with IComponentProcessor<RenderableC>
+	IComponentProcessor<IComponent>* ComponentManager::getComponentProcessor(ComponentType type)
 	{
 		switch (type) {
 		default:

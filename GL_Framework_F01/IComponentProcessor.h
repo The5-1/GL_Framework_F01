@@ -12,6 +12,7 @@ namespace The5
 
 	///The Entity owns the Component
 	///A Component signs itself up with a Component Processor
+	//TODO: Problem: IComponentProcessor<Renderable> and IComponentProcessor<Moveable> have nothing in common and will just be 2 different classes after compile time
 	template<typename T>
 	class IComponentProcessor
 	{
