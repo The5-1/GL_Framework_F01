@@ -2,9 +2,11 @@
 
 //IO
 #include <string>
+#include <sstream>
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <iomanip>
 
 //datastructures
 #include <vector>

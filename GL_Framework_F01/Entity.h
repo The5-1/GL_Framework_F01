@@ -21,29 +21,54 @@ namespace The5 {
 	class Entity
 	{
 	public:
+		///public Fields
+		/** unique ID*/
 		unsigned int ID;
+		/** user defined name for the entity*/
+		std::string name;	
 
-		std::string name; //some non-unique name	
+		///Destructor
+		/** destructor triggers the scene to update */
+		~Entity();
 
-		mat4 transformation; //every entity exists in our scene, but must not be renderable (everything that does not is a global manager)
-		mat4 transformation_cached; //every entity exists in our scene, but must not be renderable (everything that does not is a global manager)
+		///transformation
+		/** every node got a local transformation */
+		mat4 transformation;
+		/** the combined resulting transformation matrix, only updated when a parent changes */
+		mat4 transformation_cached;
 
-		Entity* addChild(std::string name);
-		void addChild(Entity* entity);
-
+		///Methods: Entity Tree
+		/** get the parent Entity in the tree */
 		Entity* getParent();
-		std::vector<Entity_uptr> const& getChilds() const; //https://stackoverflow.com/a/25507647
+		/** add a new Entity to this Entities childs list */
+		Entity* addChild(std::string name);
+		/** get child Entity by index */
 		Entity* getChild(unsigned int i);
+		/** get number of childs */
 		unsigned int getCildCount();
-
+		/** get a readonly uptr list of all childs */
+		std::vector<Entity_uptr> const& getChilds() const; //https://stackoverflow.com/a/25507647
+		/** Entity to string with depth parameter for formated printing */
 		static std::string getEntityInfo(Entity * e, unsigned int depth);
 
+		///Methods: Components
+		/** check if the given bitmaks matches the components on this Entity */
+		bool checkComponentBitmaskCompatible(ComponentBitmask mask);
+		/** get a readonly reference of the bitmask*/
+		ComponentBitmask& const getComponentBitmask();
+		/** add a new coponent to this entity*/
 		IComponent* addComponent(ComponentType type);
-		IComponent* getComponent(ComponentType type);
-		unsigned int getComponentCount();
+		/** destroy a existing component on this entity*/
 		void destroyComponent(ComponentType type);
+		/** get the number of components on this entity*/
+		unsigned int getComponentCount();
+		/** get a pointer to the component of the given type*/
+		IComponent* getComponent(ComponentType type);
 
+		///Methods: Application
+		/** get parent application (to traverse to other systems from there on*/
 		Application* getApplication();
+		/** get the component manager to create components*/
 		ComponentManager* getComponentManager();
 
 	private:
@@ -53,7 +78,13 @@ namespace The5 {
 		/** A Scene may construct one root node, otherwise the constructor is private */
 		Entity(std::string name, Entity* parent, Application* application, Scene* Scene);
 
+		///private Methods
+		/** updates the Scenes Entity List, called when Entities are added or removed */
+		void updateSceneEntityTree();
+
 		///private Fields
+		/** bitmask updated when components are added */
+		ComponentBitmask componentBitmask;
 		/** dirty flag if entity or components have changed */
 		bool mDirty = true;
 		/** Bitmask signature of components on this Entity */

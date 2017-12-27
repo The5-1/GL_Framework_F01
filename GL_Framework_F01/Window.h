@@ -23,8 +23,10 @@ namespace The5
 	class Window {
 	public:
 		std::string title;
+		std::stringstream titlestream;
 		unsigned int height;
 		unsigned int width;
+		unsigned int vSyncIntervall = 1;
 
 		Window(Application* application, unsigned int width, unsigned int height, std::string title);
 		~Window();
@@ -33,14 +35,19 @@ namespace The5
 		void setTitle(std::string title);
 		void resizeViewport(unsigned int width, unsigned int height);
 
-		void runGameLoop();
-
-		void terminate();
-
 		Application* getApplication();
 		InputManager* getInputManager();
-
 	private:
+		friend Application;
+
+		void runGameLoop();
+		void terminate();
+
+		double previousFrameTime = 0.0;
+		double currentFrameTime = 0.0;
+		double deltaFrameTime = 0.0;
+		void updateFrameTime();
+		void updateWindowTitleInfo();
 
 		//global initialization that is done ONCE independent of Window object
 		static bool mGLFW_initialized;

@@ -66,7 +66,7 @@ namespace The5
 	void Window::activate()
 	{
 		glfwMakeContextCurrent(getGLFWwindow()); //set the GL context to this window
-		glfwSwapInterval(1); // Enable vsync for the current context
+		glfwSwapInterval(vSyncIntervall); // Enable vsync for the current context
 
 		registerGLFWCallbacks();
 
@@ -120,14 +120,39 @@ namespace The5
 
 //***********************************************//
 
+	void Window::updateFrameTime()
+	{
+		currentFrameTime = glfwGetTime();
+		deltaFrameTime = currentFrameTime - previousFrameTime;
+		previousFrameTime = currentFrameTime;
+	}
+
+	void Window::updateWindowTitleInfo()
+	{
+		titlestream.str(std::string());
+		titlestream << title << " [";
+		titlestream << std::setfill(' ') << std::setw(6) << std::setprecision(0);
+		titlestream << (unsigned int)(1.0/deltaFrameTime) << "FPS] [";
+		titlestream << std::setfill(' ') << std::setw(8) << std::setprecision(0);
+		titlestream << (unsigned int)(deltaFrameTime*1000.0) << "ms]";
+		glfwSetWindowTitle(getGLFWwindow(), titlestream.str().c_str());
+	}
+
+
 	void Window::runGameLoop()
 	{
 		while (!glfwWindowShouldClose(getGLFWwindow()))
 		{
-
+			
+			updateFrameTime();
+			updateWindowTitleInfo();
 
 			glClearColor(0.05f, 0.1f, 0.15f, 0.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+
+			//ToDO: Render stuff
+
 
 
 			glfwSwapBuffers(getGLFWwindow());
@@ -158,12 +183,10 @@ namespace The5
 		return mInputManager_uptr.get();
 	}
 
-
-
 	void Window::setTitle(std::string title)
 	{
-		glfwSetWindowTitle(getGLFWwindow(), title.c_str());
 		this->title = title;
+		glfwSetWindowTitle(getGLFWwindow(), this->title.c_str());
 	}
 
 	void Window::resizeViewport(unsigned int width, unsigned int height)

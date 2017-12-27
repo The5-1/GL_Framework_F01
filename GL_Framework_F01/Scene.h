@@ -72,6 +72,7 @@ namespace The5 {
 		*/
 
 	private:
+		friend Entity;
 		///private Fields
 		/** fixed root entity */
 		Entity_uptr mRoot;

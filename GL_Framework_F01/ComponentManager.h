@@ -3,26 +3,24 @@
 #include "ForwardDeclarations.h"
 
 #include "IComponent.h"
-#include "IComponentProcessor.h"
 
 namespace The5
 {
-
+	/** factory for components, managing where applicable */
 	class ComponentManager
 	{
-	public:
+	protected:
+		friend Application;
+		friend Entity;
 
+		/** Component Factory*/
+		IComponent* createComponent(ComponentType type, Entity* entity);
+
+		/** private constructor*/
 		ComponentManager(Application* application);
 
-		Application* application;
-
-		IComponent* createComponent(ComponentType type, Entity* entity); //
-
-		IComponentProcessor<IComponent*>* getComponentProcessor(ComponentType type);
-
-	private:
-
-		RendererCP_uptr mRendererCP;
+		/** pointer to parent appliaction to get other systems from*/
+		Application* mApplication;
 	};
 
 }

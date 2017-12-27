@@ -39,9 +39,11 @@ int main(int argc, char *argv[])
 
 	Window* mainWindow = application->getWindow();
 	InputManager* inputManager = mainWindow->getInputManager();
+	
 	Scene* mainScene = application->getScene();
 	Entity* root = mainScene->getRoot();
 	Entity* test01 = root->addChild("test01");
+	/*
 	test01->addComponent(ComponentType::RenderableType); //TODO: crashes
 	Entity* test02 = root->addChild("test02");
 	Entity* test03 = test02->addChild("test03");
@@ -49,7 +51,7 @@ int main(int argc, char *argv[])
 	inputManager->changeContext(InputContext::inGame);
 
 	//LOG(application->getInfo());
-
+	*/
 
 
 	//Model model = Model(file_model_nanosuit);

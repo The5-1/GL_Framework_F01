@@ -1,12 +1,13 @@
 #include "ComponentManager.h"
 
 #include "RenderableC.h"
-#include "RendererCP.h"
+
+//#include "RendererCP.h"
 //#include "MoveableC.h"
 
 namespace The5
 {
-	ComponentManager::ComponentManager(Application * application) : application(application)
+	ComponentManager::ComponentManager(Application * application) : mApplication(application)
 	{
 
 	}
@@ -29,6 +30,7 @@ namespace The5
 
 	}
 	
+	/*
 	//TODO: Problem: Templates are differenc classes at runtime! IComponentProcessor<IComponent> got nothing to do with IComponentProcessor<RenderableC>
 	IComponentProcessor<IComponent*>* ComponentManager::getComponentProcessor(ComponentType type)
 	{
@@ -45,4 +47,5 @@ namespace The5
 			return nullptr;
 		}
 	}
+	*/
 }

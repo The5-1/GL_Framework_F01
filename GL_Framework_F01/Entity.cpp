@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "Scene.h"
 
 #include "stl_include.h"
 #include "IComponent.h"
@@ -23,24 +24,31 @@ namespace The5 {
 	{
 		Entity* entity = new Entity(name, this, mApplication, mScene);
 		mChilds.push_back(Entity_uptr(entity));
+		updateSceneEntityTree();
 		return entity;
 	}
 
-	void Entity::addChild(Entity* entity)
+	bool Entity::checkComponentBitmaskCompatible(ComponentBitmask mask)
 	{
-		mChilds.push_back(Entity_uptr(entity));
+		return componentBitmask.isCompatible(mask);
 	}
 
 	IComponent* Entity::addComponent(ComponentType type)
 	{
 		IComponent* comp = getComponentManager()->createComponent(type,this);
 		mComponents.insert(std::make_pair(comp->getType(), IComponent_uptr(comp)));
+		componentBitmask.addComponentType(type);
 		return comp;
 	}
 
 	IComponent* Entity::getComponent(ComponentType type)
 	{
 		return this->mComponents.at(type).get();
+	}
+
+	ComponentBitmask & const Entity::getComponentBitmask()
+	{
+		return componentBitmask;
 	}
 
 	unsigned int Entity::getComponentCount()
@@ -51,6 +59,7 @@ namespace The5 {
 	void Entity::destroyComponent(ComponentType type)
 	{
 		this->mComponents.erase(type); //underlying component-object will be deleted by unique_ptr;
+		componentBitmask.removeComponentType(type);
 	}
 
 	ComponentManager * Entity::getComponentManager()
@@ -58,9 +67,19 @@ namespace The5 {
 		return mApplication->getComponentManager();
 	}
 
+	void Entity::updateSceneEntityTree()
+	{
+		mScene->updateEntityList();
+	}
+
 	Application * Entity::getApplication()
 	{
 		return mApplication;
+	}
+
+	Entity::~Entity()
+	{
+		updateSceneEntityTree();
 	}
 
 	Entity* Entity::getParent()
