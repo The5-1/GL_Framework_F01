@@ -7,46 +7,34 @@
 namespace The5
 {
 
-	//template definitions must be in the header
-	//https://stackoverflow.com/questions/1639797/template-issue-causes-linker-error-c
-
-	///The Entity owns the Component
-	///A Component signs itself up with a Component Processor
-	//TODO: Problem: IComponentProcessor<Renderable> and IComponentProcessor<Moveable> have nothing in common and will just be 2 different classes after compile time
-	
-	//!!! when a std::vector<Base*> takes a vector to a pointer of base, maybe i need to do the same here???
-	template<typename T>
+	/** Abstract Interface for ComponentProcessors
+	* - Iterate over all Entities of the Scene
+	* - Check if required components are present
+	* - Do something with the entity/component
+	*/
 	class IComponentProcessor
 	{
 	public:
+		///Constructor
+		/** constructor*/
+		IComponentProcessor(Application* application, ComponentBitmask mask);
 
-		IComponentProcessor(Application* application) : mApplication(application) 
-		{		
-			//mComponentPointers = std::vector<T>();
-		}
+		bool checkComponentsCompatible(Entity* entity);
 
-		T getComponent(unsigned int i)
-		{
-			return mComponentPointers.at(i);
-		}
+		virtual void processEntity(Entity* entity) = 0;
 
-		void registerComponentPointer(T component)
-		{
-			mComponentPointers.push_back(component); //TODO this here crashes, implement IComponent::getComponentProcessor
-		}
-
-		void removeComponentPointer(T component)
-		{
-			//https://en.wikipedia.org/wiki/Erase%E2%80%93remove_idiom
-			//https://stackoverflow.com/questions/39912/how-do-i-remove-an-item-from-a-stl-vector-with-a-certain-value
-			mComponentPointers.erase(std::remove(mComponentPointers.begin(), mComponentPointers.end(), component), mComponentPointers.end());
-		}
+		virtual void processScene(Scene* scene) = 0;
 
 	protected:
-
-		///The Entity owns the component! No unique_ptr here!
+		///private Fields
+		/** pointer to owning application */
 		Application* mApplication;
-		std::vector<T> mComponentPointers;
+		/** the bitmask that needs to be present on the Entity */
+		const ComponentBitmask mRequiredComponentBitmask;
+
+		///private Methods
+		/** upon construction init the constant bitmask for this Processor */
+		virtual ComponentBitmask initRequiredComponentBitmask() = 0;
 	};
 }
 

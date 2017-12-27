@@ -31,12 +31,11 @@ namespace The5 {
 		/** get the pointer to parent Entity */
 		Entity* getEntity();
 		/** get the Component type of this Component, implemented by derived classes */
-		virtual ComponentType getType();
+		virtual ComponentType getType() = 0;
 
 		//virtual IComponentProcessor<IComponent*>* getComponentProcessor();
 
 	protected:
-
 		///friend classes
 		/** Entity may call a components constructor to create an component on itself */
 		friend class Entity;
@@ -46,14 +45,14 @@ namespace The5 {
 		IComponent(Entity* parentEntity);
 
 		///private Fields
+		/** Dirty flag if component settings have changed */
+		bool mDirty = true;
 		/** pointer to parent Entity this Component resides on */
 		Entity* mParentEntity; 
 		/** pointer to parent Appliaction to access Systems, derived from mParentEntity */
 		Application* mApplication;
 		/** relevant bit for this component type */
 		ComponentBitmask mComponentBitmask;
-		/** Dirty flag if component settings have changed */
-		bool mDirty = true;
 
 		///private methods
 		/** init the defaults */

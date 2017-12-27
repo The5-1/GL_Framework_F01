@@ -2,10 +2,8 @@
 
 namespace The5
 {
-
-	bool ISystem::checkComponentsCompatible(Entity * entity)
+	ISystem::ISystem(Application * application): mApplication(application)
 	{
-		return false;
-	}
 
+	}
 }

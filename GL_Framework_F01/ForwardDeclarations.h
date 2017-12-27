@@ -63,8 +63,9 @@ namespace The5
 	class ComponentManager;
 	typedef std::unique_ptr<The5::ComponentManager> ComponentManager_uptr;
 
-	template<typename T> class IComponentProcessor;
-	//typedef std::unique_ptr<The5::IComponentProcessor> IComponentProcessor_uptr;
+	//template<typename T> class IComponentProcessor;
+	class IComponentProcessor;
+	typedef std::unique_ptr<The5::IComponentProcessor> IComponentProcessor_uptr;
 
 	class IComponent;
 	typedef std::unique_ptr<The5::IComponent> IComponent_uptr;
@@ -106,16 +107,34 @@ namespace The5
 		/** the bitmask */
 		std::bitset<COMPONENT_NUMBER> mask;
 
+		ComponentBitmask()
+		{
+			mask.reset();
+		}
+
 		/** set bitmask bit by ComponentType index */
 		void addComponentType(ComponentType type)
 		{
-			mask.set(type - 1);
+			mask.set(size_t(type - 1));
 		}
 
 		/** reset bitmask bit by ComponentType index */
 		void removeComponentType(ComponentType type)
 		{
-			mask.reset(type - 1);
+			mask.reset(size_t(type - 1));
+		}
+
+		/** check if both bitmasks are identical */
+		bool isEqual(const ComponentBitmask& other)
+		{
+			return (this->mask == other.mask);
+		}
+
+		/** check if this maks has all its bits represented in the other */
+		bool isCompatible(const ComponentBitmask& other)
+		{
+			//if( (0110 AND 0111) == 0110)
+			return ((this->mask & other.mask) == this->mask);
 		}
 
 		/** create a bitset with only the given ComponentTypes bit set [static] */
@@ -132,19 +151,6 @@ namespace The5
 				mask.set(type - 1);
 				return mask;
 			}
-		}
-
-		/** check if both bitmasks are identical */
-		bool isEqual(const ComponentBitmask& other)
-		{
-			return (this->mask == other.mask);
-		}
-
-		/** check if this maks has all its bits represented in the other */
-		bool isCompatible(const ComponentBitmask& other)
-		{
-			//if( (0110 AND 0111) == 0110)
-			return ((this->mask & other.mask) == this->mask);
 		}
 
 		/** binary | operator to combine bitmasks */

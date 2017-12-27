@@ -12,6 +12,7 @@ namespace The5
 	protected:
 		friend Application;
 		friend Entity;
+		friend IComponent;
 
 		/** Component Factory*/
 		IComponent* createComponent(ComponentType type, Entity* entity);

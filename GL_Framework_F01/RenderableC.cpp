@@ -15,6 +15,8 @@ namespace The5
 	RenderableC::RenderableC(Entity* parentEntity): IComponent(parentEntity)
 	{
 		name = "RenderableC";
+		mDirty = true; //renderables are always dirty
+		init();
 	}
 
 	ComponentType RenderableC::getType()

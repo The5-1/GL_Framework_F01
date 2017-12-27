@@ -71,7 +71,7 @@ namespace The5 {
 		/** get the component manager to create components*/
 		ComponentManager* getComponentManager();
 
-	private:
+	protected:
 		///friend classes
 		friend Scene;
 		///private Constructor
@@ -83,11 +83,9 @@ namespace The5 {
 		void updateSceneEntityTree();
 
 		///private Fields
-		/** bitmask updated when components are added */
-		ComponentBitmask componentBitmask;
 		/** dirty flag if entity or components have changed */
 		bool mDirty = true;
-		/** Bitmask signature of components on this Entity */
+		/** Bitmask signature of components on this Entity, updated when components are added or removed */
 		ComponentBitmask mComponentBitmask;
 		/** parent Appliaction */
 		Application* mApplication;

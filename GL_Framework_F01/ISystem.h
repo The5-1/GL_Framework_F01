@@ -6,18 +6,17 @@
 
 namespace The5 {
 
-	/** generic System Interface for checking bitmasks of Component groups on entities*/
+	/** System is everything not working on components*/
 	class ISystem
 	{
 	public:
-
 		///public Fields
 		/** User defined object name */
 		std::string name;
 
 		///Constructor / Destructor
 		/** Constructor */
-		//ISystem();
+		ISystem(Application* application);
 		/** Destructor */
 		//~ISystem();
 
@@ -25,8 +24,6 @@ namespace The5 {
 		/** documentation */
 
 		///Methods
-		/** check if the required bitmask of this system and the bitmask on the given entity are compatible */
-		bool checkComponentsCompatible(Entity* entity);
 
 	protected:
 		///friend classes
@@ -36,10 +33,8 @@ namespace The5 {
 		/** documentation */
 
 		///private Fields
-		/** pointer to parent Appliaction to access other Systems*/
+		/** appliation this system belongs to */
 		Application* mApplication;
-		/** relevant Bitmask bit for this system, identical mask is required on Entities*/
-		ComponentBitmask mRequiredBitmask;
 
 		///private Methods
 		/** documentation */

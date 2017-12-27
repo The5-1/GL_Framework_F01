@@ -49,20 +49,17 @@
     <Filter Include="Source Files\ECS">
       <UniqueIdentifier>{2132ea7d-3737-4609-b8d4-f07ec4ad8471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ECS\Components">
-      <UniqueIdentifier>{84b70f31-3e3e-45b1-951f-8a8b582a4edd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\ECS\Enitiy">
       <UniqueIdentifier>{acf44d07-2345-4aa7-861a-62d7e89c4cab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ECS\Moveable">
-      <UniqueIdentifier>{325adfba-5677-4a40-900d-97c65a9baae6}</UniqueIdentifier>
+    <Filter Include="Source Files\ECS\ComponentInterfaces">
+      <UniqueIdentifier>{84b70f31-3e3e-45b1-951f-8a8b582a4edd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ECS\Renderer">
-      <UniqueIdentifier>{8421fb34-5d63-45a5-aaf9-6b3739ec5ebd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ECS\System">
+    <Filter Include="Source Files\ECS\ComponentProcessors">
       <UniqueIdentifier>{4c832da3-2ec3-44a8-b230-384c5ad282b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ECS\Components">
+      <UniqueIdentifier>{c64dfd87-203e-4c9f-b777-ceaa29fa4ad7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -94,22 +91,13 @@
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="IComponent.cpp">
-      <Filter>Source Files\ECS\Components</Filter>
+      <Filter>Source Files\ECS\ComponentInterfaces</Filter>
     </ClCompile>
     <ClCompile Include="ComponentManager.cpp">
-      <Filter>Source Files\ECS\Components</Filter>
+      <Filter>Source Files\ECS\ComponentInterfaces</Filter>
     </ClCompile>
     <ClCompile Include="IComponentProcessor.cpp">
-      <Filter>Source Files\ECS\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="RendererCP.cpp">
-      <Filter>Source Files\ECS\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderableC.cpp">
-      <Filter>Source Files\ECS\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveableC.cpp">
-      <Filter>Source Files\ECS\Moveable</Filter>
+      <Filter>Source Files\ECS\ComponentInterfaces</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\ECS\Enitiy</Filter>
@@ -117,11 +105,20 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files\ECS\Enitiy</Filter>
     </ClCompile>
-    <ClCompile Include="ISystem.cpp">
-      <Filter>Source Files\ECS\System</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableC.cpp">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveableC.cpp">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RendererCP.cpp">
+      <Filter>Source Files\ECS\ComponentProcessors</Filter>
+    </ClCompile>
+    <ClCompile Include="ISystem.cpp">
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -210,7 +207,7 @@
       <Filter>Source Files\Helper</Filter>
     </ClInclude>
     <ClInclude Include="IComponent.h">
-      <Filter>Source Files\ECS\Components</Filter>
+      <Filter>Source Files\ECS\ComponentInterfaces</Filter>
     </ClInclude>
     <ClInclude Include="IManager.h">
       <Filter>Source Files\Managers</Filter>
@@ -219,19 +216,10 @@
       <Filter>Source Files\Helper</Filter>
     </ClInclude>
     <ClInclude Include="ComponentManager.h">
-      <Filter>Source Files\ECS\Components</Filter>
+      <Filter>Source Files\ECS\ComponentInterfaces</Filter>
     </ClInclude>
     <ClInclude Include="IComponentProcessor.h">
-      <Filter>Source Files\ECS\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderableC.h">
-      <Filter>Source Files\ECS\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="RendererCP.h">
-      <Filter>Source Files\ECS\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveableC.h">
-      <Filter>Source Files\ECS\Moveable</Filter>
+      <Filter>Source Files\ECS\ComponentInterfaces</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Source Files\ECS\Enitiy</Filter>
@@ -239,11 +227,20 @@
     <ClInclude Include="Scene.h">
       <Filter>Source Files\ECS\Enitiy</Filter>
     </ClInclude>
-    <ClInclude Include="ISystem.h">
-      <Filter>Source Files\ECS\System</Filter>
-    </ClInclude>
     <ClInclude Include="ComponentCommon.h">
+      <Filter>Source Files\ECS\ComponentInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableC.h">
       <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveableC.h">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererCP.h">
+      <Filter>Source Files\ECS\ComponentProcessors</Filter>
+    </ClInclude>
+    <ClInclude Include="ISystem.h">
+      <Filter>Source Files\Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

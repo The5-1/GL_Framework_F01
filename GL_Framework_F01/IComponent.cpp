@@ -10,7 +10,7 @@ namespace The5 {
 
 	IComponent::IComponent(Entity* entity) : mParentEntity(entity)
 	{
-		init();
+		/** !! init must not be called here but in the derived class!! */
 	}
 
 	Entity* IComponent::getEntity()
@@ -18,10 +18,12 @@ namespace The5 {
 		return mParentEntity;
 	}
 
+	/*
 	ComponentType IComponent::getType()
 	{
 		return ComponentType::none;
 	}
+	*/
 
 	//IComponentProcessor<IComponent*>* IComponent::getComponentProcessor()
 	//{

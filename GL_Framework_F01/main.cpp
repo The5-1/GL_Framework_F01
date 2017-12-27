@@ -43,15 +43,16 @@ int main(int argc, char *argv[])
 	Scene* mainScene = application->getScene();
 	Entity* root = mainScene->getRoot();
 	Entity* test01 = root->addChild("test01");
-	/*
-	test01->addComponent(ComponentType::RenderableType); //TODO: crashes
+	
+	test01->addComponent(ComponentType::RenderableType);
+	
 	Entity* test02 = root->addChild("test02");
 	Entity* test03 = test02->addChild("test03");
 
 	inputManager->changeContext(InputContext::inGame);
 
 	//LOG(application->getInfo());
-	*/
+	
 
 
 	//Model model = Model(file_model_nanosuit);

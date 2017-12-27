@@ -30,14 +30,14 @@ namespace The5 {
 
 	bool Entity::checkComponentBitmaskCompatible(ComponentBitmask mask)
 	{
-		return componentBitmask.isCompatible(mask);
+		return mComponentBitmask.isCompatible(mask);
 	}
 
 	IComponent* Entity::addComponent(ComponentType type)
 	{
 		IComponent* comp = getComponentManager()->createComponent(type,this);
 		mComponents.insert(std::make_pair(comp->getType(), IComponent_uptr(comp)));
-		componentBitmask.addComponentType(type);
+		mComponentBitmask.addComponentType(type);
 		return comp;
 	}
 
@@ -48,7 +48,7 @@ namespace The5 {
 
 	ComponentBitmask & const Entity::getComponentBitmask()
 	{
-		return componentBitmask;
+		return mComponentBitmask;
 	}
 
 	unsigned int Entity::getComponentCount()
@@ -59,7 +59,7 @@ namespace The5 {
 	void Entity::destroyComponent(ComponentType type)
 	{
 		this->mComponents.erase(type); //underlying component-object will be deleted by unique_ptr;
-		componentBitmask.removeComponentType(type);
+		mComponentBitmask.removeComponentType(type);
 	}
 
 	ComponentManager * Entity::getComponentManager()
