@@ -10,7 +10,7 @@
 
 namespace The5 {
 
-	Entity::Entity(std::string name, Entity* parent, Application* application) : name(name), mParent(parent), mApplication(application)
+	Entity::Entity(std::string name, Entity* parent, Application* application, Scene* scene) : name(name), mParent(parent), mApplication(application), mScene(scene)
 	{
 		transformation = glm::mat4(1.0f);
 
@@ -21,14 +21,14 @@ namespace The5 {
 
 	Entity* Entity::addChild(std::string name)
 	{
-		Entity* entity = new Entity(name, this, mApplication);
+		Entity* entity = new Entity(name, this, mApplication, mScene);
 		mChilds.push_back(Entity_uptr(entity));
 		return entity;
 	}
 
-	void Entity::addComponent(IComponent* component)
+	void Entity::addChild(Entity* entity)
 	{
-		this->mComponents.insert(std::make_pair(component->getType(),IComponent_uptr(component)));
+		mChilds.push_back(Entity_uptr(entity));
 	}
 
 	IComponent* Entity::addComponent(ComponentType type)
@@ -68,9 +68,9 @@ namespace The5 {
 		return this->mParent;
 	}
 
-	void Entity::addChild(Entity* entity)
+	std::vector<Entity_uptr> const & Entity::getChilds() const
 	{
-		mChilds.push_back(Entity_uptr(entity));
+		return mChilds;
 	}
 
 	Entity* Entity::getChild(unsigned int i)

@@ -13,6 +13,8 @@ namespace The5
 	///The Entity owns the Component
 	///A Component signs itself up with a Component Processor
 	//TODO: Problem: IComponentProcessor<Renderable> and IComponentProcessor<Moveable> have nothing in common and will just be 2 different classes after compile time
+	
+	//!!! when a std::vector<Base*> takes a vector to a pointer of base, maybe i need to do the same here???
 	template<typename T>
 	class IComponentProcessor
 	{
@@ -20,20 +22,20 @@ namespace The5
 
 		IComponentProcessor(Application* application) : mApplication(application) 
 		{		
-			mComponentPointers = std::vector<T*>();
+			//mComponentPointers = std::vector<T>();
 		}
 
-		T* IComponentProcessor<T>::getComponent(unsigned int i)
+		T getComponent(unsigned int i)
 		{
 			return mComponentPointers.at(i);
 		}
 
-		void registerComponentPointer(T* component)
+		void registerComponentPointer(T component)
 		{
 			mComponentPointers.push_back(component); //TODO this here crashes, implement IComponent::getComponentProcessor
 		}
 
-		void removeComponentPointer(T* component)
+		void removeComponentPointer(T component)
 		{
 			//https://en.wikipedia.org/wiki/Erase%E2%80%93remove_idiom
 			//https://stackoverflow.com/questions/39912/how-do-i-remove-an-item-from-a-stl-vector-with-a-certain-value
@@ -44,7 +46,7 @@ namespace The5
 
 		///The Entity owns the component! No unique_ptr here!
 		Application* mApplication;
-		std::vector<T*> mComponentPointers;
+		std::vector<T> mComponentPointers;
 	};
 }
 

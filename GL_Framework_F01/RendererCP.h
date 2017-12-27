@@ -11,7 +11,7 @@
 
 namespace The5 {
 
-	class RendererCP : public IComponentProcessor<RenderableC>
+	class RendererCP : public IComponentProcessor<RenderableC*>
 	{
 	public:
 

@@ -1,3 +1,4 @@
+#include "Logging.h"
 #include "IComponent.h"
 #include "IComponentProcessor.h"
 #include "ComponentManager.h"
@@ -22,31 +23,38 @@ namespace The5 {
 		return ComponentType::none;
 	}
 
-	IComponentProcessor<IComponent>* IComponent::getComponentProcessor()
-	{
-		return mApplication->getComponentManager()->getComponentProcessor(getType()); //TODO: implement
-	}
+	//IComponentProcessor<IComponent*>* IComponent::getComponentProcessor()
+	//{
+	//	return mApplication->getComponentManager()->getComponentProcessor(getType()); //TODO: implement
+	//}
 
 	void IComponent::init()
 	{
 		mApplication = mParentEntity->getApplication();
-		registerAtComponentProcessor();
+		initBitmask();
+		//registerAtComponentProcessor();
 	}
 
-	void IComponent::registerAtComponentProcessor()
-	{
-		getComponentProcessor()->registerComponentPointer(this);
-	}
-
-	void IComponent::removeFromComponentProcessor()
-	{
-		getComponentProcessor()->removeComponentPointer(this);
-	}
+	//void IComponent::registerAtComponentProcessor()
+	//{
+	//	getComponentProcessor()->registerComponentPointer(this);
+	//}
+	
+	//void IComponent::removeFromComponentProcessor()
+	//{
+	//	getComponentProcessor()->removeComponentPointer(this);
+	//}
 
 	void IComponent::destroy()
 	{
-		removeFromComponentProcessor();
+		//removeFromComponentProcessor();
 		//all owned entities destructors are called due to unique_ptr!
+	}
+
+	void IComponent::initBitmask()
+	{
+		mComponentBitmask |= getType();
+		LOG(mComponentBitmask.to_string());
 	}
 
 	IComponent::~IComponent()

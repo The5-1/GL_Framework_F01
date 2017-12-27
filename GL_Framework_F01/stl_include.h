@@ -7,11 +7,17 @@
 #include <iostream>
 
 //datastructures
-#include <map>
 #include <vector>
+#include <map>
+#include <deque> //queue with append and prepend functionality
 
-//smartpointers
-#include <memory> 
+
+#include <memory> //smartpointers
 
 //algorithms
 #include <algorithm> //std::remove
+
+#include <bitset> //for component bitmask
+
+#include <functional> //for std::function //should i want function pointers
+#include <iterator> //for implementing a custom iterator for Scene

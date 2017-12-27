@@ -30,7 +30,7 @@ namespace The5
 	}
 	
 	//TODO: Problem: Templates are differenc classes at runtime! IComponentProcessor<IComponent> got nothing to do with IComponentProcessor<RenderableC>
-	IComponentProcessor<IComponent>* ComponentManager::getComponentProcessor(ComponentType type)
+	IComponentProcessor<IComponent*>* ComponentManager::getComponentProcessor(ComponentType type)
 	{
 		switch (type) {
 		default:
@@ -39,7 +39,7 @@ namespace The5
 		}
 		case (ComponentType::RenderableType):
 		{
-			return (IComponentProcessor<IComponent>*)mRendererCP.get();
+			return (IComponentProcessor<IComponent*>*)mRendererCP.get();
 		}
 		case (ComponentType::MoveableType):
 			return nullptr;

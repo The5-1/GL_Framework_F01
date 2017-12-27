@@ -4,6 +4,7 @@
 #include "GL_include.h"
 
 #include "ForwardDeclarations.h"
+#include "ComponentCommon.h"
 #include "IComponent.h"
 
 
@@ -16,20 +17,22 @@ namespace The5 {
 	- fiddling with cache coherency and unloading comes WAY later
 	********************/
 	
+	/** Entity / Node of the SceneTree, holds Components */
 	class Entity
 	{
 	public:
-		friend Scene;
-
-		unsigned int ID; //
+		unsigned int ID;
 
 		std::string name; //some non-unique name	
 
 		mat4 transformation; //every entity exists in our scene, but must not be renderable (everything that does not is a global manager)
+		mat4 transformation_cached; //every entity exists in our scene, but must not be renderable (everything that does not is a global manager)
 
 		Entity* addChild(std::string name);
 		void addChild(Entity* entity);
+
 		Entity* getParent();
+		std::vector<Entity_uptr> const& getChilds() const; //https://stackoverflow.com/a/25507647
 		Entity* getChild(unsigned int i);
 		unsigned int getCildCount();
 
@@ -44,18 +47,29 @@ namespace The5 {
 		ComponentManager* getComponentManager();
 
 	private:
-		///A Scene may construct one root node, otherwise the constructor is private
-		Entity(std::string name, Entity* parent, Application* application);
+		///friend classes
+		friend Scene;
+		///private Constructor
+		/** A Scene may construct one root node, otherwise the constructor is private */
+		Entity(std::string name, Entity* parent, Application* application, Scene* Scene);
 
-		Entity* mParent;
-		std::vector<Entity_uptr> mChilds; //a entity owns its children, children are destroyed when parent is destroyed
-
-		std::map<ComponentType,IComponent_uptr> mComponents;
-		void addComponent(IComponent* component);
-
-
+		///private Fields
+		/** dirty flag if entity or components have changed */
+		bool mDirty = true;
+		/** Bitmask signature of components on this Entity */
+		ComponentBitmask mComponentBitmask;
+		/** parent Appliaction */
 		Application* mApplication;
+		/** Scene */
+		Scene* mScene;
+		/** parent Entity of this Entity */
+		Entity* mParent;
+		/** child Entities owned by this Entity */
+		std::vector<Entity_uptr> mChilds;
+		/** attached components */
+		std::map<ComponentType,IComponent_uptr> mComponents;
 
 	};
 
 }
+

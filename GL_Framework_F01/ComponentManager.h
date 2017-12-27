@@ -18,7 +18,7 @@ namespace The5
 
 		IComponent* createComponent(ComponentType type, Entity* entity); //
 
-		IComponentProcessor<IComponent>* getComponentProcessor(ComponentType type);
+		IComponentProcessor<IComponent*>* getComponentProcessor(ComponentType type);
 
 	private:
 

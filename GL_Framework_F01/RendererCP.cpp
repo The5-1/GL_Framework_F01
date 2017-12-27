@@ -4,7 +4,7 @@
 
 namespace The5 
 {
-	RendererCP::RendererCP(Application * application) : IComponentProcessor<RenderableC>(application)
+	RendererCP::RendererCP(Application * application) : IComponentProcessor<RenderableC*>(application)
 	{
 
 	}

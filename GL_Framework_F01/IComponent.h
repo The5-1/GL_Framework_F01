@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ForwardDeclarations.h"
+#include "ComponentCommon.h"
 #include "ComponentManager.h"
 
 namespace The5 {
@@ -10,35 +11,60 @@ namespace The5 {
 	//https://stackoverflow.com/questions/4030224/whats-the-use-of-the-derived-class-as-a-template-parameter
 	//this class accepts its own derivate as template parameter
 
+
+	/** generic Component Interface */
 	class IComponent
 	{
 	public:
-		friend ComponentManager;
 
-		std::string name; //TODO: use this if i need more than one component of a type
+		///public fields
+		/** User defined object name */
+		std::string name;
+		
+		///Constructor / Destructor
+		/** Destructor */
+		~IComponent();
 
-		///The corresponding Application is fetched from the entity
-		IComponent(Entity* parentEntity);
+		///Methods
 
+		///Getters / Setters
+		/** get the pointer to parent Entity */
 		Entity* getEntity();
+		/** get the Component type of this Component, implemented by derived classes */
 		virtual ComponentType getType();
 
-		virtual IComponentProcessor<IComponent>* getComponentProcessor();
-
-		~IComponent();
+		//virtual IComponentProcessor<IComponent*>* getComponentProcessor();
 
 	protected:
 
-		void init();
+		///friend classes
+		/** Entity may call a components constructor to create an component on itself */
+		friend class Entity;
 
-		void registerAtComponentProcessor();
-		void removeFromComponentProcessor();
+		///private Constructor
+		/** Constructor requires parent Entity */
+		IComponent(Entity* parentEntity);
 
-		void destroy();
-
-		Entity* mParentEntity;
+		///private Fields
+		/** pointer to parent Entity this Component resides on */
+		Entity* mParentEntity; 
+		/** pointer to parent Appliaction to access Systems, derived from mParentEntity */
 		Application* mApplication;
+		/** relevant bit for this component type */
+		ComponentBitmask mComponentBitmask;
+		/** Dirty flag if component settings have changed */
+		bool mDirty = true;
 
-		//IComponentProcessor* mProcessor; //static instead
+		///private methods
+		/** init the defaults */
+		void init();
+		/** cleanup for destruction */
+		void destroy();
+		/** inits this components bitmask once */
+		void initBitmask();
+
+
+		//void registerAtComponentProcessor();
+		//void removeFromComponentProcessor();
 	};
 }
