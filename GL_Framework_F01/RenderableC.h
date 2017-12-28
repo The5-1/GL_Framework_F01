@@ -13,7 +13,7 @@ namespace The5 {
 	class RenderableC: public IComponent
 	{
 	public:
-		friend ComponentManager;
+		friend ComponentFactory;
 
 		RenderableC(Entity* parentEntity);
 

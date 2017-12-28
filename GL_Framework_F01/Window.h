@@ -31,15 +31,18 @@ namespace The5
 		Window(Application* application, unsigned int width, unsigned int height, std::string title);
 		~Window();
 
-		void activate();
 		void setTitle(std::string title);
 		void resizeViewport(unsigned int width, unsigned int height);
+		bool checkWindowShouldClose();
 
 		Application* getApplication();
 		InputManager* getInputManager();
 	private:
 		friend Application;
 
+		void activate();
+		void preUpdate();
+		void postUpdate();
 		void runGameLoop();
 		void terminate();
 

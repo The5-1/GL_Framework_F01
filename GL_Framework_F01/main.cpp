@@ -59,8 +59,9 @@ int main(int argc, char *argv[])
 	Entity* BAA = mainScene->addChild(BA, "BAA");
 	Entity* BAB = mainScene->addChild(BA, "BAB");
 
+	root->addComponent(ComponentType::RenderableType);
 	B->addComponent(ComponentType::RenderableType);
-	B->addComponent(ComponentType::RenderableType);
+	BAB->addComponent(ComponentType::RenderableType);
 
 	LOG(mainScene->printTree(true));
 	LOG(mainScene->getRoot()->name);

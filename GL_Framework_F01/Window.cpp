@@ -63,15 +63,6 @@ namespace The5
 		initInputManager();
 	}
 	
-	void Window::activate()
-	{
-		glfwMakeContextCurrent(getGLFWwindow()); //set the GL context to this window
-		glfwSwapInterval(vSyncIntervall); // Enable vsync for the current context
-
-		registerGLFWCallbacks();
-
-	}
-
 	void Window::registerGLFWCallbacks()
 	{
 		//********************* Static Callback Funcionts ***********************************//
@@ -138,6 +129,36 @@ namespace The5
 		glfwSetWindowTitle(getGLFWwindow(), titlestream.str().c_str());
 	}
 
+	void Window::activate()
+	{
+		glfwMakeContextCurrent(getGLFWwindow()); //set the GL context to this window
+		glfwSwapInterval(vSyncIntervall); // Enable vsync for the current context
+
+		registerGLFWCallbacks();
+
+	}
+
+	bool Window::checkWindowShouldClose()
+	{
+		return glfwWindowShouldClose(getGLFWwindow());
+	}
+
+	void Window::preUpdate()
+	{
+		updateFrameTime();
+		updateWindowTitleInfo();
+
+		glClearColor(0.05f, 0.1f, 0.15f, 0.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+	}
+
+	void Window::postUpdate()
+	{
+		glfwSwapBuffers(getGLFWwindow());
+		//Event processing must be done regularly while you have any windows and is normally done each frame after buffer swapping.
+		//http://www.glfw.org/docs/latest/input_guide.html#events
+		glfwPollEvents();
+	}
 
 	void Window::runGameLoop()
 	{
@@ -195,6 +216,8 @@ namespace The5
 		this->height = height;
 		this->width = width;
 	}
+
+
 
 
 	Window::~Window()

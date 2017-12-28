@@ -1,9 +1,10 @@
-#include "RenderableC.h"
 #include "Logging.h"
-#include "RendererCP.h"
-#include "Entity.h"
+
 #include "IComponent.h"
+#include "RendererCP.h"
 #include "RenderableC.h"
+#include "Entity.h"
+
 
 namespace The5 
 {
@@ -19,23 +20,22 @@ namespace The5
 		return mask;
 	}
 
-	void RendererCP::processEntity(Entity * entity)
+	void RendererCP::doProcessing(Entity * entity)
 	{
-		if (checkComponentsCompatible(entity))
-		{
-			//casts into a sub-class must be explicit -> "downcast", upcasts are implicit
-			RenderableC* renderable = (RenderableC*)(entity->getComponent(ComponentType::RenderableType));
-			draw(renderable);
-		}
+		if (entity->getComponent(ComponentType::RenderableType) == nullptr) return;
+		RenderableC* renderable = (RenderableC*)(entity->getComponent(ComponentType::RenderableType));
+		draw(renderable, entity);
 	}
 
+	/*
 	void RendererCP::processScene(Scene * scene)
 	{
 		//for each entity in scene processEntity(e);
 	}
+	*/
 
-	void RendererCP::draw(RenderableC * renderableC)
+	void RendererCP::draw(RenderableC * renderableC, Entity* entity)
 	{
-
+		LOG("Rendering Entity \"" << entity->name << "\"");
 	}
 }

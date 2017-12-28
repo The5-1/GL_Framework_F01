@@ -70,8 +70,8 @@ namespace The5
 	//using std::unique_ptr<tree<Entity_uptr>> SceneTree_uptr;
 
 	//Component
-	class ComponentManager;
-	using ComponentManager_uptr = std::unique_ptr<The5::ComponentManager>;
+	class ComponentFactory;
+	using ComponentFactory_uptr = std::unique_ptr<The5::ComponentFactory>;
 
 	class IComponentProcessor;
 	using IComponentProcessor_uptr = std::unique_ptr<The5::IComponentProcessor>;
@@ -97,13 +97,12 @@ namespace The5
 	/** enum to get Component Type at runtime */
 	enum ComponentType { none = 0, RenderableType = 1, MoveableType = 2 };
 
-	/** enum to string for Component Types */
-	/*
-	std::map<ComponentType, std::string> ComponentTypeString = {
-		std::make_pair(ComponentType::RenderableType, "Renderable"),
-		std::make_pair(ComponentType::MoveableType, "Moveable"),
+	/** enum to string for Component Types */	
+	const std::map<ComponentType, std::string> ComponentTypeString {
+		std::make_pair(ComponentType::RenderableType, "RenderableType"),
+		std::make_pair(ComponentType::MoveableType, "MoveableType"),
 	};
-	*/
+	
 
 	/** Bitmask that holds what component types are present/required for fast checking, based on std::bitmask */
 	class ComponentBitmask
@@ -136,10 +135,14 @@ namespace The5
 		}
 
 		/** check if this maks has all its bits represented in the other */
-		bool isCompatible(const ComponentBitmask& other)
+		bool isCompatible(const ComponentBitmask& required)
 		{
+			//this = the mask on the entity!
 			//if( (0110 AND 0111) == 0110)
-			return ((this->mask & other.mask) == this->mask);
+			bool b = ((required.mask & this->mask) == required.mask);
+			//std::cout <<(this->mask).to_string() << " & " << (required.mask).to_string() << "--->"  << b << std::endl;
+			//return false;
+			return ((this->mask & required.mask) == this->mask);
 		}
 
 		/** create a bitset with only the given ComponentTypes bit set [static] */

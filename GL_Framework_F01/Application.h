@@ -19,6 +19,7 @@ namespace The5 {
 		std::string name;
 
 		void startGameLoop();
+
 		void terminate();
 
 		//private member accessor functions
@@ -32,11 +33,12 @@ namespace The5 {
 
 		std::string getInfo();
 
-		ComponentManager* getComponentManager();
+		ComponentFactory* getComponentManager();
 
 	private:
 		//state
 		bool gameLoopRunning = false;
+		void runGameLoop();
 
 		//owned Objects
 		std::vector<Window_uptr> mWindows;
@@ -48,12 +50,21 @@ namespace The5 {
 		bool checkWindowExists();
 
 		//Managers
-		ComponentManager_uptr mComponentManager = nullptr;
-		void createComponentManager();
+		ComponentFactory_uptr mComponentFactory = nullptr;
+		void createComponentFactory();
 
 		AssetManager_uptr mAssetManager = nullptr;
 		//void createAssetManager();
 
+		//Component Processors
+		/** creates all Component Processors */
+		void initComponentProcessors();
+		/** rund all Component Processors */
+		void runComponentProcessors();
+		/** stores owned ComponentProcessors (NO std::set since there can be different processors working on the same components!)*/
+		std::vector<IComponentProcessor_uptr> mComponentProcessors;
+		/** raw pointer to Rendnerer in mComponentProcessors */
+		RendererCP* mRenderer = nullptr;
 
 	};
 

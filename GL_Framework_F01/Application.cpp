@@ -8,7 +8,7 @@
 #include "AssetManager.h"
 #include "InputManager.h"
 #include "Entity.h"
-#include "ComponentManager.h"
+#include "ComponentFactory.h"
 
 
 namespace The5 {
@@ -37,11 +37,28 @@ namespace The5 {
 		std::string scenetitle = title;
 		scenetitle += "_scene";
 		addScene(scenetitle);
+
+		initComponentProcessors();
 	}
 	
-	void Application::createComponentManager()
+	void Application::createComponentFactory()
 	{
-		this->mComponentManager = ComponentManager_uptr(new ComponentManager(this));
+		this->mComponentFactory = ComponentFactory_uptr(new ComponentFactory(this));
+	}
+
+	void Application::initComponentProcessors()
+	{
+		mRenderer = new RendererCP(this);
+		mComponentProcessors.push_back(RendererCP_uptr(mRenderer));
+	}
+
+	void Application::runComponentProcessors()
+	{
+		for (unsigned int i = 0; i < mComponentProcessors.size(); i++)
+		{
+			mComponentProcessors.at(i).get()->processScene(getScene(0));
+		}
+
 	}
 
 
@@ -74,7 +91,21 @@ namespace The5 {
 		if (!checkWindowExists()) return;
 
 		gameLoopRunning = true;
-		getWindow()->runGameLoop();
+		//getWindow()->runGameLoop();
+		runGameLoop();
+	}
+
+	void Application::runGameLoop()
+	{
+		Window * window = getWindow();
+		while (gameLoopRunning && !window->checkWindowShouldClose())
+		{
+			window->preUpdate();
+
+			runComponentProcessors();
+
+			window->postUpdate();
+		}
 	}
 
 	void Application::terminate()
@@ -98,9 +129,9 @@ namespace The5 {
 		return mAssetManager.get();
 	}
 
-	ComponentManager * Application::getComponentManager()
+	ComponentFactory * Application::getComponentManager()
 	{
-		return mComponentManager.get();
+		return mComponentFactory.get();
 	}
 
 	Application::~Application()

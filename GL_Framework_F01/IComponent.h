@@ -2,7 +2,7 @@
 
 #include "ForwardDeclarations.h"
 #include "ComponentCommon.h"
-#include "ComponentManager.h"
+#include "ComponentFactory.h"
 
 namespace The5 {
 

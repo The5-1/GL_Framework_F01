@@ -25,7 +25,7 @@ namespace The5 {
 				case GL_INVALID_FRAMEBUFFER_OPERATION: error = "INVALID_FRAMEBUFFER_OPERATION"; break;
 				}
 				//std::cerr << "GL CheckError:\t" << error << "\n\tFile: " << __FILE__ << "\n\tFuncion \"" << __func__ << "\" in Line " << __LINE__ << std::endl;
-				ERR("GL_checkError:\n" << error);
+				ERR_GL("GL_checkError:\n" << error);
 			}
 			return errorCode;
 		}
@@ -83,7 +83,7 @@ namespace The5 {
 
 			errormessage += "\n\t";
 
-			LOG("GL_DEBUG_OUTPUT ID: " << id << "\n\t"<< message << "\n" << errormessage);
+			ERR_GL("GL_DEBUG_OUTPUT ID: " << id << "\n\t"<< message << "\n" << errormessage);
 		}
 
 		void gl_initDebugContext()
@@ -104,7 +104,7 @@ namespace The5 {
 
 		static void glfw_error_callback(int error, const char* description)
 		{
-			ERR("GLFW Error: " << error << " Desc: " << description);
+			ERR_GL("GLFW Error: " << error << " Desc: " << description);
 		}
 
 

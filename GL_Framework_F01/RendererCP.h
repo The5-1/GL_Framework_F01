@@ -10,15 +10,12 @@ namespace The5 {
 	public:
 		RendererCP(Application* application);
 
-		void processEntity(Entity* entity) override;
-
-		void processScene(Scene* scene) override;
-
-		void draw(RenderableC* renderableC);
-
 	private:
 		ComponentBitmask initRequiredComponentBitmask() override;
+		
+		void doProcessing(Entity* entity) override;
 
+		void draw(RenderableC* renderableC, Entity* entity);
 	};
 
 }

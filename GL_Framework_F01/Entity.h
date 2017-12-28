@@ -62,7 +62,7 @@ namespace The5 {
 		/** get parent application (to traverse to other systems from there on*/
 		Application* getApplication();
 		/** get the component manager to create components*/
-		ComponentManager* getComponentManager();
+		ComponentFactory* getComponentManager();
 
 	protected:
 		///friend classes

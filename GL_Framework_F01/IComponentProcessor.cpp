@@ -1,6 +1,7 @@
 #include "IComponentProcessor.h"
 #include "IComponent.h"
 #include "Entity.h"
+#include "Scene.h"
 
 namespace The5
 {
@@ -12,6 +13,22 @@ namespace The5
 	bool IComponentProcessor::checkComponentsCompatible(Entity * entity)
 	{
 		return entity->checkComponentBitmaskCompatible(this->mRequiredComponentBitmask);
+	}
+
+	void IComponentProcessor::processEntity(Entity * entity)
+	{
+		if (checkComponentsCompatible(entity)) doProcessing(entity);
+	}
+
+	void IComponentProcessor::processScene(Scene * scene)
+	{
+		SceneTree* sceneTree = scene->getSceneTree();
+
+		for (SceneTree::iterator it = sceneTree->begin(); it != sceneTree->end(); ++it)
+		{
+			Entity* e = it.node->data;
+			processEntity(e);
+		}
 	}
 
 	/*

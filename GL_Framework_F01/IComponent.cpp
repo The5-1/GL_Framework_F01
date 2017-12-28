@@ -1,7 +1,7 @@
 #include "Logging.h"
 #include "IComponent.h"
 #include "IComponentProcessor.h"
-#include "ComponentManager.h"
+#include "ComponentFactory.h"
 
 #include "Entity.h"
 #include "Application.h"

@@ -6,7 +6,7 @@
 #include "Scene.h"
 #include "IComponent.h"
 #include "Application.h"
-#include "ComponentManager.h"
+#include "ComponentFactory.h"
 
 
 namespace The5 {
@@ -32,13 +32,14 @@ namespace The5 {
 	{
 		IComponent* comp = getComponentManager()->createComponent(type,this);
 		auto success = getComponents()->insert(std::make_pair(comp->getType(), IComponent_uptr(comp)));
-		if (success.second == false) ERR("Tried to add a component already present on " << this->name);
+		if (success.second == false) ERR("Tried to add a component \"" << ComponentTypeString.at(type) << "\" already present on Entity \"" << this->name << "\"");
 		mComponentBitmask.addComponentType(type);
 		return comp;
 	}
 
 	IComponent* Entity::getComponent(ComponentType type)
 	{
+		if (getComponents()->size() < 1) return nullptr;
 		return getComponents()->at(type).get();
 	}
 
@@ -58,7 +59,7 @@ namespace The5 {
 		mComponentBitmask.removeComponentType(type);
 	}
 
-	ComponentManager * Entity::getComponentManager()
+	ComponentFactory * Entity::getComponentManager()
 	{
 		return mApplication->getComponentManager();
 	}

@@ -7,7 +7,7 @@
 namespace The5
 {
 	/** factory for components, managing where applicable */
-	class ComponentManager
+	class ComponentFactory
 	{
 	protected:
 		friend Application;
@@ -18,7 +18,7 @@ namespace The5
 		IComponent* createComponent(ComponentType type, Entity* entity);
 
 		/** private constructor*/
-		ComponentManager(Application* application);
+		ComponentFactory(Application* application);
 
 		/** pointer to parent appliaction to get other systems from*/
 		Application* mApplication;

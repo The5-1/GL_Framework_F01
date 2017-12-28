@@ -1,4 +1,4 @@
-#include "ComponentManager.h"
+#include "ComponentFactory.h"
 
 #include "RenderableC.h"
 
@@ -7,12 +7,12 @@
 
 namespace The5
 {
-	ComponentManager::ComponentManager(Application * application) : mApplication(application)
+	ComponentFactory::ComponentFactory(Application * application) : mApplication(application)
 	{
 
 	}
 
-	IComponent* The5::ComponentManager::createComponent(ComponentType type, Entity* entity)
+	IComponent* The5::ComponentFactory::createComponent(ComponentType type, Entity* entity)
 	{
 		switch (type) {
 		default:
@@ -32,7 +32,7 @@ namespace The5
 	
 	/*
 	//TODO: Problem: Templates are differenc classes at runtime! IComponentProcessor<IComponent> got nothing to do with IComponentProcessor<RenderableC>
-	IComponentProcessor<IComponent*>* ComponentManager::getComponentProcessor(ComponentType type)
+	IComponentProcessor<IComponent*>* ComponentFactory::getComponentProcessor(ComponentType type)
 	{
 		switch (type) {
 		default:
