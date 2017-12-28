@@ -175,6 +175,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stl_include.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="tree_include.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

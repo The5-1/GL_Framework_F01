@@ -8,7 +8,12 @@ namespace The5 {
 
 	enum SceneTraversal { Depth = 1, Breadth = 2 };
 
-	/** Tree structure with root Entity */
+	//Iterate over sets of unique_ptr -> double dereference
+	//https://stackoverflow.com/questions/8237502/iterating-over-a-container-of-unique-ptrs
+	//using std::find_if on a set of unique_ptr
+	//https://stackoverflow.com/questions/16767623/searching-a-set-of-unique-pointers
+
+	/** Tree structure using tree.hh library */
 	class Scene
 	{
 	public:
@@ -20,7 +25,19 @@ namespace The5 {
 		/** Constructor requires pointer to parent application */
 		Scene(std::string name, Application* application);
 
+		///Methods	
+		Entity* addChild(Entity* entity);
+		void removeChild(Entity* entity);
+		Entity* getParent(Entity* entity);
+		SceneTree::iterator getEntityIterator(Entity* entity);
+
+		SceneTree::iterator findEntity(Entity* entity);
+		Entity* getIteratorEntity(SceneTree::iterator iter);
+
 		///Getter / Setter
+		/** get pointer to SceneTree */
+		SceneTree* getSceneTree();
+
 		/** get pointer to root Entity */
 		Entity* getRoot();
 		/** get pointer to owning Appliaction */
@@ -73,11 +90,16 @@ namespace The5 {
 
 	private:
 		friend Entity;
+
 		///private Fields
-		/** fixed root entity */
-		Entity_uptr mRoot;
-		/** a separate root for purely static entities */
-		Entity_uptr mRootStatic;
+		/** Tree Structure from tree.hh*/
+		SceneTree_uptr mSceneTree;
+		/** shortcut to root entity */
+		SceneTree::iterator mRoot;
+		/** TODO: possibly provide a separate root for different types of entities*/
+		SceneTree::iterator mRootDynamic;
+		SceneTree::iterator mRootStatic;
+		SceneTree::iterator mRootManagers;
 		/** pointer to this Scenes the owning application */
 		Application* mApplication;
 		/** Breadth or Depth first traversal */
@@ -88,9 +110,6 @@ namespace The5 {
 		///private methods
 		/** init the defaults */
 		void init(std::string name);
-		/** update the flat list */
-		void updateEntityList();
-
 
 	};
 }

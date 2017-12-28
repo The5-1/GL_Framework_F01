@@ -11,21 +11,16 @@
 
 namespace The5 {
 
-	Entity::Entity(std::string name, Entity* parent, Application* application, Scene* scene) : name(name), mParent(parent), mApplication(application), mScene(scene)
+	Entity::Entity(std::string name, Application* application, Scene* scene) : name(name), mApplication(application), mScene(scene)
 	{
 		transformation = glm::mat4(1.0f);
 
-		parent = nullptr;
-		mComponents = std::map<ComponentType, IComponent_uptr>();
-		mChilds = std::vector<Entity_uptr>();
+		mComponents = std::unique_ptr<std::map<ComponentType, IComponent_uptr>>(new std::map<ComponentType, IComponent_uptr>());
 	}
 
-	Entity* Entity::addChild(std::string name)
+	std::map<ComponentType, IComponent_uptr>* Entity::getComponents()
 	{
-		Entity* entity = new Entity(name, this, mApplication, mScene);
-		mChilds.push_back(Entity_uptr(entity));
-		updateSceneEntityTree();
-		return entity;
+		return mComponents.get();
 	}
 
 	bool Entity::checkComponentBitmaskCompatible(ComponentBitmask mask)
@@ -36,14 +31,14 @@ namespace The5 {
 	IComponent* Entity::addComponent(ComponentType type)
 	{
 		IComponent* comp = getComponentManager()->createComponent(type,this);
-		mComponents.insert(std::make_pair(comp->getType(), IComponent_uptr(comp)));
+		getComponents()->insert(std::make_pair(comp->getType(), IComponent_uptr(comp)));
 		mComponentBitmask.addComponentType(type);
 		return comp;
 	}
 
 	IComponent* Entity::getComponent(ComponentType type)
 	{
-		return this->mComponents.at(type).get();
+		return getComponents()->at(type).get();
 	}
 
 	ComponentBitmask & const Entity::getComponentBitmask()
@@ -53,12 +48,12 @@ namespace The5 {
 
 	unsigned int Entity::getComponentCount()
 	{
-		return this->mComponents.size();
+		return getComponents()->size();
 	}
 
 	void Entity::destroyComponent(ComponentType type)
 	{
-		this->mComponents.erase(type); //underlying component-object will be deleted by unique_ptr;
+		getComponents()->erase(type); //underlying component-object will be deleted by unique_ptr;
 		mComponentBitmask.removeComponentType(type);
 	}
 
@@ -67,14 +62,20 @@ namespace The5 {
 		return mApplication->getComponentManager();
 	}
 
-	void Entity::updateSceneEntityTree()
-	{
-		mScene->updateEntityList();
-	}
-
 	Application * Entity::getApplication()
 	{
 		return mApplication;
+	}
+
+
+
+	
+}
+
+/*
+	void Entity::updateSceneEntityTree()
+	{
+		mScene->updateEntityList();
 	}
 
 	Entity::~Entity()
@@ -82,9 +83,18 @@ namespace The5 {
 		updateSceneEntityTree();
 	}
 
+
 	Entity* Entity::getParent()
 	{
 		return this->mParent;
+	}
+
+	Entity* Entity::addChild(std::string name)
+	{
+	Entity* entity = new Entity(name, this, mApplication, mScene);
+	mChilds.push_back(Entity_uptr(entity));
+	updateSceneEntityTree();
+	return entity;
 	}
 
 	std::vector<Entity_uptr> const & Entity::getChilds() const
@@ -112,12 +122,12 @@ namespace The5 {
 			info += std::to_string(e->getComponentCount()) + " [Components]";
 			info += "\n";
 			
-			/*
-			for (auto const& c : e->mComponents)
-			{
-				info += std::string(indent+1, ' ') + static_cast<IComponent>(c);
-			}
-			*/
+			
+			//for (auto const& c : e->mComponents)
+			//{
+			//	info += std::string(indent+1, ' ') + static_cast<IComponent>(c);
+			//}
+			
 
 			for (unsigned int i = 0; i < e->getCildCount(); i++)
 			{
@@ -128,6 +138,4 @@ namespace The5 {
 			return info;
 		}
 	}
-
-
-}
+*/

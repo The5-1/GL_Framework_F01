@@ -98,23 +98,6 @@ namespace The5 {
 		return mAssetManager.get();
 	}
 
-	std::string Application::getInfo()
-	{
-		std::string info = "";
-		info += "Application: " + this->name + "\n";
-
-		info += " Scenes:\n";
-		for (auto& s : mScenes)
-		{
-			info += "  " + s.get()->name + "[Scene] \n";
-			int indent = 3;
-			info += Entity::getEntityInfo(s->getRoot(), indent);
-			info += "\n";
-		}
-
-		return info;
-	}
-
 	ComponentManager * Application::getComponentManager()
 	{
 		return mComponentManager.get();
@@ -127,15 +110,36 @@ namespace The5 {
 		glfwTerminate();
 	}
 
-	/*
-	bool Application::checkInputManagerExists()
-	{
-		if (this->inputManager() == nullptr)
-		{
-			ERR("Application inputManager is NULL! Make sure Application::initInputManager() was called!");
-			return false;
-		}
-		else return true;
-	}
-	*/
+
 }
+
+
+/*
+std::string Application::getInfo()
+{
+std::string info = "";
+info += "Application: " + this->name + "\n";
+
+info += " Scenes:\n";
+for (auto& s : mScenes)
+{
+info += "  " + s.get()->name + "[Scene] \n";
+int indent = 3;
+info += Entity::getEntityInfo(s->getRoot(), indent);
+info += "\n";
+}
+
+return info;
+}
+
+
+bool Application::checkInputManagerExists()
+{
+if (this->inputManager() == nullptr)
+{
+ERR("Application inputManager is NULL! Make sure Application::initInputManager() was called!");
+return false;
+}
+else return true;
+}
+*/

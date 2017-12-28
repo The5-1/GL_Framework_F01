@@ -6,85 +6,90 @@
 #include <bitset>
 #include <glm/glm.hpp>
 
+#include "tree_include.h"
+
 struct GLFWwindow;
 
 namespace The5
 {
 	//OpenGL & Rendering
-	typedef glm::mat3 mat3;
-	typedef glm::mat4 mat4;
+	using mat3 = glm::mat3;
+	using mat4 = glm::mat4;
 
-	typedef glm::vec3 vec3;
-	typedef glm::vec2 vec2;
-	typedef unsigned int index;
+	using vec3 = glm::vec3;
+	using vec2 = glm::vec2;
+	using index = unsigned int;
 
-	typedef std::vector<The5::vec3> vec3List;
-	typedef std::vector<The5::vec2> vec2List;
-	typedef std::vector<The5::index> indexList;
+	using vec3List = std::vector<The5::vec3>;
+	using vec2List = std::vector<The5::vec2>;
+	using indexList = std::vector<The5::index>;
 
 	struct Vertex;
-	typedef std::vector<The5::Vertex> vertexList;
+	using vertexList = std::vector<The5::Vertex>;
 
 	class Mesh;
-	typedef std::unique_ptr<The5::Mesh> Mesh_uptr;
+	using Mesh_uptr = std::unique_ptr<The5::Mesh>;
 
 	class Texture;
-	typedef std::unique_ptr<The5::Texture> Texture_uptr;
+	using Texture_uptr = std::unique_ptr<The5::Texture>;
 
 	class Shader;
-	typedef std::unique_ptr<The5::Shader> Shader_uptr;
+	using Shader_uptr = std::unique_ptr<The5::Shader>;
 
 	class Material;
-	typedef std::unique_ptr<The5::Material> Material_uptr;
+	using Material_uptr = std::unique_ptr<The5::Material>;
 
 
 	//Main Application & Managers
 	class Application;
-	typedef std::unique_ptr<The5::Application> Application_uptr;
+	using Application_uptr = std::unique_ptr<The5::Application>;
 
 	class Window;
-	typedef std::unique_ptr<The5::Window> Window_uptr;
+	using Window_uptr = std::unique_ptr<The5::Window>;
 
 	class InputManager;
-	typedef std::unique_ptr<The5::InputManager> InputManager_uptr;
+	using InputManager_uptr = std::unique_ptr<The5::InputManager>;
 
 	class AssetManager;
-	typedef std::unique_ptr<The5::AssetManager> AssetManager_uptr;
+	using AssetManager_uptr = std::unique_ptr<The5::AssetManager>;
 
 
 	//Entities
 	class Scene;
-	typedef std::unique_ptr<The5::Scene> Scene_uptr;
+	using Scene_uptr = std::unique_ptr<The5::Scene>;
 
 	class Entity;
-	typedef std::unique_ptr<The5::Entity> Entity_uptr;
+	using Entity_uptr = std::unique_ptr<The5::Entity>;
+
+	//using SceneTree = Tree::tree<Entity_uptr>;
+	using SceneTree = Tree::tree<Entity*>;
+	using SceneTree_uptr = std::unique_ptr<SceneTree>;
+
+	//template <typename T> class tree;
+	//using tree<Entity_uptr> SceneTree;
+	//using std::unique_ptr<tree<Entity_uptr>> SceneTree_uptr;
 
 	//Component
 	class ComponentManager;
-	typedef std::unique_ptr<The5::ComponentManager> ComponentManager_uptr;
+	using ComponentManager_uptr = std::unique_ptr<The5::ComponentManager>;
 
-	//template<typename T> class IComponentProcessor;
 	class IComponentProcessor;
-	typedef std::unique_ptr<The5::IComponentProcessor> IComponentProcessor_uptr;
+	using IComponentProcessor_uptr = std::unique_ptr<The5::IComponentProcessor>;
 
 	class IComponent;
-	typedef std::unique_ptr<The5::IComponent> IComponent_uptr;
-	//template<typename T> class IComponent;
+	using IComponent_uptr = std::unique_ptr<The5::IComponent>;
 
 	class RendererCP;
-	typedef std::unique_ptr<The5::RendererCP> RendererCP_uptr;
+	using RendererCP_uptr = std::unique_ptr<The5::RendererCP>;
 	
 	class RenderableC;
-	typedef std::unique_ptr<The5::RenderableC> RenderableC_uptr;
+	using RenderableC_uptr = std::unique_ptr<The5::RenderableC>;
 
 	class MoveableC;
-	typedef std::unique_ptr<The5::MoveableC> MoveableC_uptr;
+	using MoveableC_uptr = std::unique_ptr<The5::MoveableC>;
 
 	class MoveableCP;
-	typedef std::unique_ptr<The5::MoveableCP> MoveableCP_uptr;
-
-
-
+	using MoveableCP_uptr = std::unique_ptr<The5::MoveableCP>;
 
 	/** total number of component types derived from IComonent*/
 	const unsigned int COMPONENT_NUMBER = 2;

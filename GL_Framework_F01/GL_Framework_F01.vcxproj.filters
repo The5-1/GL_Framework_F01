@@ -61,6 +61,9 @@
     <Filter Include="Source Files\ECS\Components">
       <UniqueIdentifier>{c64dfd87-203e-4c9f-b777-ceaa29fa4ad7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Tree">
+      <UniqueIdentifier>{971488ff-b7b4-4fc8-acae-8425d7041050}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Libraries\src\glad.c">
@@ -241,6 +244,9 @@
     </ClInclude>
     <ClInclude Include="ISystem.h">
       <Filter>Source Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="tree_include.h">
+      <Filter>Source Files\Tree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

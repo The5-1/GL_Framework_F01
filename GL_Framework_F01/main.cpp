@@ -40,7 +40,9 @@ int main(int argc, char *argv[])
 	Window* mainWindow = application->getWindow();
 	InputManager* inputManager = mainWindow->getInputManager();
 	
+
 	Scene* mainScene = application->getScene();
+	/*
 	Entity* root = mainScene->getRoot();
 	Entity* test01 = root->addChild("test01");
 	
@@ -50,8 +52,9 @@ int main(int argc, char *argv[])
 	Entity* test03 = test02->addChild("test03");
 
 	inputManager->changeContext(InputContext::inGame);
-
+	
 	//LOG(application->getInfo());
+	*/
 	
 
 
