@@ -8,7 +8,7 @@
 
 namespace The5 
 {
-	RendererCP::RendererCP(Application * application) : IComponentProcessor(application, initRequiredComponentBitmask())
+	RendererCP::RendererCP(Application * application) : IComponentProcessor(application, initRequiredComponentBitmask(), 0.0)
 	{
 
 	}
@@ -20,11 +20,11 @@ namespace The5
 		return mask;
 	}
 
-	void RendererCP::doProcessing(Entity * entity)
+	void RendererCP::doProcessing(Entity * entity, double deltaTime)
 	{
 		if (entity->getComponent(ComponentType::RenderableType) == nullptr) return;
 		RenderableC* renderable = (RenderableC*)(entity->getComponent(ComponentType::RenderableType));
-		draw(renderable, entity);
+		draw(renderable, entity, deltaTime);
 	}
 
 	/*
@@ -34,8 +34,9 @@ namespace The5
 	}
 	*/
 
-	void RendererCP::draw(RenderableC * renderableC, Entity* entity)
+	void RendererCP::draw(RenderableC * renderableC, Entity* entity, double deltaTime)
 	{
-		LOG("Rendering Entity \"" << entity->name << "\"");
+		renderableC->draw(deltaTime);
+		//LOG("Rendering Entity \"" << entity->name << "\"");
 	}
 }

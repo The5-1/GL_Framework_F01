@@ -10,17 +10,20 @@ namespace The5 {
 	{
 	public:
 		unsigned int ID;
+		std::string name;
 
-		Shader(std::string vertexPath, std::string fragmentPath)
+		Shader(std::string name, std::string vertexPath, std::string fragmentPath) : name(name)
 		{
 			// 1. retrieve the vertex/fragment source code from filePath
 			std::string vertexCode;
 			std::string fragmentCode;
 			std::ifstream vShaderFile;
 			std::ifstream fShaderFile;
+
 			// ensure ifstream objects can throw exceptions:
 			vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 			fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
 			try
 			{
 				// open files
@@ -39,8 +42,8 @@ namespace The5 {
 			}
 			catch (std::ifstream::failure e)
 			{
-				ERR("Failed to open Vertex Shader Files from:" << vertexPath);
-				ERR("Failed to open Fragment Shader Files from:" << fragmentPath);
+				ERR_GL("Failed to open Vertex Shader Files from:" << vertexPath);
+				ERR_GL("Failed to open Fragment Shader Files from:" << fragmentPath);
 			}
 			const char* vShaderCode = vertexCode.c_str();
 			const char * fShaderCode = fragmentCode.c_str();
@@ -148,7 +151,7 @@ namespace The5 {
 				{
 					glGetShaderInfoLog(shader, 1024, NULL, infoLog);
 					//std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
-					ERR("SHADER_COMPILATION_ERROR of type : " << type << "\n" << infoLog << "\n");
+					ERR_GL("SHADER_COMPILATION_ERROR of type : " << type << "\n" << infoLog << "\n");
 				}
 			}
 			else
@@ -158,7 +161,7 @@ namespace The5 {
 				{
 					glGetProgramInfoLog(shader, 1024, NULL, infoLog);
 					//std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
-					ERR("PROGRAM_LINKING_ERROR of type : " << type << "\n" << infoLog << "\n");
+					ERR_GL("PROGRAM_LINKING_ERROR of type : " << type << "\n" << infoLog << "\n");
 				}
 			}
 		}

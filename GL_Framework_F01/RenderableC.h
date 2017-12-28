@@ -13,21 +13,21 @@ namespace The5 {
 	class RenderableC: public IComponent
 	{
 	public:
-		friend ComponentFactory;
-
-		RenderableC(Entity* parentEntity);
-
-		ComponentType getType();
-		
-
 		Mesh* mesh;
 		Shader* shader;
 
-		void draw();
+		void setMesh(Mesh* mesh);
+		void setShader(Shader* shader);
 
-		RendererCP* getProcessor();
+		RenderableC(Entity* parentEntity);
+		ComponentType getType();
+	
+
+		void draw(double deltaTime);
 
 	private:
+		friend ComponentFactory;
+		friend RendererCP;
 
 		Application* mApplication;
 

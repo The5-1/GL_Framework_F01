@@ -48,18 +48,20 @@ namespace The5 {
 
 	class Mesh {
 	public:
+		std::string name;
+
 		vertexList vertices;
 		indexList indices;
 		unsigned int VAO; //stores state of vertex attributes
 
-		Mesh(vertexList vertices, indexList indices)
+		Mesh(std::string name, vertexList vertices, indexList indices) : name(name)
 		{
 			this->vertices = vertices;
 			this->indices = indices;
 			createBuffers();
 		}
 
-		Mesh(vec3List positions, indexList indices)
+		Mesh(std::string name, vec3List positions, indexList indices) : name(name)
 		{
 			vertexList vertices = Vertex::makeVertices(positions);
 			this->vertices = vertices;

@@ -60,7 +60,7 @@ namespace The5 {
 		/** creates all Component Processors */
 		void initComponentProcessors();
 		/** rund all Component Processors */
-		void runComponentProcessors();
+		void runComponentProcessors(double deltaTime);
 		/** stores owned ComponentProcessors (NO std::set since there can be different processors working on the same components!)*/
 		std::vector<IComponentProcessor_uptr> mComponentProcessors;
 		/** raw pointer to Rendnerer in mComponentProcessors */

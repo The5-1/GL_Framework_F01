@@ -9,7 +9,6 @@ namespace The5 {
 	class AssetManager
 	{
 	public:
-
 		AssetManager();
 
 	private:

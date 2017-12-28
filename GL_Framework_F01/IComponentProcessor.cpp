@@ -5,7 +5,8 @@
 
 namespace The5
 {
-	IComponentProcessor::IComponentProcessor(Application * application, ComponentBitmask mask) : mApplication(application) , mRequiredComponentBitmask(mask)
+	IComponentProcessor::IComponentProcessor(Application * application, ComponentBitmask mask, double updateRate) 
+		: mApplication(application) , mRequiredComponentBitmask(mask) , updateRate(updateRate)
 	{
 
 	}
@@ -15,19 +16,33 @@ namespace The5
 		return entity->checkComponentBitmaskCompatible(this->mRequiredComponentBitmask);
 	}
 
-	void IComponentProcessor::processEntity(Entity * entity)
+	void IComponentProcessor::processEntity(Entity * entity, double deltaTime)
 	{
-		if (checkComponentsCompatible(entity)) doProcessing(entity);
+		if (updateRate == 0.0)
+		{
+			if (checkComponentsCompatible(entity)) doProcessing(entity, deltaTime);
+			return;
+		}
+		else
+		{
+			accumulatedUpdateTime += deltaTime;
+			while (accumulatedUpdateTime >= updateRate)
+			{
+				if (checkComponentsCompatible(entity)) doProcessing(entity, deltaTime);
+				accumulatedUpdateTime -= updateRate;
+			}
+			return;
+		}
 	}
 
-	void IComponentProcessor::processScene(Scene * scene)
+	void IComponentProcessor::processScene(Scene * scene, double deltaTime)
 	{
 		SceneTree* sceneTree = scene->getSceneTree();
 
 		for (SceneTree::iterator it = sceneTree->begin(); it != sceneTree->end(); ++it)
 		{
 			Entity* e = it.node->data;
-			processEntity(e);
+			processEntity(e, deltaTime);
 		}
 	}
 

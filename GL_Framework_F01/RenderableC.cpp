@@ -23,4 +23,21 @@ namespace The5
 	{
 		return ComponentType::RenderableType;
 	}
+
+	void RenderableC::setMesh(Mesh * mesh)
+	{
+		this->mesh = mesh;
+	}
+
+	void RenderableC::setShader(Shader * shader)
+	{
+		this->shader = shader;
+	}
+
+
+	void RenderableC::draw(double deltaTime)
+	{
+		if(shader != nullptr) shader->use();
+		if(mesh != nullptr) mesh->draw();
+	}
 }

@@ -26,8 +26,9 @@ std::string GLOBAL_RESOURCE_PATH = "D:/Dev/Assets/";
 
 std::string SHADER_PATH = "D:/Dev/Projects/GL_Framework_F01/GL_Framework_F01/Assets/Shaders/";
 
+std::string DEFAULT_SHADER_VERT = SHADER_PATH + "default_noMatrix.vert.glsl";
 std::string DEFAULT_SHADER_FRAG = SHADER_PATH + "default.frag.glsl";
-std::string DEFAULT_SHADER_VERT = SHADER_PATH + "default.vert.glsl";
+
 
 
 int main(int argc, char *argv[])
@@ -60,7 +61,7 @@ int main(int argc, char *argv[])
 	Entity* BAB = mainScene->addChild(BA, "BAB");
 
 	root->addComponent(ComponentType::RenderableType);
-	B->addComponent(ComponentType::RenderableType);
+	RenderableC* B_renderalbeC = (RenderableC*)B->addComponent(ComponentType::RenderableType);
 	BAB->addComponent(ComponentType::RenderableType);
 
 	LOG(mainScene->printTree(true));
@@ -76,22 +77,18 @@ int main(int argc, char *argv[])
 
 	//Model model = Model(file_model_nanosuit);
 
-	vec3List positions = { vec3(0.0,0.0,0.0), vec3(1.0,0.0,0.0), vec3(1.0,1.0,0.0), vec3(0.0,1.0,0.0) };
+	Shader* shader01 = new Shader("default shader", DEFAULT_SHADER_VERT, DEFAULT_SHADER_FRAG);
+	B_renderalbeC->setShader(shader01);
+
+	float scale = 0.9;
+	vec3List positions = { vec3(-1.0,-1.0,0.0)*scale, vec3(1.0,-1.0,0.0)*scale, vec3(1.0,1.0,0.0)*scale, vec3(-1.0,1.0,0.0)*scale };
 	indexList indices = { 0,1,2,0,2,3 };
-	Mesh mesh01(positions, indices);
-	Shader shader01(DEFAULT_SHADER_VERT, DEFAULT_SHADER_FRAG);
+	Mesh* mesh01 = new Mesh("test triangle mesh", positions, indices);
+	B_renderalbeC->setMesh(mesh01);
 
-	/*
-	shader01.uniform("modelMatrix", mat4(1.0f));
-	shader01.uniform("viewMatrix", mat4(1.0f));
-	shader01.uniform("projMatrix", mat4(1.0f));
-	
-
-	shader01.use();
-	mesh01.draw();
-	*/
-
-
+	shader01->uniform("modelMatrix", mat4(1.0f));
+	shader01->uniform("viewMatrix", mat4(1.0f));
+	shader01->uniform("projMatrix", mat4(1.0f));
 
 	application->startGameLoop();
 

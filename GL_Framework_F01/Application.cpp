@@ -52,11 +52,11 @@ namespace The5 {
 		mComponentProcessors.push_back(RendererCP_uptr(mRenderer));
 	}
 
-	void Application::runComponentProcessors()
+	void Application::runComponentProcessors(double deltaTime)
 	{
 		for (unsigned int i = 0; i < mComponentProcessors.size(); i++)
 		{
-			mComponentProcessors.at(i).get()->processScene(getScene(0));
+			mComponentProcessors.at(i).get()->processScene(getScene(0), deltaTime);
 		}
 
 	}
@@ -102,7 +102,7 @@ namespace The5 {
 		{
 			window->preUpdate();
 
-			runComponentProcessors();
+			runComponentProcessors(window->getDeltaFrameTime());
 
 			window->postUpdate();
 		}

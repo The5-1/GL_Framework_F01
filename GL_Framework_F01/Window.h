@@ -37,6 +37,7 @@ namespace The5
 
 		Application* getApplication();
 		InputManager* getInputManager();
+		double getDeltaFrameTime();
 	private:
 		friend Application;
 

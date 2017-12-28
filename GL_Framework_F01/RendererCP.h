@@ -13,9 +13,9 @@ namespace The5 {
 	private:
 		ComponentBitmask initRequiredComponentBitmask() override;
 		
-		void doProcessing(Entity* entity) override;
+		void doProcessing(Entity* entity, double deltaTime) override;
 
-		void draw(RenderableC* renderableC, Entity* entity);
+		void draw(RenderableC* renderableC, Entity* entity, double deltaTime);
 	};
 
 }

@@ -162,6 +162,7 @@ namespace The5
 
 	void Window::runGameLoop()
 	{
+		/*
 		while (!glfwWindowShouldClose(getGLFWwindow()))
 		{
 			
@@ -171,16 +172,12 @@ namespace The5
 			glClearColor(0.05f, 0.1f, 0.15f, 0.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-
-			//ToDO: Render stuff
-
-
-
 			glfwSwapBuffers(getGLFWwindow());
 			//Event processing must be done regularly while you have any windows and is normally done each frame after buffer swapping.
 			//http://www.glfw.org/docs/latest/input_guide.html#events
 			glfwPollEvents();
 		}
+		*/
 	}
 
 	void Window::terminate()
@@ -202,6 +199,11 @@ namespace The5
 	InputManager* Window::getInputManager()
 	{
 		return mInputManager_uptr.get();
+	}
+
+	double Window::getDeltaFrameTime()
+	{
+		return deltaFrameTime;
 	}
 
 	void Window::setTitle(std::string title)
