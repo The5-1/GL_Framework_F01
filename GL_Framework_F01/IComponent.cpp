@@ -56,7 +56,7 @@ namespace The5 {
 	void IComponent::initBitmask()
 	{
 		mComponentBitmask |= getType();
-		LOG(mComponentBitmask.to_string());
+		//LOG(mComponentBitmask.to_string());
 	}
 
 	IComponent::~IComponent()

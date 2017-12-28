@@ -13,13 +13,14 @@
 #include <map>
 #include <deque> //queue with append and prepend functionality
 
-
-#include <memory> //smartpointers
+//smartpointers
+#include <memory> 
 
 //algorithms
 #include <algorithm> //std::remove
+#include <iterator> // std::prev to determine if we are one before the last element
+
 
 #include <bitset> //for component bitmask
 
 #include <functional> //for std::function //should i want function pointers
-#include <iterator> //for implementing a custom iterator for Scene

@@ -26,22 +26,25 @@ namespace The5 {
 		Scene(std::string name, Application* application);
 
 		///Methods	
-		Entity* addChild(Entity* entity);
-		void removeChild(Entity* entity);
-		Entity* getParent(Entity* entity);
-		SceneTree::iterator getEntityIterator(Entity* entity);
-
 		SceneTree::iterator findEntity(Entity* entity);
-		Entity* getIteratorEntity(SceneTree::iterator iter);
+		Entity* getEntityFromIterator(SceneTree::iterator iter);
+
+		Entity* addChild(Entity * parent, std::string name);
+		void removeEntityAndChilds(Entity* entity);
+		void removeChilds(Entity* entity);
+		Entity* getParent(Entity* entity);
 
 		///Getter / Setter
 		/** get pointer to SceneTree */
 		SceneTree* getSceneTree();
-
 		/** get pointer to root Entity */
 		Entity* getRoot();
 		/** get pointer to owning Appliaction */
 		Application* getApplication();
+
+		///Helper Methods
+		/** writes the sceneTree hirarcy to a std::String */
+		std::string printTree(bool showComponents = false);
 
 		/*
 		class iterator : public std::iterator<std::forward_iterator_tag, Entity*>
@@ -110,6 +113,8 @@ namespace The5 {
 		///private methods
 		/** init the defaults */
 		void init(std::string name);
+		/** creates a new entity */
+		Entity* createEntity(std::string name);
 
 	};
 }

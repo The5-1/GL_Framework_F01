@@ -28,13 +28,13 @@ namespace The5 {
 		/** user defined name for the entity*/
 		std::string name;	
 
-		///Constructor
-		/** A Scene may construct one root node, otherwise the constructor is private */
-		Entity(std::string name, Application* application, Scene* Scene);
-
 		///Destructor
 		/** destructor triggers the scene to update */
 		//~Entity();
+		//Entity(const Entity&) = delete;
+		//Entity& operator=(const Entity&) = delete;
+		//~Entity() = default;
+
 
 		///transformation
 		/** every node got a local transformation */
@@ -69,7 +69,7 @@ namespace The5 {
 		friend Scene;
 		///private Constructor
 		/** A Scene may construct one root node, otherwise the constructor is private */
-		//Entity(std::string name, Application* application, Scene* Scene);
+		Entity(std::string name, Application* application, Scene* Scene);
 		///private Methods
 		/** updates the Scenes Entity List, called when Entities are added or removed */
 		//void updateSceneEntityTree();

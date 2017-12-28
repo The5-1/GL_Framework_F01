@@ -13,18 +13,24 @@ namespace The5 {
 		init(name);
 	}
 
+	Entity * Scene::createEntity(std::string name)
+	{
+		Entity* e = new Entity(name, getApplication(), this);
+		return e;
+	}
+
 	void Scene::init(std::string name)
 	{
 		std::string rootname = name;
 		rootname += "_root";
-		Entity* root = new Entity(rootname, mApplication, this);
+		Entity* root = createEntity(rootname);
 
 		//mSceneTree = SceneTree_uptr(new SceneTree(The5::Entity_uptr(root)));
 		mSceneTree = SceneTree_uptr(new SceneTree(root));
 		mRoot = getSceneTree()->begin();
 	}
 
-	SceneTree::iterator Scene::findEntity(Entity * entity)
+	SceneTree::iterator Scene::findEntity(Entity* entity)
 	{
 		SceneTree* s = getSceneTree();
 		//SceneTree::iterator location = std::find_if(s->begin(), s->end(), [&](Entity_uptr const& e) {return e.get() == entity;});
@@ -32,12 +38,40 @@ namespace The5 {
 		return location;
 	}
 
-	Entity * Scene::addChild(Entity * entity)
+	Entity * Scene::addChild(Entity * parent, std::string name)
 	{
-		return nullptr;
+		SceneTree::iterator location = findEntity(parent);
+		Entity* e = createEntity(name);
+		getSceneTree()->append_child(location, e);
+		return e;
 	}
 
-	Entity * Scene::getIteratorEntity(SceneTree::iterator iter)
+	void Scene::removeChilds(Entity * entity)
+	{
+		//TODO: ??? i hope this library actually calls the destructor ???
+		SceneTree::iterator location = findEntity(entity);
+		getSceneTree()->erase_children(location); //only removes childs
+	}
+
+	void Scene::removeEntityAndChilds(Entity * entity)
+	{
+		//TODO: ??? i hope this library actually calls the destructor ???
+		SceneTree::iterator location = findEntity(entity);
+		getSceneTree()->erase(location); //removes parent and childs
+	}
+
+	Entity * Scene::getParent(Entity * entity)
+	{
+		SceneTree::iterator location = findEntity(entity);
+		if (location == getSceneTree()->begin()) return entity;
+		else
+		{
+			location--;
+			return getEntityFromIterator(location);
+		}
+	}
+
+	Entity * Scene::getEntityFromIterator(SceneTree::iterator iter)
 	{
 		//return iter.node->data.get();
 		return iter.node->data;
@@ -50,12 +84,67 @@ namespace The5 {
 
 	Entity* Scene::getRoot()
 	{
-		return getIteratorEntity(mRoot);
+		return getEntityFromIterator(mRoot);
 	}
 
 	Application * Scene::getApplication()
 	{
 		return mApplication;
+	}
+
+	std::string Scene::printTree(bool showComponents)
+	{
+		//printing unicode requires wstring and wcout
+		//https://en.wikipedia.org/wiki/Box-drawing_character
+		//const wchar_t TB = L'\x2550';
+		//const wchar_t LR = L'\x2551';
+		//const wchar_t TL = L'\x2554';
+		//const wchar_t TR = L'\x2557';
+		//const wchar_t BL = L'\x255A';
+		//const wchar_t BR = L'\x255D';
+
+		std::stringstream ss;
+
+		ss << "SceneTree: " << name << std::endl;
+		for (SceneTree::iterator it = getSceneTree()->begin(); it != getSceneTree()->end(); ++it)
+		{
+			unsigned int depth = SceneTree::depth(it);
+			unsigned int children = it.number_of_children();
+
+			Entity* e = it.node->data;
+			std::string connector;
+#if 0
+			if (depth > 0)
+			{
+
+				connector = std::string(depth - 1, ' ');
+				if (it.node->next_sibling != nullptr) connector += "+";
+				else connector += "-";
+
+				if (children > 0) connector += "+";
+				else connector += "-";
+			}
+#elif 0
+			connector += std::to_string(depth);
+			connector += ") ";
+#else
+			connector = std::string(depth, ' ');
+#endif
+			
+			std::string components;
+			if (showComponents)
+			{
+				components = " [";
+				for (auto compIt = e->getComponents()->begin(); compIt != e->getComponents()->end(); ++compIt)
+				{
+					components += compIt._Ptr->_Myval.second.get()->name;
+					if(compIt != std::prev(e->getComponents()->end())) components += ", ";
+				}
+				components += "]";
+			}
+			ss << connector << it.node->data->name << components << std::endl;
+		}
+		return ss.str();
 	}
 
 }

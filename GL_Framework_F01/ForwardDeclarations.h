@@ -61,7 +61,7 @@ namespace The5
 	class Entity;
 	using Entity_uptr = std::unique_ptr<The5::Entity>;
 
-	//using SceneTree = Tree::tree<Entity_uptr>;
+	//using SceneTree = Tree::tree<Entity_uptr>; //!!! tree h cant use uniqueptr because it has copy operators
 	using SceneTree = Tree::tree<Entity*>;
 	using SceneTree_uptr = std::unique_ptr<SceneTree>;
 

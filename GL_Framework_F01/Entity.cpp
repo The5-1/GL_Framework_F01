@@ -1,10 +1,10 @@
+#include "stl_include.h"
+#include "GL_include.h"
+#include "Logging.h"
+
 #include "Entity.h"
 #include "Scene.h"
-
-#include "stl_include.h"
 #include "IComponent.h"
-#include "GL_include.h"
-
 #include "Application.h"
 #include "ComponentManager.h"
 
@@ -31,7 +31,8 @@ namespace The5 {
 	IComponent* Entity::addComponent(ComponentType type)
 	{
 		IComponent* comp = getComponentManager()->createComponent(type,this);
-		getComponents()->insert(std::make_pair(comp->getType(), IComponent_uptr(comp)));
+		auto success = getComponents()->insert(std::make_pair(comp->getType(), IComponent_uptr(comp)));
+		if (success.second == false) ERR("Tried to add a component already present on " << this->name);
 		mComponentBitmask.addComponentType(type);
 		return comp;
 	}

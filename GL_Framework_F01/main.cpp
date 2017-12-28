@@ -40,22 +40,37 @@ int main(int argc, char *argv[])
 	Window* mainWindow = application->getWindow();
 	InputManager* inputManager = mainWindow->getInputManager();
 	
-
 	Scene* mainScene = application->getScene();
-	/*
+	SceneTree* mainSceneTree = mainScene->getSceneTree();
+	
 	Entity* root = mainScene->getRoot();
-	Entity* test01 = root->addChild("test01");
-	
-	test01->addComponent(ComponentType::RenderableType);
-	
-	Entity* test02 = root->addChild("test02");
-	Entity* test03 = test02->addChild("test03");
+	Entity* A = mainScene->addChild(root, "A");
+	Entity* AA = mainScene->addChild(A, "AA");
+	Entity* AB = mainScene->addChild(A, "AB");
+	Entity* AAA = mainScene->addChild(AA, "AAA");
+	Entity* AAB = mainScene->addChild(AA, "AAB");
+	Entity* AAC = mainScene->addChild(AA, "AAC");
+	Entity* AABA = mainScene->addChild(AAB, "AABA");
+	Entity* AABB = mainScene->addChild(AAB, "AABB");
+	Entity* AABC = mainScene->addChild(AAB, "AABC");
+	Entity* B = mainScene->addChild(root, "B");
+	Entity* BA = mainScene->addChild(B, "BA");
+	Entity* BB = mainScene->addChild(B, "BB");
+	Entity* BAA = mainScene->addChild(BA, "BAA");
+	Entity* BAB = mainScene->addChild(BA, "BAB");
 
-	inputManager->changeContext(InputContext::inGame);
+	B->addComponent(ComponentType::RenderableType);
+	B->addComponent(ComponentType::RenderableType);
+
+	LOG(mainScene->printTree(true));
+	LOG(mainScene->getRoot()->name);
+	LOG(mainScene->getParent(BA)->name);
+
+
 	
 	//LOG(application->getInfo());
-	*/
-	
+
+	inputManager->changeContext(InputContext::inGame);
 
 
 	//Model model = Model(file_model_nanosuit);
