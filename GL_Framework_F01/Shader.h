@@ -6,6 +6,9 @@
 
 namespace The5 {
 
+	enum ShaderUniformType { uInt, uFloat, uVec2, uVec3, uMat3, uMat4};
+
+
 	class Shader
 	{
 	public:
@@ -73,68 +76,165 @@ namespace The5 {
 		}
 		// activate the shader
 		// ------------------------------------------------------------------------
+		
+		//TODO: instead use https://www.khronos.org/opengl/wiki/Uniform_Buffer_Object
+		//https://gamedev.stackexchange.com/questions/133615/how-do-you-store-uniform-data
+		std::map<std::pair<ShaderUniformType, std::string>, unsigned int> uniforms;
+		
 		void use()
 		{
 			glUseProgram(ID);
 		}
 
+		void getUniforms()
+		{
+			//https://stackoverflow.com/questions/440144/in-opengl-is-there-a-way-to-get-a-list-of-all-uniforms-attribs-used-by-a-shade
+			GLint i;
+			GLint count;
+
+			GLint size; // size of the variable
+			GLenum type; // type of the variable (float, vec3 or mat4, etc)
+
+			const GLsizei bufSize = 32; // maximum name length
+			GLchar name[bufSize]; // variable name in GLSL
+			GLsizei length; // name length
+
+			glGetProgramiv(ID, GL_ACTIVE_UNIFORMS, &count);
+			LOG("Shader \"" << this->name << "\" active Uniforms: " << count);
+			//printf("Active Uniforms in Shader:  %d\n", count);
+
+			for (i = 0; i < count; i++)
+			{
+				glGetActiveUniform(ID, (GLuint)i, bufSize, &length, &size, &type, name);
+
+				LOG(" " << i << ") type: " << type << " name: " << name);
+				//printf("Uniform #%d Type: %u Name: %s\n", i, type, name);
+			}
+		}
+
+		void getAttributes()
+		{
+			GLint i;
+			GLint count;
+
+			GLint size; // size of the variable
+			GLenum type; // type of the variable (float, vec3 or mat4, etc)
+
+			const GLsizei bufSize = 32; // maximum name length
+			GLchar name[bufSize]; // variable name in GLSL
+			GLsizei length; // name length
+
+			glGetProgramiv(ID, GL_ACTIVE_ATTRIBUTES, &count);
+			LOG("Shader \"" << this->name << "\" active Attributes: " << count);
+			//printf("Active Attributes: %d\n", count);
+
+			for (i = 0; i < count; i++)
+			{
+				glGetActiveAttrib(ID, (GLuint)i, bufSize, &length, &size, &type, name);
+				LOG(" " << i << ") type: " << type << " name: " << name);
+				//printf("Attribute #%d Type: %u Name: %s\n", i, type, name);
+			}
+		}
+
+		void getShaderInterface()
+		{
+			//GL4.3
+			//Extension: ARB_program_interface_query
+			GLint numActiveAttribs = 0;
+			GLint numActiveUniforms = 0;
+			glGetProgramInterfaceiv(ID, GL_PROGRAM_INPUT, GL_ACTIVE_RESOURCES, &numActiveAttribs);
+			glGetProgramInterfaceiv(ID, GL_UNIFORM, GL_ACTIVE_RESOURCES, &numActiveUniforms);
+
+			std::vector<GLchar> nameData(256);
+			for (int unif = 0; unif < numActiveUniforms; ++unif)
+			{
+				GLint arraySize = 0;
+				GLenum type = 0;
+				GLsizei actualLength = 0;
+				glGetActiveUniform(ID, unif, nameData.size(), &actualLength, &arraySize, &type, &nameData[0]);
+				std::string name((char*)&nameData[0], actualLength - 1);
+				LOG(name);
+			}
+		}
+
+		GLint getUniformLocation(const std::string &uniformName) const
+		{
+			GLint location = glGetUniformLocation(ID, uniformName.c_str());
+			if (location == -1)
+			{
+				ERR_GL("Uniform \"" << uniformName.c_str() << "\" does not exist in shader \"" << this->name << "\"!\n\tCheck for typos, or if the variable is unused!");
+			}
+			return location;
+		}
+
 		// utility uniform functions
 		// ------------------------------------------------------------------------
-		void uniform(const std::string &name, bool value) const
+		void uniform(const std::string &uniformName, bool value) const
 		{
-			glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
+			glUniform1i(getUniformLocation(uniformName), (int)value);
 		}
 		// ------------------------------------------------------------------------
-		void uniform(const std::string &name, int value) const
+		void uniform(const std::string &uniformName, int value) const
 		{
-			glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
+			//checkUniform(uniformName);
+			glUniform1i(getUniformLocation(uniformName), value);
 		}
 		// ------------------------------------------------------------------------
-		void uniform(const std::string &name, float value) const
+		void uniform(const std::string &uniformName, float value) const
 		{
-			glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
+			//checkUniform(uniformName);
+			glUniform1f(getUniformLocation(uniformName), value);
 		}
 		// ------------------------------------------------------------------------
-		void uniform(const std::string &name, const glm::vec2 &value) const
+		void uniform(const std::string &uniformName, const glm::vec2 &value) const
 		{
-			glUniform2fv(glGetUniformLocation(ID, name.c_str()), 1, &value[0]);
+			//checkUniform(uniformName);
+			glUniform2fv(getUniformLocation(uniformName), 1, &value[0]);
 		}
-		void uniform(const std::string &name, float x, float y) const
+		void uniform(const std::string &uniformName, float x, float y) const
 		{
-			glUniform2f(glGetUniformLocation(ID, name.c_str()), x, y);
-		}
-		// ------------------------------------------------------------------------
-		void uniform(const std::string &name, const glm::vec3 &value) const
-		{
-			glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, &value[0]);
-		}
-		void uniform(const std::string &name, float x, float y, float z) const
-		{
-			glUniform3f(glGetUniformLocation(ID, name.c_str()), x, y, z);
+			//checkUniform(uniformName);
+			glUniform2f(getUniformLocation(uniformName), x, y);
 		}
 		// ------------------------------------------------------------------------
-		void uniform(const std::string &name, const glm::vec4 &value) const
+		void uniform(const std::string &uniformName, const glm::vec3 &value) const
 		{
-			glUniform4fv(glGetUniformLocation(ID, name.c_str()), 1, &value[0]);
+			//checkUniform(uniformName);
+			glUniform3fv(getUniformLocation(uniformName), 1, &value[0]);
 		}
-		void uniform(const std::string &name, float x, float y, float z, float w)
+		void uniform(const std::string &uniformName, float x, float y, float z) const
 		{
-			glUniform4f(glGetUniformLocation(ID, name.c_str()), x, y, z, w);
-		}
-		// ------------------------------------------------------------------------
-		void uniform(const std::string &name, const glm::mat2 &mat) const
-		{
-			glUniformMatrix2fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+			//checkUniform(uniformName);
+			glUniform3f(getUniformLocation(uniformName), x, y, z);
 		}
 		// ------------------------------------------------------------------------
-		void uniform(const std::string &name, const glm::mat3 &mat) const
+		void uniform(const std::string &uniformName, const glm::vec4 &value) const
 		{
-			glUniformMatrix3fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+			//checkUniform(uniformName);
+			glUniform4fv(getUniformLocation(uniformName), 1, &value[0]);
+		}
+		void uniform(const std::string &uniformName, float x, float y, float z, float w)
+		{
+			//checkUniform(uniformName);
+			glUniform4f(getUniformLocation(uniformName), x, y, z, w);
 		}
 		// ------------------------------------------------------------------------
-		void uniform(const std::string &name, const glm::mat4 &mat) const
+		void uniform(const std::string &uniformName, const glm::mat2 &mat) const
 		{
-			glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+			//checkUniform(uniformName);
+			glUniformMatrix2fv(getUniformLocation(uniformName), 1, GL_FALSE, &mat[0][0]);
+		}
+		// ------------------------------------------------------------------------
+		void uniform(const std::string &uniformName, const glm::mat3 &mat) const
+		{
+			//checkUniform(uniformName);
+			glUniformMatrix3fv(getUniformLocation(uniformName), 1, GL_FALSE, &mat[0][0]);
+		}
+		// ------------------------------------------------------------------------
+		void uniform(const std::string &uniformName, const glm::mat4 &mat) const
+		{
+			//checkUniform(uniformName);
+			glUniformMatrix4fv(getUniformLocation(uniformName), 1, GL_FALSE, &mat[0][0]);
 		}
 
 	private:

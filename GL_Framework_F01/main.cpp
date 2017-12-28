@@ -26,7 +26,8 @@ std::string GLOBAL_RESOURCE_PATH = "D:/Dev/Assets/";
 
 std::string SHADER_PATH = "D:/Dev/Projects/GL_Framework_F01/GL_Framework_F01/Assets/Shaders/";
 
-std::string DEFAULT_SHADER_VERT = SHADER_PATH + "default_noMatrix.vert.glsl";
+std::string DEFAULT_SHADER_VERT = SHADER_PATH + "default.vert.glsl";
+//std::string DEFAULT_SHADER_VERT = SHADER_PATH + "default_noMatrix.vert.glsl";
 std::string DEFAULT_SHADER_FRAG = SHADER_PATH + "default.frag.glsl";
 
 
@@ -67,8 +68,6 @@ int main(int argc, char *argv[])
 	LOG(mainScene->printTree(true));
 	LOG(mainScene->getRoot()->name);
 	LOG(mainScene->getParent(BA)->name);
-
-
 	
 	//LOG(application->getInfo());
 
@@ -86,9 +85,14 @@ int main(int argc, char *argv[])
 	Mesh* mesh01 = new Mesh("test triangle mesh", positions, indices);
 	B_renderalbeC->setMesh(mesh01);
 
-	shader01->uniform("modelMatrix", mat4(1.0f));
-	shader01->uniform("viewMatrix", mat4(1.0f));
-	shader01->uniform("projMatrix", mat4(1.0f));
+	shader01->getAttributes();
+	shader01->getUniforms();
+	shader01->getShaderInterface();
+
+	shader01->use();
+	shader01->uniform("uModelMatrix", mat4(1.0f));
+	shader01->uniform("uViewMatrix", mat4(1.0f));
+	shader01->uniform("uProjectionMatrix", mat4(1.0f));
 
 	application->startGameLoop();
 

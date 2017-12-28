@@ -47,7 +47,7 @@ If you get linker errors that something can not be found it might be this!
 //use the web tool to generate the "libary" for your chosen version of GL
 //A.) http://glad.dav1d.de/ and copy the .c file into your code and add it to the project tree
 //B.) http://glad2.dav1d.de/ and generate a older OpenGL file but header only
-#include <glad\glad.h>
+#include <glad\glad1_4.6_withLoader.h>
 //gladLoadGL();
 #endif
 
