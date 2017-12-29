@@ -13,6 +13,7 @@ namespace The5 {
 	class RenderableC: public IComponent
 	{
 	public:
+		IMaterial* material;
 		Mesh* mesh;
 		Shader* shader;
 
@@ -22,19 +23,19 @@ namespace The5 {
 		RenderableC(Entity* parentEntity);
 		ComponentType getType();
 	
-
 		void draw(double deltaTime);
+		void setFlagRecompileShader();
 
 	private:
 		friend ComponentFactory;
 		friend RendererCP;
 
+
+		bool flagRecompileShader = false;
+		void checkRecompileShader();
+
+		/** parent Appliation */
 		Application* mApplication;
-
-		///Assets used by renderable are owned by global Asset Manager
-		//std::vector<Mesh> mMeshes;
-		//std::vector<Material> mMaterials;
-
 	};
 
 }

@@ -49,14 +49,14 @@ namespace The5 {
 	void Application::initComponentProcessors()
 	{
 		mRenderer = new RendererCP(this);
-		mComponentProcessors.push_back(RendererCP_uptr(mRenderer));
+		mComponentProcessors.insert(std::make_pair(ComponentProcessorType::RendererType,RendererCP_uptr(mRenderer)));
 	}
 
 	void Application::runComponentProcessors(double deltaTime)
 	{
-		for (unsigned int i = 0; i < mComponentProcessors.size(); i++)
+		for (auto &processor: mComponentProcessors)
 		{
-			mComponentProcessors.at(i).get()->processScene(getScene(0), deltaTime);
+			processor.second.get()->processScene(getScene(0), deltaTime);
 		}
 
 	}
@@ -129,9 +129,15 @@ namespace The5 {
 		return mAssetManager.get();
 	}
 
-	ComponentFactory * Application::getComponentManager()
+	ComponentFactory * Application::getComponentFactory()
 	{
 		return mComponentFactory.get();
+	}
+
+	IComponentProcessor* Application::getComponentProcessor(ComponentProcessorType type)
+	{
+		if (mComponentProcessors.size() < 1) return nullptr;
+		return mComponentProcessors.at(type).get();
 	}
 
 	Application::~Application()

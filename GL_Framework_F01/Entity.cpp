@@ -30,7 +30,7 @@ namespace The5 {
 
 	IComponent* Entity::addComponent(ComponentType type)
 	{
-		IComponent* comp = getComponentManager()->createComponent(type,this);
+		IComponent* comp = getComponentFactory()->createComponent(type,this);
 		auto success = getComponents()->insert(std::make_pair(comp->getType(), IComponent_uptr(comp)));
 		if (success.second == false) ERR("Tried to add a component \"" << ComponentTypeString.at(type) << "\" already present on Entity \"" << this->name << "\"");
 		mComponentBitmask.addComponentType(type);
@@ -59,9 +59,9 @@ namespace The5 {
 		mComponentBitmask.removeComponentType(type);
 	}
 
-	ComponentFactory * Entity::getComponentManager()
+	ComponentFactory * Entity::getComponentFactory()
 	{
-		return mApplication->getComponentManager();
+		return mApplication->getComponentFactory();
 	}
 
 	Application * Entity::getApplication()

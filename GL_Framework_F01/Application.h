@@ -33,7 +33,9 @@ namespace The5 {
 
 		std::string getInfo();
 
-		ComponentFactory* getComponentManager();
+		ComponentFactory* getComponentFactory();
+
+		IComponentProcessor* getComponentProcessor(ComponentProcessorType type);
 
 	private:
 		//state
@@ -62,7 +64,7 @@ namespace The5 {
 		/** rund all Component Processors */
 		void runComponentProcessors(double deltaTime);
 		/** stores owned ComponentProcessors (NO std::set since there can be different processors working on the same components!)*/
-		std::vector<IComponentProcessor_uptr> mComponentProcessors;
+		std::map<ComponentProcessorType, IComponentProcessor_uptr> mComponentProcessors;
 		/** raw pointer to Rendnerer in mComponentProcessors */
 		RendererCP* mRenderer = nullptr;
 

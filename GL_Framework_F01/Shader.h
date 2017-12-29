@@ -1,5 +1,7 @@
 #pragma once
 
+#include "The5_Config.h"
+
 #include "GL_include.h"
 #include "stl_include.h"
 #include "Logging.h"
@@ -17,72 +19,33 @@ namespace The5 {
 
 		Shader(std::string name, std::string vertexPath, std::string fragmentPath) : name(name)
 		{
-			// 1. retrieve the vertex/fragment source code from filePath
-			std::string vertexCode;
-			std::string fragmentCode;
-			std::ifstream vShaderFile;
-			std::ifstream fShaderFile;
-
-			// ensure ifstream objects can throw exceptions:
-			vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-			fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-
-			try
-			{
-				// open files
-				vShaderFile.open(vertexPath);
-				fShaderFile.open(fragmentPath);
-				std::stringstream vShaderStream, fShaderStream;
-				// read file's buffer contents into streams
-				vShaderStream << vShaderFile.rdbuf();
-				fShaderStream << fShaderFile.rdbuf();
-				// close file handlers
-				vShaderFile.close();
-				fShaderFile.close();
-				// convert stream into string
-				vertexCode = vShaderStream.str();
-				fragmentCode = fShaderStream.str();
-			}
-			catch (std::ifstream::failure e)
-			{
-				ERR_GL("Failed to open Vertex Shader Files from:" << vertexPath);
-				ERR_GL("Failed to open Fragment Shader Files from:" << fragmentPath);
-			}
-			const char* vShaderCode = vertexCode.c_str();
-			const char * fShaderCode = fragmentCode.c_str();
-			// 2. compile shaders
-			unsigned int vertex, fragment;
-			int success;
-			char infoLog[512];
-			// vertex shader
-			vertex = glCreateShader(GL_VERTEX_SHADER);
-			glShaderSource(vertex, 1, &vShaderCode, NULL);
-			glCompileShader(vertex);
-			checkCompileErrors(vertex, "VERTEX");
-			// fragment Shader
-			fragment = glCreateShader(GL_FRAGMENT_SHADER);
-			glShaderSource(fragment, 1, &fShaderCode, NULL);
-			glCompileShader(fragment);
-			checkCompileErrors(fragment, "FRAGMENT");
-			// shader Program
-			ID = glCreateProgram();
-			glAttachShader(ID, vertex);
-			glAttachShader(ID, fragment);
-			glLinkProgram(ID);
-			checkCompileErrors(ID, "PROGRAM");
-			// delete the shaders as they're linked into our program now and no longer necessary
-			glDeleteShader(vertex);
-			glDeleteShader(fragment);
+			compileShader(vertexPath, fragmentPath);
 		}
-		// activate the shader
-		// ------------------------------------------------------------------------
-		
+
+		bool compileShader(std::string vertexPath, std::string fragmentPath)
+		{
+			if (buildProgram(vertexPath, fragmentPath))
+			{
+				return true;
+			}
+			else
+			{
+				ERR("Failed to build Shader:\n\tVert: " << vertexPath << "\n\tFrag: " << fragmentPath << "\n\tFallback to Default Shader!");
+				buildProgram(The5::DEFAULT_SHADER_VERT, The5::DEFAULT_SHADER_FRAG);
+				return false;
+			}
+		}
+
+
+
 		//TODO: instead use https://www.khronos.org/opengl/wiki/Uniform_Buffer_Object
 		//https://gamedev.stackexchange.com/questions/133615/how-do-you-store-uniform-data
 		std::map<std::pair<ShaderUniformType, std::string>, unsigned int> uniforms;
 		
+
 		void use()
 		{
+			// set all following meshes to draw with this shader
 			glUseProgram(ID);
 		}
 
@@ -152,7 +115,7 @@ namespace The5 {
 				GLenum type = 0;
 				GLsizei actualLength = 0;
 				glGetActiveUniform(ID, unif, nameData.size(), &actualLength, &arraySize, &type, &nameData[0]);
-				std::string name((char*)&nameData[0], actualLength - 1);
+				std::string name((char*)&nameData[0], actualLength);
 				LOG(name);
 			}
 		}
@@ -238,9 +201,91 @@ namespace The5 {
 		}
 
 	private:
+
+
+		bool buildProgram(std::string vertexPath, std::string fragmentPath)
+		{
+			// 1. retrieve the vertex/fragment source code from filePath
+			std::string vertexCode;
+			std::string fragmentCode;
+			std::ifstream vShaderFile;
+			std::ifstream fShaderFile;
+
+			// ensure ifstream objects can throw exceptions:
+			vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+			fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+			try
+			{
+				// open files
+				vShaderFile.open(vertexPath);
+				std::stringstream vShaderStream;
+				// read file's buffer contents into streams
+				vShaderStream << vShaderFile.rdbuf();
+				// close file handlers
+				vShaderFile.close();
+				// convert stream into string
+				vertexCode = vShaderStream.str();
+			}
+			catch (std::ifstream::failure e)
+			{
+				ERR("Failed to open Vertex Shader Files from:" << vertexPath);
+				return false;
+			}
+			const char* vShaderCode = vertexCode.c_str();
+
+			try
+			{
+				// open files
+				fShaderFile.open(fragmentPath);
+				std::stringstream fShaderStream;
+				// read file's buffer contents into streams
+				fShaderStream << fShaderFile.rdbuf();
+				// close file handlers
+				fShaderFile.close();
+				// convert stream into string
+				fragmentCode = fShaderStream.str();
+			}
+			catch (std::ifstream::failure e)
+			{
+				ERR("Failed to open Fragment Shader Files from:" << fragmentPath);
+				return false;
+			}
+			const char * fShaderCode = fragmentCode.c_str();
+
+			// 2. compile shaders
+			unsigned int vertex, fragment;
+			char infoLog[512];
+			bool success = true;
+
+			// vertex shader
+			vertex = glCreateShader(GL_VERTEX_SHADER);
+			glShaderSource(vertex, 1, &vShaderCode, NULL);
+			glCompileShader(vertex);
+			if (!checkCompileErrors(vertex, "VERTEX")) success = false;
+
+			// fragment Shader
+			fragment = glCreateShader(GL_FRAGMENT_SHADER);
+			glShaderSource(fragment, 1, &fShaderCode, NULL);
+			glCompileShader(fragment);
+			if (!checkCompileErrors(fragment, "FRAGMENT")) success = false;
+
+			// shader Program
+			ID = glCreateProgram();
+			glAttachShader(ID, vertex);
+			glAttachShader(ID, fragment);
+			glLinkProgram(ID);
+			if (!checkCompileErrors(ID, "PROGRAM")) success = false;
+			// delete the shaders as they're linked into our program now and no longer necessary
+			glDeleteShader(vertex);
+			glDeleteShader(fragment);
+			return success;
+		}
+
+
 		// utility function for checking shader compilation/linking errors.
 		// ------------------------------------------------------------------------
-		void checkCompileErrors(unsigned int shader, std::string type)
+		bool checkCompileErrors(unsigned int shader, std::string type)
 		{
 			int success;
 			char infoLog[1024];
@@ -251,7 +296,8 @@ namespace The5 {
 				{
 					glGetShaderInfoLog(shader, 1024, NULL, infoLog);
 					//std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
-					ERR_GL("SHADER_COMPILATION_ERROR of type : " << type << "\n" << infoLog << "\n");
+					ERR_GL("SHADER_COMPILATION_ERROR! Type: " << type << "\n\t" << infoLog);
+					return false;
 				}
 			}
 			else
@@ -261,9 +307,11 @@ namespace The5 {
 				{
 					glGetProgramInfoLog(shader, 1024, NULL, infoLog);
 					//std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
-					ERR_GL("PROGRAM_LINKING_ERROR of type : " << type << "\n" << infoLog << "\n");
+					ERR_GL("PROGRAM_LINKING_ERROR! Type: " << type << "\n\t" << infoLog);
+					return false;
 				}
 			}
+			return true;
 		}
 	};
 }

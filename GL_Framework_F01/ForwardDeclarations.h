@@ -36,8 +36,8 @@ namespace The5
 	class Shader;
 	using Shader_uptr = std::unique_ptr<The5::Shader>;
 
-	class Material;
-	using Material_uptr = std::unique_ptr<The5::Material>;
+	class IMaterial;
+	using IMaterial_uptr = std::unique_ptr<The5::IMaterial>;
 
 
 	//Main Application & Managers
@@ -95,15 +95,22 @@ namespace The5
 	const unsigned int COMPONENT_NUMBER = 2;
 
 	/** enum to get Component Type at runtime */
-	enum ComponentType { none = 0, RenderableType = 1, MoveableType = 2 };
+	enum ComponentType { noComponent = 0, RenderableType = 1, MoveableType = 2 };
 
 	/** enum to string for Component Types */	
 	const std::map<ComponentType, std::string> ComponentTypeString {
 		std::make_pair(ComponentType::RenderableType, "RenderableType"),
 		std::make_pair(ComponentType::MoveableType, "MoveableType"),
 	};
-	
 
+	/** enum to get Component Type at runtime */
+	enum ComponentProcessorType { noComponentProcessor = 0, RendererType = 1};
+
+	/** enum to string for Component Types */
+	const std::map<ComponentProcessorType, std::string> ComponentProcessorTypeString{
+		std::make_pair(ComponentProcessorType::RendererType, "RendererType"),
+	};
+	
 	/** Bitmask that holds what component types are present/required for fast checking, based on std::bitmask */
 	class ComponentBitmask
 	{
@@ -150,7 +157,7 @@ namespace The5
 		{
 			std::bitset<COMPONENT_NUMBER> mask;
 
-			if (type == ComponentType::none)
+			if (type == ComponentType::noComponent)
 			{
 				return mask;
 			}

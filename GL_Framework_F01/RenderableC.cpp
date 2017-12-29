@@ -7,7 +7,7 @@
 #include "Mesh.h"
 #include "Texture.h"
 #include "Shader.h"
-#include "Material.h"
+#include "IMaterial.h"
 
 
 namespace The5 
@@ -37,7 +37,25 @@ namespace The5
 
 	void RenderableC::draw(double deltaTime)
 	{
+		checkRecompileShader();
+
 		if(shader != nullptr) shader->use();
 		if(mesh != nullptr) mesh->draw();
+	}
+
+	void RenderableC::setFlagRecompileShader()
+	{
+		this->flagRecompileShader = true;
+	}
+
+	void RenderableC::checkRecompileShader()
+	{
+		if (!flagRecompileShader) 
+			return;
+		else
+		{
+			material->recompileShader();
+			this->flagRecompileShader = false;
+		}
 	}
 }

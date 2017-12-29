@@ -9,6 +9,9 @@ namespace The5 {
 	{
 	public:
 		RendererCP(Application* application);
+		ComponentProcessorType getType() {return ComponentProcessorType::RendererType;};
+
+		void setFlagRecompileAllShaders();
 
 	private:
 		ComponentBitmask initRequiredComponentBitmask() override;

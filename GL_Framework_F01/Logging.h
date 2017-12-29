@@ -27,7 +27,7 @@
 #ifndef ERR_GL(x)
 #define ERR_GL(x) do { \
 						HANDLE  hConsole;  hConsole = GetStdHandle(STD_OUTPUT_HANDLE); SetConsoleTextAttribute(hConsole, 13 + 4*16);\
-						std::cerr << "OpenGL:\t"<< x  << "\n\tFile: " <<__FILE__ << "\n\tFuncion \"" << __func__ << "\" in Line " <<__LINE__<< std::endl; \
+						std::cerr << "OpenGL:\t"<< x  << std::endl; \
 						SetConsoleTextAttribute(hConsole, 15);\
 					  } while (0)
 #endif // !ERR_GL(x)

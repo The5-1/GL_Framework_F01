@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "Window.h"
 #include "InputManager.h"
+#include "RendererCP.h"
 #include "Logging.h"
 
 namespace The5 {
@@ -70,6 +71,16 @@ namespace The5 {
 			changeContext(InputContext::inGame);
 			return;
 		}
+		else if (key == GLFW_KEY_R && action == GLFW_PRESS)
+		{
+			//TODO reload all shaders
+			IComponentProcessor* processor = mApplication->getComponentProcessor(ComponentProcessorType::RendererType);
+			if (processor != nullptr)
+			{
+				((RendererCP*)processor)->setFlagRecompileAllShaders();
+			}
+		}
+
 	}
 
 	void InputManager::processInputInGame(int key, int scancode, int action, int mods)
@@ -80,6 +91,10 @@ namespace The5 {
 		{
 			changeContext(InputContext::mainMenu);
 			return;
+		}
+		else if (key == GLFW_KEY_R && action == GLFW_PRESS)
+		{
+			//TODO reload all shaders
 		}
 	}
 

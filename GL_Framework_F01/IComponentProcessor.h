@@ -19,6 +19,8 @@ namespace The5
 		/** constructor*/
 		IComponentProcessor(Application* application, ComponentBitmask mask, double updateRate);
 
+		virtual ComponentProcessorType getType() = 0;
+
 		/** checks wether the component bitmask of an entity matches the one required by this Processor */
 		bool checkComponentsCompatible(Entity* entity);
 

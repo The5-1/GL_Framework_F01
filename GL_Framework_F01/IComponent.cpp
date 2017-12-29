@@ -27,7 +27,7 @@ namespace The5 {
 
 	//IComponentProcessor<IComponent*>* IComponent::getComponentProcessor()
 	//{
-	//	return mApplication->getComponentManager()->getComponentProcessor(getType()); //TODO: implement
+	//	return mApplication->getComponentFactory()->getComponentProcessor(getType()); //TODO: implement
 	//}
 
 	void IComponent::init()

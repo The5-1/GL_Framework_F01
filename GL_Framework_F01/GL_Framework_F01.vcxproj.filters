@@ -173,9 +173,6 @@
     <ClInclude Include="assimp_init.h">
       <Filter>Source Files\asimp</Filter>
     </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>Source Files\Assets</Filter>
-    </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Source Files\Assets</Filter>
     </ClInclude>
@@ -247,6 +244,12 @@
     </ClInclude>
     <ClInclude Include="ComponentFactory.h">
       <Filter>Source Files\ECS\ComponentInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IMaterial.h">
+      <Filter>Source Files\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="The5_Config.h">
+      <Filter>Source Files\Helper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

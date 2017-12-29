@@ -162,7 +162,7 @@
     <ClInclude Include="IManager.h" />
     <ClInclude Include="LoggingGL.h" />
     <ClInclude Include="Macros.h" />
-    <ClInclude Include="Material.h" />
+    <ClInclude Include="IMaterial.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Entity.h" />
@@ -175,6 +175,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stl_include.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="The5_Config.h" />
     <ClInclude Include="tree_include.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

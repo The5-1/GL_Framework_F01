@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "The5_Config.h"
+
 #include "Logging.h"
 //#include "GL_init.h"
 //#include "LoggingGL.h"
@@ -21,21 +23,10 @@
 using namespace The5;
 using namespace std;
 
-std::string RESOURCE_PATH = "D:/Dev/Projects/GL_Framework_F01/GL_Framework_F01/";
-std::string GLOBAL_RESOURCE_PATH = "D:/Dev/Assets/";
-
-std::string SHADER_PATH = "D:/Dev/Projects/GL_Framework_F01/GL_Framework_F01/Assets/Shaders/";
-
-std::string DEFAULT_SHADER_VERT = SHADER_PATH + "default.vert.glsl";
-//std::string DEFAULT_SHADER_VERT = SHADER_PATH + "default_noMatrix.vert.glsl";
-std::string DEFAULT_SHADER_FRAG = SHADER_PATH + "default.frag.glsl";
-
-
-
 int main(int argc, char *argv[])
 {
-	string file_model_sponza = GLOBAL_RESOURCE_PATH + "Sponza_Atrium/sponza.obj";
-	string file_model_nanosuit = GLOBAL_RESOURCE_PATH + "Nanosuit/nanosuit.obj";
+	string file_model_sponza = GLOBAL_ASSET_PATH + "Sponza_Atrium/sponza.obj";
+	string file_model_nanosuit = GLOBAL_ASSET_PATH + "Nanosuit/nanosuit.obj";
 
 	Application* application = new Application(1024,720,"Epos");
 
@@ -76,6 +67,7 @@ int main(int argc, char *argv[])
 
 	//Model model = Model(file_model_nanosuit);
 
+	//Shader* shader01 = new Shader("default shader", DEFAULT_SHADER_VERT, The5::SHADER_PATH + "ERROR_TEST.glsl");
 	Shader* shader01 = new Shader("default shader", DEFAULT_SHADER_VERT, DEFAULT_SHADER_FRAG);
 	B_renderalbeC->setShader(shader01);
 

@@ -1,8 +1,8 @@
 #version 450
 
-uniform mat4 uModelMatrix;
-uniform mat4 uViewMatrix;
-uniform mat4 uProjectionMatrix;
+uniform mat4 uModelMatrix = mat4(1.0);
+uniform mat4 uViewMatrix = mat4(1.0);
+uniform mat4 uProjectionMatrix = mat4(1.0);
 
 layout(location = 0) in vec3 aPosition; 
 
