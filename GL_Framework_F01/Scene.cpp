@@ -108,7 +108,6 @@ namespace The5 {
 		unsigned int headerSize = header.size()+4;
 		//ss << "Tree for Scene: \"" << name << "\"" << std::endl;
 		//unsigned int headerSize = ss.str().size() - 1;
-		ss << std::endl;
 		ss << std::string(headerSize, '=') << std::endl;
 		ss << "| " << header << " |" <<std::endl;
 		ss << std::string(headerSize, '-') << std::endl;
@@ -150,7 +149,7 @@ namespace The5 {
 			}
 			ss << "| " << connector << it.node->data->name << components << std::endl;
 		}
-		ss << std::string(headerSize, '=') << std::endl;
+		ss << std::string(headerSize, '=');
 		return ss.str();
 	}
 

@@ -1,6 +1,6 @@
 #include "Window.h"
 #include "Logging.h"
-#include "LoggingGL.h"
+#include "LoggingGL_DebugOutput.h"
 
 #include "InputManager.h"
 
@@ -14,28 +14,24 @@ namespace The5
 
 	Window::Window(Application* application, unsigned int width, unsigned int height, std::string title) : mApplication(application), width(width), height(height), title(title)
 	{
-		initGLFW(); //init GLFW and set window hints
-		initGLFWwindow(width, height, title); //create the GLFWwindow-object
-		activate(); //set the active context for OpenGL to this GLFWwindow and bind callbacks
-		initGLAD(); //GLAD needs the active context! GLAD loads OpenGL functions
-		initGL(); //init the other stuff that requires active context
+		initGLFW();
+		setGLFWhints();
+		createGLFWwindow(width, height, title);
+		initWindowInput();
+		registerWindowCallbacks();
+		makeWindowActiveContext();
+		initGLAD();
+		initGL();
 	}
-
-//************** OpelGL initialization **************//
 
 	void Window::initGLFW()
 	{
 		if (!mGLFW_initialized)
 		{
-			if (glfwInit())
+			if (glfwInit()) //if done a second time it just returns true immediately, so the check is not actually necessary
 			{
-				//glfwWindowHints need to be done before glfwCreateWindow
-				glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-				glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-				glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-				glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
-
 				glfwSetErrorCallback(The5::GL::glfw_error_callback); //set the error callback
+				LOG("GLFW initialized.");
 				mGLFW_initialized = true;
 			}
 			else
@@ -44,25 +40,41 @@ namespace The5
 				mGLFW_initialized = false;
 				return;
 			}
-
 		}
 	}
 
-	void Window::initGLFWwindow(unsigned int width = 1024, unsigned int height = 720, std::string title = "GLFW window")
+	void Window::setGLFWhints()
 	{
-		mGLFWwindow_uptr = GLFWwindow_uptr(glfwCreateWindow(width, height, title.c_str(), NULL, NULL));
+		//glfwWindowHints need to be done before glfwCreateWindow!!!
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+	}
+
+
+	void Window::createGLFWwindow(unsigned int width = 1024, unsigned int height = 720, std::string title = "GLFW window", GLFWwindow* sharedContext)
+	{
+		//The second NULL can be used to share OpenGL context (textures, vertex and element buffers, etc.) from an existing GLFWwindow.
+		//But only one context and be active at a time!
+		mGLFWwindow_uptr = GLFWwindow_uptr(glfwCreateWindow(width, height, title.c_str(), NULL, sharedContext));
 		if (getGLFWwindow() == NULL)
 		{
 			ERR("Failed to create GLFW window! Terminating GLFW!");
 			glfwTerminate();
 			return;
 		}
+	}
+
+	void Window::initWindowInput()
+	{
 		glfwSetInputMode(getGLFWwindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);	//GLFW_CURSOR_DISABLED = lock mouse in screen
 
 		initInputManager();
 	}
 	
-	void Window::registerGLFWCallbacks()
+	
+	void Window::registerWindowCallbacks()
 	{
 		//********************* Static Callback Funcionts ***********************************//
 		//for this GLFWwindow set the The5::Window as the user pointer
@@ -75,16 +87,22 @@ namespace The5
 		glfwSetWindowRefreshCallback(getGLFWwindow(), Window::windowRefresh_callback); //refresh
 	}
 
+	/** GLAD needs an active context to initialize */
 	void Window::initGLAD()
 	{
 		if (!mGLAD_initialized)
 		{
-			if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+
+			if (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+			{
+				LOG("GLAD initialized.");
+			}
+			else
 			{
 				ERR("Failed to initialize GLAD via gladLoadGLLoader()! Trying gladLoadGL()...");
 				if (!gladLoadGL())
 				{
-					ERR("Failed tu use gladLoadGL()!");
+					ERR("... also failed to use gladLoadGL()!");
 					return;
 				}
 			}
@@ -124,17 +142,16 @@ namespace The5
 		titlestream << std::setfill(' ') << std::setw(8) << std::setprecision(1) << std::fixed << std::showpoint;
 		titlestream << 1.0/deltaFrameTime << "FPS] [";
 		titlestream << std::setfill(' ') << std::setw(8) << std::setprecision(2) << std::fixed << std::showpoint;
-		titlestream << deltaFrameTime*1000.0 << "ms]";
+		titlestream << deltaFrameTime*1000.0 << "ms] [";
+		titlestream << width << "x" << height << "]";
 		glfwSetWindowTitle(getGLFWwindow(), titlestream.str().c_str());
 	}
 
-	void Window::activate()
+	void Window::makeWindowActiveContext()
 	{
 		glfwMakeContextCurrent(getGLFWwindow()); //set the GL context to this window
 		glfwSwapInterval(vSyncIntervall); // Enable vsync for the current context
-
-		registerGLFWCallbacks();
-
+		LOG("OpenGL context set to Window \"" << this->title << "\".");
 	}
 
 	bool Window::checkWindowShouldClose()
@@ -159,9 +176,10 @@ namespace The5
 		glfwPollEvents(); //causes all registered callbacks to be called
 	}
 
+	/*
 	void Window::runGameLoop()
 	{
-		/*
+		
 		while (!glfwWindowShouldClose(getGLFWwindow()))
 		{
 			
@@ -176,12 +194,14 @@ namespace The5
 			//http://www.glfw.org/docs/latest/input_guide.html#events
 			glfwPollEvents();
 		}
-		*/
+		
 	}
+	*/
 
 	void Window::terminate()
 	{
 		glfwSetWindowShouldClose(getGLFWwindow(), true);
+		//glfwDestroyWindow()
 	}
 
 

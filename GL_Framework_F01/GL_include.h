@@ -3,7 +3,7 @@
 //old-style include guards example:
 //#ifndef INCLUDE_GL
 //#define INCLUDE_GL
-//... inclusions here
+//... code goes here
 //#endif /*INCLUDE_GL*/
 
 /************************************************************************
@@ -52,7 +52,7 @@ If you get linker errors that something can not be found it might be this!
 #endif
 
 //*************************************************************************************************************************************************
-//2.) Includes and Macros
+//Includes and Macros
 //Incudes required __after__ OpenGL and __before__ Window Libraries
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 //GLFW: http://www.glfw.org/docs/latest/build_guide.html
@@ -73,7 +73,7 @@ If you get linker errors that something can not be found it might be this!
 
 
 //*************************************************************************************************************************************************
-//OpenGL Window Libraries
+//2.) OpenGL Window Libraries
 #define WINDOW_LIBRARY 3
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 #if WINDOW_LIBRARY == 1

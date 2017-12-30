@@ -11,21 +11,21 @@
 
 namespace The5
 {
-	//using unique_ptr with GLFWwindow needs the explicit destructor
-	struct DestroyGLFWwindow {
+	/** using std::unique_ptr with GLFWwindow needs the explicit destructor */
+	struct DestroyGLFWwindow 
+	{
 		void operator()(GLFWwindow* ptr) { glfwDestroyWindow(ptr); }
 	};
 	typedef std::unique_ptr<GLFWwindow, DestroyGLFWwindow> GLFWwindow_uptr;
-
-
+	
 	///OpenGL GLFW wrapper
-	///https://gamedev.stackexchange.com/questions/58541/how-can-i-associate-a-key-callback-with-a-wrapper-class-instance
 	class Window {
 	public:
 		std::string title;
 		std::stringstream titlestream;
 		unsigned int height;
 		unsigned int width;
+
 		/** vsync 0 = off, 1 = on,  2 = 30FPS */
 		unsigned int vSyncIntervall = 1;
 
@@ -36,46 +36,74 @@ namespace The5
 		void resizeViewport(unsigned int width, unsigned int height);
 		bool checkWindowShouldClose();
 
+		///Getter / Setter
+		double getDeltaFrameTime();
 		Application* getApplication();
 		InputManager* getInputManager();
-		double getDeltaFrameTime();
+
 	private:
 		friend Application;
-
-		void activate();
+		///Game Loop related
+		/** called at the start of the loop */
 		void preUpdate();
+		/** called before the end of the loop */
 		void postUpdate();
-		void runGameLoop();
+		/** called when the window is closed */
 		void terminate();
 
+		//void runGameLoop();
+
+
+		///Frametime related 
+		/** last time the frame was checked */
 		double previousFrameTime = 0.0;
+		/** the time now */
 		double currentFrameTime = 0.0;
+		/** difference between the last and this check */
 		double deltaFrameTime = 0.0;
+		/** update the delta time */
 		void updateFrameTime();
+
+		/** Set combination of name, FPS, etc. in the windows title */
 		void updateWindowTitleInfo();
 
-		//global initialization that is done ONCE independent of Window object
+		///global OpenGL-related initialization. Is done ONCE independent of Window object
+		/** set once, if glfwInit() was called */
 		static bool mGLFW_initialized;
+		/** set once, if gladLoadGLLoader() was called */
 		static bool mGLAD_initialized;
+		/** set once, if all OpenGL specific things such as DebugCallback were set*/
 		static bool mGL_initialized;
+		
+		///Order of functions required to initialize a working OpenGL window
+		/** 1.) Calls glfwInit() and adds the error callback sets GLFW window hints (must be done before createWindow)  */
 		static void initGLFW();
+		/** 2.) Sets the glfwWindowHint() before a GLFWwindow object is created */
+		static void setGLFWhints();
+		/** 3.) Creates a GLFWwindow object, providing a context for OpenGL (Context = textures, vertex and element buffers, etc.) */
+		void createGLFWwindow(unsigned int width, unsigned int height, std::string title, GLFWwindow* sharedContext = NULL);
+		/** 4.) Sets this Windows input mode and inits the InputManager. Requires a GLFWwindow object! */
+		void initWindowInput();
+		/** 5.) Sets this Windows callbacks for resize, key-input and refresh, providing the GLFWwindow object as user pointer. Requires a GLFWwindow object! */
+		void registerWindowCallbacks();
+		/** 6.) Sets this Window as active context for OpenGL*/
+		void makeWindowActiveContext();
+		/** 7.) Calls gladLoadGLLoader(). Needs an active openGL context! */
 		static void initGLAD();
+		/** 8.) sets up custom OpenGL callbacks, e.g. glEnable(GL_DEBUG_OUTPUT) etc.*/
 		static void initGL();
-		void registerGLFWCallbacks();
 
-		//private members
+		///private Members
 		Application* mApplication;
-
 		GLFWwindow_uptr mGLFWwindow_uptr;
 		GLFWwindow* getGLFWwindow();
-		void initGLFWwindow(unsigned int width, unsigned int height, std::string title);
-
 		InputManager_uptr mInputManager_uptr;
 		void initInputManager();
 
 
 		//************** Static Callback Functions ****************//
-		//1.) In "Window::registerGLFWCallbacks()" we use the "glfwSetWindowUserPointer()" to link our The5::Window object to the the GLFWwindow object
+		//https://gamedev.stackexchange.com/questions/58541/how-can-i-associate-a-key-callback-with-a-wrapper-class-instance
+		//1.) In "Window::registerWindowCallbacks()" we use the "glfwSetWindowUserPointer()" to link our The5::Window object to the the GLFWwindow object
 		//2.) All GLFWwindow object fire the same static callbacks...
 		//3.) But we linked exactly one The5::Window to each GLFWwindow
 		//4.) So in the callbacks we check what window fired the callback by fetching the The5::Window via "glfwGetWindowUserPointer()"

@@ -37,6 +37,8 @@ namespace The5 {
 		///private Fields
 		/** FBO */
 		GLuint fboID;
+		/** window to get resolution from --> dynamic scaling requires extra effort for FBOs */
+		Window* window;
 
 		///private Methods
 		/** create FBO */
