@@ -6,7 +6,6 @@
 
 namespace The5
 {
-
 	//statics need to be defined ONCE 
 	//e.g. in the .cpp, not in header since the header is ran multiple times (in each compile-unit) and might define it multiple times!
 	bool Window::mGLFW_initialized = false;
@@ -122,10 +121,10 @@ namespace The5
 	{
 		titlestream.str(std::string());
 		titlestream << title << " [";
-		titlestream << std::setfill(' ') << std::setw(6) << std::setprecision(0);
-		titlestream << (unsigned int)(1.0/deltaFrameTime) << "FPS] [";
-		titlestream << std::setfill(' ') << std::setw(8) << std::setprecision(0);
-		titlestream << (unsigned int)(deltaFrameTime*1000.0) << "ms]";
+		titlestream << std::setfill(' ') << std::setw(8) << std::setprecision(1) << std::fixed << std::showpoint;
+		titlestream << 1.0/deltaFrameTime << "FPS] [";
+		titlestream << std::setfill(' ') << std::setw(8) << std::setprecision(2) << std::fixed << std::showpoint;
+		titlestream << deltaFrameTime*1000.0 << "ms]";
 		glfwSetWindowTitle(getGLFWwindow(), titlestream.str().c_str());
 	}
 

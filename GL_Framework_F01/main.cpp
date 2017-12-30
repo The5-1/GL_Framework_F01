@@ -71,11 +71,12 @@ int main(int argc, char *argv[])
 	//Shader* shader01 = new Shader("default shader", DEFAULT_SHADER_VERT, DEFAULT_SHADER_FRAG);
 	//B_renderalbeC->setShader(shader01);
 
-	IMaterial* defaultMaterial = new IMaterial("defaultMaterial", DEFAULT_SHADER_VERT, DEFAULT_SHADER_FRAG);
-	IMaterial* objectColorMaterial = new IMaterial("objectColorMaterial", DEFAULT_SHADER_VERT, SHADER_PATH+"solidObjectColor.frag.glsl");
-	Shader* defaultShader = defaultMaterial->getShader();
-	B_renderalbeC->setMaterial(defaultMaterial);
+	IMaterial* defaultMaterial = new IMaterial("defaultMaterial",nullptr);
+	Shader* defaultShader = defaultMaterial->createShader(DEFAULT_SHADER_VERT, DEFAULT_SHADER_FRAG);
+	IMaterial* objectColorMaterial = new IMaterial("objectColorMaterial", nullptr);
+	Shader* objectColorShader = objectColorMaterial->createShader(DEFAULT_SHADER_VERT, SHADER_PATH + "solidObjectColor.frag.glsl");
 
+	B_renderalbeC->setMaterial(defaultMaterial);
 	BAB_renderalbeC->setMaterial(objectColorMaterial);
 
 	float scale = 0.9;

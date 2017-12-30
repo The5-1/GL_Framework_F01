@@ -31,7 +31,7 @@ namespace The5 {
 		{
 			case InputContext::disabled:
 			{
-				LOG("Window \"" << getWindow()->title << "\" has its input disabled!");
+				LOG("Window \"" << getWindow()->title << "\" is in input disabled context!");
 				return;
 			}
 			case InputContext::mainMenu:

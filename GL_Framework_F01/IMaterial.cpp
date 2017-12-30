@@ -3,29 +3,26 @@
 
 namespace The5
 {
-	IMaterial::IMaterial(
-		std::string name, 
-		std::string vertexFile, std::string fragmentFile, 
-		std::string tesselationControlFile, std::string tesselationEvaluationFile,
-		std::string computeFile):
-		name(name),
-		vertexFile(vertexFile), fragmentFile(fragmentFile),
-		geometryFile(geometryFile),
-		tesselationControlFile(tesselationControlFile), tesselationEvaluationFile(tesselationEvaluationFile),
-		computeFile(computeFile)
+	IMaterial::IMaterial(std::string name, Shader* shader): name(name), mShader(shader)
 	{
-		mShader = createShader();
+		
 	};
+
+	Shader* IMaterial::createShader(
+		std::string vertexFile, std::string fragmentFile,
+		std::string geometryFile,
+		std::string tesselationControlFile, std::string tesselationEvaluationFile,
+		std::string computeFile)
+	{
+		//TODO: replace with call to AssetFactory
+		mShader = new Shader(this->name + "_shader", vertexFile, fragmentFile); 
+		return mShader;
+	}
 
 	void IMaterial::setShader(Shader * shader)
 	{
 		//delete(mShader); //Asset manager should own all shaders
 		mShader = shader;
-	}
-
-	Shader * IMaterial::createShader()
-	{
-		return new Shader(this->name + "_shader", this->vertexFile, this->fragmentFile); //TODO: replace with call to AssetFactory
 	}
 
 	Shader * IMaterial::getShader()

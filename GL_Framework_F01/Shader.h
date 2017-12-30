@@ -27,24 +27,36 @@ namespace The5 {
 
 		//TODO: someday... cache uniform locations for rapid updating (animations)
 
-		Shader(std::string name, std::string vertexPath, std::string fragmentPath) : name(name), vertexFile(vertexPath), fragmentFile(fragmentPath)
+		Shader(std::string name, 
+			std::string vertexFile = "", std::string fragmentFile = "",
+			std::string geometryFile = "",
+			std::string tesselationControlFile = "", std::string tesselationEvaluationFile = "",
+			std::string computeFile = "") : 
+			name(name),
+			vertexFile(vertexFile), fragmentFile(fragmentFile),
+			geometryFile(geometryFile),
+			tesselationControlFile(tesselationControlFile), tesselationEvaluationFile(tesselationEvaluationFile),
+			computeFile(computeFile)
 		{
 			compileShader();
 		}
 
+		bool changeFiles(std::string vertexFile = "keep", std::string fragmentFile = "keep",
+			std::string geometryFile = "keep",
+			std::string tesselationControlFile = "keep", std::string tesselationEvaluationFile = "keep",
+			std::string computeFile = "keep")
+		{
+			if(vertexFile!= "keep") this->vertexFile = vertexFile;
+			if (fragmentFile != "keep") this->fragmentFile = fragmentFile;
+			if (geometryFile != "keep") this->geometryFile = geometryFile;
+			if (tesselationControlFile != "keep") this->tesselationControlFile = tesselationControlFile;
+			if (tesselationEvaluationFile != "keep") this->tesselationEvaluationFile = tesselationEvaluationFile;
+			if (computeFile != "keep") this->computeFile = computeFile;
+		}
+
 		bool compileShader()
 		{
-			LOG("Compiling Shader: " << name);
-			if (buildProgram(vertexFile, fragmentFile))
-			{
-				return true;
-			}
-			else
-			{
-				ERR("Failed to build Shader:\n\tVert: " << vertexFile << "\n\tFrag: " << fragmentFile << "\n\tFallback to Default Shader!");
-				buildProgram(The5::DEFAULT_SHADER_VERT, The5::DEFAULT_SHADER_FRAG);
-				return false;
-			}
+			return compileShaderSave();
 		}
 
 		//TODO: instead use https://www.khronos.org/opengl/wiki/Uniform_Buffer_Object
@@ -229,7 +241,25 @@ namespace The5 {
 		}
 
 
-		bool buildProgram(std::string vertexPath, std::string fragmentPath)
+		bool compileShaderSave()
+		{
+			LOG("Compiling Shader: " << name);
+			if (buildProgram(vertexFile, fragmentFile))
+			{
+				return true;
+			}
+			else
+			{
+				ERR("Failed to build Shader:\n\tVert: " << vertexFile << "\n\tFrag: " << fragmentFile << "\n\tFallback to Default Shader!");
+				buildProgram(The5::DEFAULT_SHADER_VERT, The5::DEFAULT_SHADER_FRAG);
+				return false;
+			}
+		}
+
+		bool buildProgram(std::string vertexFile = The5::DEFAULT_SHADER_VERT, std::string fragmentFile = The5::DEFAULT_SHADER_FRAG,
+			std::string geometryFile = "",
+			std::string tesselationControlFile = "", std::string tesselationEvaluationFile = "",
+			std::string computeFile = "")
 		{
 			// 1. retrieve the vertex/fragment source code from filePath
 			std::string vertexCode;
@@ -244,7 +274,7 @@ namespace The5 {
 			try
 			{
 				// open files
-				vShaderFile.open(vertexPath);
+				vShaderFile.open(vertexFile);
 				std::stringstream vShaderStream;
 				// read file's buffer contents into streams
 				vShaderStream << vShaderFile.rdbuf();
@@ -255,7 +285,7 @@ namespace The5 {
 			}
 			catch (std::ifstream::failure e)
 			{
-				ERR("Failed to open Vertex Shader Files from:" << vertexPath);
+				ERR("Failed to open Vertex Shader Files from:" << vertexFile);
 				return false;
 			}
 			const char* vShaderCode = vertexCode.c_str();
@@ -263,7 +293,7 @@ namespace The5 {
 			try
 			{
 				// open files
-				fShaderFile.open(fragmentPath);
+				fShaderFile.open(fragmentFile);
 				std::stringstream fShaderStream;
 				// read file's buffer contents into streams
 				fShaderStream << fShaderFile.rdbuf();
@@ -274,7 +304,7 @@ namespace The5 {
 			}
 			catch (std::ifstream::failure e)
 			{
-				ERR("Failed to open Fragment Shader Files from:" << fragmentPath);
+				ERR("Failed to open Fragment Shader Files from:" << fragmentFile);
 				return false;
 			}
 			const char * fShaderCode = fragmentCode.c_str();

@@ -14,23 +14,15 @@ namespace The5 {
 		///Uniforms
 		vec4 uObjectColor;
 
-		IMaterial(std::string name, std::string vertexFile = "", std::string fragmentFile = "",
+		IMaterial(std::string name, Shader* mShader);
+
+		Shader* createShader(std::string vertexFile = "", std::string fragmentFile = "",
+			std::string geometryFile = "",
 			std::string tesselationControlFile = "", std::string tesselationEvaluationFile = "",
-			std::string computeFile = ""
-		);
+			std::string computeFile = "");
 
-		std::string vertexFile;
-		std::string geometryFile;
-		std::string tesselationControlFile;
-		std::string tesselationEvaluationFile;
-		std::string fragmentFile;
-		std::string computeFile;
-
-		/** Uniforms */
-		//Dependend on concrete Implementation
 
 		void setShader(Shader* shader);
-		Shader* createShader();
 		Shader* getShader();
 		void useShader();
 		void setRecompileShader();

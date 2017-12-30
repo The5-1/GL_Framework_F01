@@ -26,6 +26,7 @@ namespace The5
 		std::stringstream titlestream;
 		unsigned int height;
 		unsigned int width;
+		/** vsync 0 = off, 1 = on,  2 = 30FPS */
 		unsigned int vSyncIntervall = 1;
 
 		Window(Application* application, unsigned int width, unsigned int height, std::string title);
