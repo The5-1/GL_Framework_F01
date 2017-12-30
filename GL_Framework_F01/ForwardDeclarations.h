@@ -55,6 +55,18 @@ namespace The5
 	class AssetManager;
 	using AssetManager_uptr = std::unique_ptr<The5::AssetManager>;
 
+	//Rendering
+	class RenderPass;
+	using RenderPass_uptr = std::unique_ptr<The5::RenderPass>;
+
+	class RenderTarget;
+	using RenderTarget_uptr = std::unique_ptr<The5::RenderTarget>;
+
+	class RendererCP;
+	using RendererCP_uptr = std::unique_ptr<The5::RendererCP>;
+
+	class RenderableC;
+	using RenderableC_uptr = std::unique_ptr<The5::RenderableC>;
 
 	//Entities
 	class Scene;
@@ -80,12 +92,6 @@ namespace The5
 
 	class IComponent;
 	using IComponent_uptr = std::unique_ptr<The5::IComponent>;
-
-	class RendererCP;
-	using RendererCP_uptr = std::unique_ptr<The5::RendererCP>;
-	
-	class RenderableC;
-	using RenderableC_uptr = std::unique_ptr<The5::RenderableC>;
 
 	class MoveableC;
 	using MoveableC_uptr = std::unique_ptr<The5::MoveableC>;
@@ -191,6 +197,7 @@ namespace The5
 		}
 
 	};
+
 
 
 }

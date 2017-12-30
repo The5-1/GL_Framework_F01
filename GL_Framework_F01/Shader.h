@@ -14,7 +14,7 @@ namespace The5 {
 	class Shader
 	{
 	public:
-		unsigned int ID;
+		GLuint ProgramID;
 		std::string name;
 
 		std::string vertexFile;
@@ -67,7 +67,7 @@ namespace The5 {
 		void use()
 		{
 			// set all following meshes to draw with this shader
-			glUseProgram(ID);
+			glUseProgram(ProgramID);
 		}
 
 		void getUniforms()
@@ -83,13 +83,13 @@ namespace The5 {
 			GLchar name[bufSize]; // variable name in GLSL
 			GLsizei length; // name length
 
-			glGetProgramiv(ID, GL_ACTIVE_UNIFORMS, &count);
+			glGetProgramiv(ProgramID, GL_ACTIVE_UNIFORMS, &count);
 			LOG("Shader \"" << this->name << "\" active Uniforms: " << count);
 			//printf("Active Uniforms in Shader:  %d\n", count);
 
 			for (i = 0; i < count; i++)
 			{
-				glGetActiveUniform(ID, (GLuint)i, bufSize, &length, &size, &type, name);
+				glGetActiveUniform(ProgramID, (GLuint)i, bufSize, &length, &size, &type, name);
 
 				LOG(" " << i << ") type: " << type << " name: " << name);
 				//printf("Uniform #%d Type: %u Name: %s\n", i, type, name);
@@ -108,13 +108,13 @@ namespace The5 {
 			GLchar name[bufSize]; // variable name in GLSL
 			GLsizei length; // name length
 
-			glGetProgramiv(ID, GL_ACTIVE_ATTRIBUTES, &count);
+			glGetProgramiv(ProgramID, GL_ACTIVE_ATTRIBUTES, &count);
 			LOG("Shader \"" << this->name << "\" active Attributes: " << count);
 			//printf("Active Attributes: %d\n", count);
 
 			for (i = 0; i < count; i++)
 			{
-				glGetActiveAttrib(ID, (GLuint)i, bufSize, &length, &size, &type, name);
+				glGetActiveAttrib(ProgramID, (GLuint)i, bufSize, &length, &size, &type, name);
 				LOG(" " << i << ") type: " << type << " name: " << name);
 				//printf("Attribute #%d Type: %u Name: %s\n", i, type, name);
 			}
@@ -126,8 +126,8 @@ namespace The5 {
 			//Extension: ARB_program_interface_query
 			GLint numActiveAttribs = 0;
 			GLint numActiveUniforms = 0;
-			glGetProgramInterfaceiv(ID, GL_PROGRAM_INPUT, GL_ACTIVE_RESOURCES, &numActiveAttribs);
-			glGetProgramInterfaceiv(ID, GL_UNIFORM, GL_ACTIVE_RESOURCES, &numActiveUniforms);
+			glGetProgramInterfaceiv(ProgramID, GL_PROGRAM_INPUT, GL_ACTIVE_RESOURCES, &numActiveAttribs);
+			glGetProgramInterfaceiv(ProgramID, GL_UNIFORM, GL_ACTIVE_RESOURCES, &numActiveUniforms);
 
 			std::vector<GLchar> nameData(256);
 			for (int unif = 0; unif < numActiveUniforms; ++unif)
@@ -135,7 +135,7 @@ namespace The5 {
 				GLint arraySize = 0;
 				GLenum type = 0;
 				GLsizei actualLength = 0;
-				glGetActiveUniform(ID, unif, nameData.size(), &actualLength, &arraySize, &type, &nameData[0]);
+				glGetActiveUniform(ProgramID, unif, nameData.size(), &actualLength, &arraySize, &type, &nameData[0]);
 				std::string name((char*)&nameData[0], actualLength);
 				LOG(name);
 			}
@@ -143,7 +143,7 @@ namespace The5 {
 
 		GLint getUniformLocation(const std::string &uniformName) const
 		{
-			GLint location = glGetUniformLocation(ID, uniformName.c_str());
+			GLint location = glGetUniformLocation(ProgramID, uniformName.c_str());
 			if (location == -1)
 			{
 				ERR_GL("Uniform \"" << uniformName.c_str() << "\" does not exist in shader \"" << this->name << "\"!\n\tCheck for typos, or if the variable is unused!");
@@ -327,11 +327,11 @@ namespace The5 {
 			if (!checkCompileErrors(fragment, "FRAGMENT")) success = false;
 
 			// shader Program
-			ID = glCreateProgram();
-			glAttachShader(ID, vertex);
-			glAttachShader(ID, fragment);
-			glLinkProgram(ID);
-			if (!checkCompileErrors(ID, "PROGRAM")) success = false;
+			ProgramID = glCreateProgram();
+			glAttachShader(ProgramID, vertex);
+			glAttachShader(ProgramID, fragment);
+			glLinkProgram(ProgramID);
+			if (!checkCompileErrors(ProgramID, "PROGRAM")) success = false;
 			// delete the shaders as they're linked into our program now and no longer necessary
 			glDeleteShader(vertex);
 			glDeleteShader(fragment);

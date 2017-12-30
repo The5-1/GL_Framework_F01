@@ -156,7 +156,7 @@ namespace The5
 		glfwSwapBuffers(getGLFWwindow());
 		//Event processing must be done regularly while you have any windows and is normally done each frame after buffer swapping.
 		//http://www.glfw.org/docs/latest/input_guide.html#events
-		glfwPollEvents();
+		glfwPollEvents(); //causes all registered callbacks to be called
 	}
 
 	void Window::runGameLoop()

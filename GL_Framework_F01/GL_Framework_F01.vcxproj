@@ -133,6 +133,8 @@
     <ClCompile Include="MoveableC.cpp" />
     <ClCompile Include="RenderableC.cpp" />
     <ClCompile Include="RendererCP.cpp" />
+    <ClCompile Include="RenderPass.cpp" />
+    <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -172,6 +174,8 @@
     <ClInclude Include="Primitives.h" />
     <ClInclude Include="RenderableC.h" />
     <ClInclude Include="RendererCP.h" />
+    <ClInclude Include="RenderPass.h" />
+    <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stl_include.h" />
