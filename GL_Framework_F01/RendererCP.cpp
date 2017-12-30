@@ -17,14 +17,16 @@ namespace The5
 
 	void RendererCP::setFlagRecompileAllShaders()
 	{
+		//LOG("Test printing Tree:\n"<< mApplication->getScene()->getInfo(true));	
 		SceneTree* sceneTree = mApplication->getScene()->getSceneTree();
-
 		for (SceneTree::iterator it = sceneTree->begin(); it != sceneTree->end(); ++it)
-		{
+		{		
 			Entity* entity = it.node->data;
-			if (entity->getComponent(ComponentType::RenderableType) == nullptr) return;
+			//LOG("? Set flag on " << entity->name);
+			if (entity->getComponent(ComponentType::RenderableType) == nullptr) continue;
 			RenderableC* renderable = (RenderableC*)(entity->getComponent(ComponentType::RenderableType));
-			renderable->setFlagRecompileShader();
+			//LOG("! Set flag on " << renderable->name);
+			renderable->setRecompileShader();
 		}
 	}
 

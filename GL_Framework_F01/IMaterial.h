@@ -2,7 +2,6 @@
 
 #include "stl_include.h"
 #include "ForwardDeclarations.h"
-#include "Shader.h"
 
 namespace The5 {
 	//http://www.lighthouse3d.com/tutorials/glsl-tutorial/uniform-blocks/
@@ -12,40 +11,41 @@ namespace The5 {
 	public:
 		std::string name;
 
-		IMaterial(std::string name, std::string vertexFile = "", std::string fragmentFile = "", 
+		///Uniforms
+		vec4 uObjectColor;
+
+		IMaterial(std::string name, std::string vertexFile = "", std::string fragmentFile = "",
 			std::string tesselationControlFile = "", std::string tesselationEvaluationFile = "",
 			std::string computeFile = ""
-		) :
-			name(name),
-			vertexFile(vertexFile), fragmentFile(fragmentFile), 
-			geometryFile(geometryFile), 
-			tesselationControlFile(tesselationControlFile), tesselationEvaluationFile(tesselationEvaluationFile),
-			computeFile(computeFile)
-		{
-			mShader = new Shader(name + "_shader", vertexFile, fragmentFile); //TODO: replace with call to AssetFactory
-	
-		};
+		);
 
-		const std::string vertexFile;
-		const std::string geometryFile;
-		const std::string tesselationControlFile;
-		const std::string tesselationEvaluationFile;
-		const std::string fragmentFile;
-		const std::string computeFile;
+		std::string vertexFile;
+		std::string geometryFile;
+		std::string tesselationControlFile;
+		std::string tesselationEvaluationFile;
+		std::string fragmentFile;
+		std::string computeFile;
 
 		/** Uniforms */
 		//Dependend on concrete Implementation
 
-		void recompileShader() {mShader->compileShader(vertexFile, fragmentFile);}
+		void setShader(Shader* shader);
+		Shader* createShader();
+		Shader* getShader();
+		void useShader();
+		void setRecompileShader();
+		void checkRecompileShader();
 
 	protected:
+		/** uniforms need refreshing */
+		bool flagUniformsDirty = false;
+		/** perfrom uniform refreshing */
+		void checkUpdateUniforms();
 		/** update the shader with the given uniforms */
-		//virtual void updateShader() = 0;
+		virtual void updateUniforms();
+
 
 		/** shader used by this material */
-		Shader* mShader;
-
-
-			
+		Shader* mShader;		
 	};
 }

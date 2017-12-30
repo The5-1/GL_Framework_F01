@@ -46,7 +46,7 @@ namespace The5 {
 
 		///private Fields
 		/** Dirty flag if component settings have changed */
-		bool mDirty = true;
+		bool mFlagDoProcessing = true;
 		/** pointer to parent Entity this Component resides on */
 		Entity* mParentEntity; 
 		/** pointer to parent Appliaction to access Systems, derived from mParentEntity */

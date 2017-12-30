@@ -125,6 +125,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="IComponent.cpp" />
     <ClCompile Include="IComponentProcessor.cpp" />
+    <ClCompile Include="IMaterial.cpp" />
     <ClCompile Include="imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="ISystem.cpp" />

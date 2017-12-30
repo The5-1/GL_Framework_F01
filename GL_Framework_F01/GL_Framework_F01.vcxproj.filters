@@ -123,6 +123,9 @@
     <ClCompile Include="ComponentFactory.cpp">
       <Filter>Source Files\ECS\ComponentInterfaces</Filter>
     </ClCompile>
+    <ClCompile Include="IMaterial.cpp">
+      <Filter>Source Files\Assets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Libraries\imgui\imconfig.h">

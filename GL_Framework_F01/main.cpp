@@ -52,11 +52,11 @@ int main(int argc, char *argv[])
 	Entity* BAA = mainScene->addChild(BA, "BAA");
 	Entity* BAB = mainScene->addChild(BA, "BAB");
 
-	root->addComponent(ComponentType::RenderableType);
+	RenderableC* root_renderalbeC = (RenderableC*)root->addComponent(ComponentType::RenderableType);
 	RenderableC* B_renderalbeC = (RenderableC*)B->addComponent(ComponentType::RenderableType);
-	BAB->addComponent(ComponentType::RenderableType);
+	RenderableC* BAB_renderalbeC = (RenderableC*)BAB->addComponent(ComponentType::RenderableType);
 
-	LOG(mainScene->printTree(true));
+	LOG(mainScene->getInfo(true));
 	LOG(mainScene->getRoot()->name);
 	LOG(mainScene->getParent(BA)->name);
 	
@@ -68,23 +68,35 @@ int main(int argc, char *argv[])
 	//Model model = Model(file_model_nanosuit);
 
 	//Shader* shader01 = new Shader("default shader", DEFAULT_SHADER_VERT, The5::SHADER_PATH + "ERROR_TEST.glsl");
-	Shader* shader01 = new Shader("default shader", DEFAULT_SHADER_VERT, DEFAULT_SHADER_FRAG);
-	B_renderalbeC->setShader(shader01);
+	//Shader* shader01 = new Shader("default shader", DEFAULT_SHADER_VERT, DEFAULT_SHADER_FRAG);
+	//B_renderalbeC->setShader(shader01);
+
+	IMaterial* defaultMaterial = new IMaterial("defaultMaterial", DEFAULT_SHADER_VERT, DEFAULT_SHADER_FRAG);
+	IMaterial* objectColorMaterial = new IMaterial("objectColorMaterial", DEFAULT_SHADER_VERT, SHADER_PATH+"solidObjectColor.frag.glsl");
+	Shader* defaultShader = defaultMaterial->getShader();
+	B_renderalbeC->setMaterial(defaultMaterial);
+
+	BAB_renderalbeC->setMaterial(objectColorMaterial);
 
 	float scale = 0.9;
-	vec3List positions = { vec3(-1.0,-1.0,0.0)*scale, vec3(1.0,-1.0,0.0)*scale, vec3(1.0,1.0,0.0)*scale, vec3(-1.0,1.0,0.0)*scale };
+	float z = 0.0;
+	vec3 offset(0.0, 0.0, 0.0);
+
+	vec3List positions = { vec3(-1.0*scale,-1.0*scale,z)+ offset, vec3(1.0*scale,-1.0*scale,z)+ offset, vec3(1.0*scale,1.0*scale,z)+ offset, vec3(-1.0*scale,1.0*scale,z)+ offset };
 	indexList indices = { 0,1,2,0,2,3 };
 	Mesh* mesh01 = new Mesh("test triangle mesh", positions, indices);
 	B_renderalbeC->setMesh(mesh01);
 
-	shader01->getAttributes();
-	shader01->getUniforms();
-	shader01->getShaderInterface();
 
-	shader01->use();
-	shader01->uniform("uModelMatrix", mat4(1.0f));
-	shader01->uniform("uViewMatrix", mat4(1.0f));
-	shader01->uniform("uProjectionMatrix", mat4(1.0f));
+
+	//defaultShader->getAttributes();
+	//defaultShader->getUniforms();
+	//defaultShader->getShaderInterface();
+
+	//defaultShader->use();
+	//defaultShader->uniform("uModelMatrix", mat4(1.0f));
+	//defaultShader->uniform("uViewMatrix", mat4(1.0f));
+	//defaultShader->uniform("uProjectionMatrix", mat4(1.0f));
 
 	application->startGameLoop();
 

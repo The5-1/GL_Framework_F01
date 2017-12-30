@@ -14,8 +14,8 @@ namespace The5
 {
 	RenderableC::RenderableC(Entity* parentEntity): IComponent(parentEntity)
 	{
-		name = "RenderableC";
-		mDirty = true; //renderables are always dirty
+		name += "_" + ComponentTypeString.at(getType());
+		mFlagDoProcessing = true;
 		init();
 	}
 
@@ -29,32 +29,40 @@ namespace The5
 		this->mesh = mesh;
 	}
 
-	void RenderableC::setShader(Shader * shader)
+	void RenderableC::setMaterial(IMaterial* material)
 	{
-		this->shader = shader;
+		this->material = material;
 	}
+
+	//void RenderableC::setShader(Shader * shader)
+	//{
+	//	this->shader = shader;
+	//}
 
 
 	void RenderableC::draw(double deltaTime)
 	{
 		checkRecompileShader();
 
-		if(shader != nullptr) shader->use();
+		if(material != nullptr) material->useShader();
+		//if(shader != nullptr) shader->use();
 		if(mesh != nullptr) mesh->draw();
 	}
 
-	void RenderableC::setFlagRecompileShader()
+	void RenderableC::setRecompileShader()
 	{
-		this->flagRecompileShader = true;
+		if (material != nullptr)
+		{
+			flagRecompileShader = true;
+			material->setRecompileShader();
+		}
 	}
 
 	void RenderableC::checkRecompileShader()
 	{
-		if (!flagRecompileShader) 
-			return;
-		else
+		if (flagRecompileShader)
 		{
-			material->recompileShader();
+			if(material != nullptr) material->checkRecompileShader();
 			this->flagRecompileShader = false;
 		}
 	}

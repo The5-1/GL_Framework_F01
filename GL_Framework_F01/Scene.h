@@ -44,7 +44,7 @@ namespace The5 {
 
 		///Helper Methods
 		/** writes the sceneTree hirarcy to a std::String */
-		std::string printTree(bool showComponents = false);
+		std::string getInfo(bool showComponents = true);
 
 		/*
 		class iterator : public std::iterator<std::forward_iterator_tag, Entity*>

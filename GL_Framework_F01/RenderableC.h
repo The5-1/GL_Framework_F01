@@ -5,6 +5,7 @@
 
 #include "ForwardDeclarations.h"
 #include "IComponent.h"
+#include "IMaterial.h"
 
 namespace The5 {
 
@@ -15,16 +16,18 @@ namespace The5 {
 	public:
 		IMaterial* material;
 		Mesh* mesh;
-		Shader* shader;
+		//Shader* shader;
 
 		void setMesh(Mesh* mesh);
-		void setShader(Shader* shader);
+		//void setShader(Shader* shader);
+		void setMaterial(IMaterial* material);
 
 		RenderableC(Entity* parentEntity);
+
 		ComponentType getType();
 	
 		void draw(double deltaTime);
-		void setFlagRecompileShader();
+		void setRecompileShader();
 
 	private:
 		friend ComponentFactory;

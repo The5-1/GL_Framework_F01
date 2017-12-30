@@ -30,6 +30,7 @@ namespace The5 {
 	
 		void processInputMainMenu(int key, int scancode, int action, int mods);
 		void processInputInGame(int key, int scancode, int action, int mods);
+		void processInputUniversal(int key, int scancode, int action, int mods);
 
 		bool checkWindowExists();
 		bool checkApplicationExists();

@@ -10,6 +10,7 @@ namespace The5 {
 
 	IComponent::IComponent(Entity* entity) : mParentEntity(entity)
 	{
+		name = entity->name;
 		/** !! init must not be called here but in the derived class!! */
 	}
 

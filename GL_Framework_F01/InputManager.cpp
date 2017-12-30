@@ -4,6 +4,7 @@
 #include "Window.h"
 #include "InputManager.h"
 #include "RendererCP.h"
+#include "Scene.h"
 #include "Logging.h"
 
 namespace The5 {
@@ -22,7 +23,9 @@ namespace The5 {
 
 	void InputManager::handleKeyboardInput(int key, int scancode, int action, int mods)
 	{
-		LOG("Window \"" << getWindow()->title << "\" context: " << context << " key:" << key << " action: " << action);
+		//LOG("Window \"" << getWindow()->title << "\" context: " << context << " key:" << key << " action: " << action);
+
+		processInputUniversal(key, scancode, action, mods);
 
 		switch (context)
 		{
@@ -71,16 +74,6 @@ namespace The5 {
 			changeContext(InputContext::inGame);
 			return;
 		}
-		else if (key == GLFW_KEY_R && action == GLFW_PRESS)
-		{
-			//TODO reload all shaders
-			IComponentProcessor* processor = mApplication->getComponentProcessor(ComponentProcessorType::RendererType);
-			if (processor != nullptr)
-			{
-				((RendererCP*)processor)->setFlagRecompileAllShaders();
-			}
-		}
-
 	}
 
 	void InputManager::processInputInGame(int key, int scancode, int action, int mods)
@@ -92,10 +85,30 @@ namespace The5 {
 			changeContext(InputContext::mainMenu);
 			return;
 		}
-		else if (key == GLFW_KEY_R && action == GLFW_PRESS)
+	}
+
+	void InputManager::processInputUniversal(int key, int scancode, int action, int mods)
+	{
+		
+		if (key == GLFW_KEY_R && action == GLFW_PRESS)
 		{
-			//TODO reload all shaders
+			/// R =  reload all shaders
+			LOG("[R] reload all shaders");
+			IComponentProcessor* renderer = mApplication->getComponentProcessor(ComponentProcessorType::RendererType);
+			if (renderer != nullptr)
+			{
+				((RendererCP*)renderer)->setFlagRecompileAllShaders();
+			}
 		}
+		
+		if (key == GLFW_KEY_M && action == GLFW_PRESS)
+		{
+			/// M = print Scene Tree
+			LOG("[M] print Scene Tree");
+			LOG(mApplication->getScene()->getInfo(true));
+		}
+
+
 	}
 
 

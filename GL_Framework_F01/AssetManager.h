@@ -17,6 +17,4 @@ namespace The5 {
 		//std::vector<Shader_uptr> mShaders;
 		//std::vector<Material_uptr> mMaterials;
 	};
-
-
 }

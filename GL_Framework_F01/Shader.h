@@ -17,26 +17,35 @@ namespace The5 {
 		unsigned int ID;
 		std::string name;
 
-		Shader(std::string name, std::string vertexPath, std::string fragmentPath) : name(name)
+		std::string vertexFile;
+		std::string geometryFile;
+		std::string tesselationControlFile;
+		std::string tesselationEvaluationFile;
+		std::string fragmentFile;
+		std::string computeFile;
+
+
+		//TODO: someday... cache uniform locations for rapid updating (animations)
+
+		Shader(std::string name, std::string vertexPath, std::string fragmentPath) : name(name), vertexFile(vertexPath), fragmentFile(fragmentPath)
 		{
-			compileShader(vertexPath, fragmentPath);
+			compileShader();
 		}
 
-		bool compileShader(std::string vertexPath, std::string fragmentPath)
+		bool compileShader()
 		{
-			if (buildProgram(vertexPath, fragmentPath))
+			LOG("Compiling Shader: " << name);
+			if (buildProgram(vertexFile, fragmentFile))
 			{
 				return true;
 			}
 			else
 			{
-				ERR("Failed to build Shader:\n\tVert: " << vertexPath << "\n\tFrag: " << fragmentPath << "\n\tFallback to Default Shader!");
+				ERR("Failed to build Shader:\n\tVert: " << vertexFile << "\n\tFrag: " << fragmentFile << "\n\tFallback to Default Shader!");
 				buildProgram(The5::DEFAULT_SHADER_VERT, The5::DEFAULT_SHADER_FRAG);
 				return false;
 			}
 		}
-
-
 
 		//TODO: instead use https://www.khronos.org/opengl/wiki/Uniform_Buffer_Object
 		//https://gamedev.stackexchange.com/questions/133615/how-do-you-store-uniform-data
@@ -201,6 +210,23 @@ namespace The5 {
 		}
 
 	private:
+		friend IMaterial;
+
+		bool mFlagNeedsRecompile = false;
+
+		void setFlagRecompileShader()
+		{
+			mFlagNeedsRecompile = true;
+		}
+
+		void checkRecompileShader()
+		{
+			if (mFlagNeedsRecompile)
+			{
+				compileShader();
+				mFlagNeedsRecompile = false;
+			}
+		}
 
 
 		bool buildProgram(std::string vertexPath, std::string fragmentPath)

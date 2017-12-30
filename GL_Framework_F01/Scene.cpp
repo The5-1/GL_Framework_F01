@@ -77,7 +77,7 @@ namespace The5 {
 		return iter.node->data;
 	}
 
-	SceneTree * Scene::getSceneTree()
+	SceneTree* Scene::getSceneTree()
 	{
 		return mSceneTree.get();
 	}
@@ -92,7 +92,7 @@ namespace The5 {
 		return mApplication;
 	}
 
-	std::string Scene::printTree(bool showComponents)
+	std::string Scene::getInfo(bool showComponents)
 	{
 		//printing unicode requires wstring and wcout
 		//https://en.wikipedia.org/wiki/Box-drawing_character
@@ -104,8 +104,14 @@ namespace The5 {
 		//const wchar_t BR = L'\x255D';
 
 		std::stringstream ss;
-
-		ss << "SceneTree: " << name << std::endl;
+		std::string header("Tree for Scene: \"" + name + "\"");
+		unsigned int headerSize = header.size()+4;
+		//ss << "Tree for Scene: \"" << name << "\"" << std::endl;
+		//unsigned int headerSize = ss.str().size() - 1;
+		ss << std::endl;
+		ss << std::string(headerSize, '=') << std::endl;
+		ss << "| " << header << " |" <<std::endl;
+		ss << std::string(headerSize, '-') << std::endl;
 		for (SceneTree::iterator it = getSceneTree()->begin(); it != getSceneTree()->end(); ++it)
 		{
 			unsigned int depth = SceneTree::depth(it);
@@ -134,7 +140,7 @@ namespace The5 {
 			std::string components;
 			if (showComponents)
 			{
-				components = " [";
+				components = ":[";
 				for (auto compIt = e->getComponents()->begin(); compIt != e->getComponents()->end(); ++compIt)
 				{
 					components += compIt._Ptr->_Myval.second.get()->name;
@@ -142,8 +148,9 @@ namespace The5 {
 				}
 				components += "]";
 			}
-			ss << connector << it.node->data->name << components << std::endl;
+			ss << "| " << connector << it.node->data->name << components << std::endl;
 		}
+		ss << std::string(headerSize, '=') << std::endl;
 		return ss.str();
 	}
 
