@@ -24,7 +24,7 @@ If you get linker errors that something can not be found it might be this!
 //https://stackoverflow.com/questions/19719055/what-are-the-differences-between-glu-glew-glut-qt-sdl-opengl-and-webgl
 
 //*************************************************************************************************************************************************
-//OpenGL Extensions
+//1.) OpenGL Extensions
 #define EXTENSION_LIBRARY 2
 //Must be included before window libarries!!
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -33,7 +33,7 @@ If you get linker errors that something can not be found it might be this!
 //initialize extensions
 //gets those OpenGL functions that are available on the current platform
 //http://glew.sourceforge.net/basic.html
-#define GLEW_STATIC  //we use the glew32s.lib (static library) to include GLEW right into our exe, we need to tell this to GLEW
+#define GLEW_STATIC  //if we use the glew32s.lib (static library) to include GLEW right into our exe, we need to tell this to GLEW
 #include <GL/glew.h> 
 //glewInit(); //you need to call glewInit manually
 //glGetError(); //call glGetError afterwards, since glew produces some test error flag that we want to clear first --> https://learnopengl.com/#!In-Practice/Debugging
@@ -50,6 +50,26 @@ If you get linker errors that something can not be found it might be this!
 #include <glad\glad1_4.6_withLoader.h>
 //gladLoadGL();
 #endif
+
+//*************************************************************************************************************************************************
+//2.) Includes and Macros
+//Incudes required __after__ OpenGL and __before__ Window Libraries
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+//GLFW: http://www.glfw.org/docs/latest/build_guide.html
+//a.) The Loader libraries like glew and glad make including gl.h unnecessary. 
+//    If you must use the loader after GLEW, GLEW needs a GLFW_INCLUDE_NONE macro defined
+//b.) GLFW duplicates some necessary parts of <windows.h>
+//	  If I need more functionality for windows, <windows.h> must be included before glfw3.h
+#define USE_WINDOWSH 0
+#if USE_WINDOWSH == 1
+	#include <Windows.h>
+#endif
+//c.) GLU is deprecated and should __not__ be used, if you must, include it before GLFW
+#define USE_DEPRECATED_GLU 0
+#if USE_DEPRECATED_GLU == 1
+#include <GL\GLU.h>
+#endif
+
 
 
 //*************************************************************************************************************************************************
@@ -71,17 +91,28 @@ If you get linker errors that something can not be found it might be this!
 #include <SDL2/SDL_image.h>
 
 #elif WINDOW_LIBRARY == 2
-//FreeGLUT - GL Utility Toolkit:
-//low level library for creating windows, has extensions that allow the same control as GLFW3
+//FreeGLUT - OpenGL Utility Toolkit:
+//- old, possibly more tutorials
+//- create windows + OpenGL Context
+//- handle input
+//has builtin game-loop:
+//- set glutDisplayFunc(myDisplayFunction);
 #include <GL/glut.h>  
 
 #elif WINDOW_LIBRARY == 3
 //GL Window Framework:
-//low level library that only creates windows and handles input, direct control over OpenGL
+//- rewritten with modern OpenGL in mind
+//- create windows + OpenGL Context
+//- handle input
+//requires custom game-loop:
+//- create a GLFWwindow object
+//- after loop glfwSwapBuffers(myGLFWwindow);
+//- after loop glfwPollEvents();
+//See optional #Includes and #Macros before includig GLFW!
+//http://www.glfw.org/docs/latest/build_guide.html
 #include <GL/glfw3.h>
 #endif
 //***************************
-
 
 
 //*****************************
