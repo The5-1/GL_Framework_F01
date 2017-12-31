@@ -14,8 +14,6 @@ namespace The5 {
 		std::string name;
 
 		///Constructor / Destructor
-		/** Constructor */
-		RenderTarget(std::string name);
 		/** Destructor */
 		~RenderTarget() = default;
 
@@ -24,24 +22,25 @@ namespace The5 {
 
 		///Methods
 		/** activate FBO, required for attaching buffers */
-		void bindFBO();
+		void bindFBO() const;
 		/** attach Buffer for READ and WRITE (FBO must be bound first)*/
 		void attachReadWriteBuffer(Texture* texture, GLenum attachmentType);
 		/** attach Buffer for Writing only (e.g. GL_DEPTH24_STENCIL8) */
 		void attachWriteonlyBuffer(RenderBuffer* renderBuffer, GLenum attachmentType);
 		/** disable FBO, reset to on-screen rendering */
-		void unbindFBO();
+		void unbindFBO() const;
 
 	protected:
 		///friend classes
-		/** documentation */
+		friend RendererCP;
 
 		///private Constructor
-		/** documentation */
+		/** Constructor */
+		RenderTarget(std::string name);
 
 		///private Fields
 		/** Framebuffer Object ID */
-		GLuint fboID = 0;
+		GLuint fboID = 0; // 0 = onscreen
 		/** Framebuffer Object ID */
 		std::map<Texture*, GLenum> textureAttachments;
 		/** window to get resolution from*/

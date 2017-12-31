@@ -19,11 +19,11 @@ namespace The5
 		{
 			return nullptr;
 		}
-		case (ComponentType::RenderableType):
+		case (ComponentType::RenderableCType):
 		{
 			return new RenderableC(entity);
 		}
-		case (ComponentType::MoveableType):
+		case (ComponentType::MoveableCType):
 			return nullptr;
 			//return new MoveableC(entity);
 		}
@@ -39,11 +39,11 @@ namespace The5
 		{
 			return nullptr;
 		}
-		case (ComponentType::RenderableType):
+		case (ComponentType::RenderableCType):
 		{
 			return (IComponentProcessor<IComponent*>*)mRendererCP.get();
 		}
-		case (ComponentType::MoveableType):
+		case (ComponentType::MoveableCType):
 			return nullptr;
 		}
 	}

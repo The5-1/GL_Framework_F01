@@ -11,7 +11,7 @@ namespace The5
 
 	ComponentType MoveableC::getType()
 	{
-		return ComponentType::RenderableType;
+		return ComponentType::RenderableCType;
 	}
 
 	void MoveableC::registerAtComponentProcessor()

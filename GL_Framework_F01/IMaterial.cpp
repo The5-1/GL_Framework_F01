@@ -3,7 +3,7 @@
 
 namespace The5
 {
-	IMaterial::IMaterial(std::string name, Shader* shader): name(name), mShader(shader)
+	IMaterial::IMaterial(std::string name, Shader* shader, MaterialBlendMode blendMode): name(name), mShader(shader), blendMode(blendMode)
 	{
 		
 	};

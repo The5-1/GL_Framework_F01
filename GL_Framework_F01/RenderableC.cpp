@@ -21,7 +21,7 @@ namespace The5
 
 	ComponentType RenderableC::getType()
 	{
-		return ComponentType::RenderableType;
+		return ComponentType::RenderableCType;
 	}
 
 	void RenderableC::setMesh(Mesh * mesh)

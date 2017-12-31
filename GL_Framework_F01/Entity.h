@@ -18,7 +18,14 @@ namespace The5 {
 	- fiddling with cache coherency and unloading comes WAY later
 	********************/
 	
-	/** Entity / Node of the SceneTree, holds Components */
+	/** Entity / Node of the SceneTree, holds Components 
+	* - keep Enitity super lightweight, __all__ logic is handled by components
+	* - fast component checking via bitmask
+	* - nesting entities via Scene-Tree hirarchy: e.g. a Buff could just be a child entity with timer and stat components
+	* - Pro: encapsules components into own logical groups
+	* - Con: additional tree traversal cost
+	* - Neutral: communication in-between entities and their components will ultimately be necessary anyways
+	*/
 	class Entity
 	{
 	public:
@@ -38,9 +45,9 @@ namespace The5 {
 
 		///transformation
 		/** every node got a local transformation */
-		mat4 transformation;
+		mat4 localTransformation = mat4(1.0);
 		/** the combined resulting transformation matrix, only updated when a parent changes */
-		mat4 transformation_cached;
+		mat4 globalTransformation = mat4(1.0);
 
 		///Methods: Components
 		/** return a raw pointer to the components map */

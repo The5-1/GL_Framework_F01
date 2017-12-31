@@ -16,7 +16,7 @@ namespace The5 {
 	public:
 		IMaterial* material;
 		Mesh* mesh;
-		/** renderpass with assigned material that is used to draw in that pass */
+		/** Renderpass with assigned Material that is used to draw in that pass */
 		std::map<RenderPass*, IMaterial*> renderPassMaterials;
 		//Shader* shader;
 

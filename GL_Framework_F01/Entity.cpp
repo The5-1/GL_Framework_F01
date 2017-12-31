@@ -13,7 +13,7 @@ namespace The5 {
 
 	Entity::Entity(std::string name, Application* application, Scene* scene) : name(name), mApplication(application), mScene(scene)
 	{
-		transformation = glm::mat4(1.0f);
+		//transformation = glm::mat4(1.0f);
 
 		mComponents = std::unique_ptr<std::map<ComponentType, IComponent_uptr>>(new std::map<ComponentType, IComponent_uptr>());
 	}

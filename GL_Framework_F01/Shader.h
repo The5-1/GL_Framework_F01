@@ -243,7 +243,7 @@ namespace The5 {
 
 		bool compileShaderSave()
 		{
-			LOG("Compiling Shader: " << name);
+			LOG("Compiling Shader \"" << name << "\"\n\tVert: " << vertexFile << "\n\tFrag: " << fragmentFile);
 			if (buildProgram(vertexFile, fragmentFile))
 			{
 				return true;

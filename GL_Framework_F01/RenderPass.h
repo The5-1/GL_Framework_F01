@@ -15,8 +15,6 @@ namespace The5 {
 		std::string name;
 
 		///Constructor / Destructor
-		/** Constructor */
-		RenderPass(std::string name);
 		/** Destructor */
 		~RenderPass() = default;
 
@@ -25,15 +23,18 @@ namespace The5 {
 
 		///Methods
 		/** documentation */
-		void setOnscreenRendering();
+
+		//static RenderPass* const OnscreenRenderpass;
 
 	protected:
 		///friend classes
+		friend RendererCP;
 		friend RenderTarget;
 		/** documentation */
 
 		///private Constructor
-		/** documentation */
+		/** Constructor */
+		RenderPass(std::string name);
 
 		///private Fields
 		/** clear color active */

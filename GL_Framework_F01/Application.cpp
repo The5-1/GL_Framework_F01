@@ -49,7 +49,7 @@ namespace The5 {
 	void Application::initComponentProcessors()
 	{
 		mRenderer = new RendererCP(this);
-		mComponentProcessors.insert(std::make_pair(ComponentProcessorType::RendererType,RendererCP_uptr(mRenderer)));
+		mComponentProcessors.insert(std::make_pair(ComponentProcessorType::RendererCPType,RendererCP_uptr(mRenderer)));
 	}
 
 	void Application::runComponentProcessors(double deltaTime)

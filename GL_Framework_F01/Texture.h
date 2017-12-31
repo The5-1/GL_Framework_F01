@@ -102,5 +102,13 @@ namespace The5 {
 			}
 		}
 
+		void updateTexture(unsigned int width, unsigned int height, GLint format, GLint type, const GLvoid * data)
+		{
+			GLint mipLevel = 0;
+			glBindTexture(GL_TEXTURE_2D, textureID);
+			glTexSubImage2D(GL_TEXTURE_2D, mipLevel, 0, 0, width, height, format, type, data);
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+
 	};
 }

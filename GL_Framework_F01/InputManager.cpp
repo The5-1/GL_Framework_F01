@@ -94,7 +94,7 @@ namespace The5 {
 		{
 			/// R =  reload all shaders
 			LOG("[R] reload all shaders");
-			IComponentProcessor* renderer = mApplication->getComponentProcessor(ComponentProcessorType::RendererType);
+			IComponentProcessor* renderer = mApplication->getComponentProcessor(ComponentProcessorType::RendererCPType);
 			if (renderer != nullptr)
 			{
 				((RendererCP*)renderer)->setFlagRecompileAllShaders();

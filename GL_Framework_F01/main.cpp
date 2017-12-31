@@ -52,9 +52,9 @@ int main(int argc, char *argv[])
 	Entity* BAA = mainScene->addChild(BA, "BAA");
 	Entity* BAB = mainScene->addChild(BA, "BAB");
 
-	RenderableC* root_renderalbeC = (RenderableC*)root->addComponent(ComponentType::RenderableType);
-	RenderableC* B_renderalbeC = (RenderableC*)B->addComponent(ComponentType::RenderableType);
-	RenderableC* BAB_renderalbeC = (RenderableC*)BAB->addComponent(ComponentType::RenderableType);
+	RenderableC* root_renderalbeC = (RenderableC*)root->addComponent(ComponentType::RenderableCType);
+	RenderableC* B_renderalbeC = (RenderableC*)B->addComponent(ComponentType::RenderableCType);
+	RenderableC* BAB_renderalbeC = (RenderableC*)BAB->addComponent(ComponentType::RenderableCType);
 
 	LOG(mainScene->getInfo(true));
 	LOG(mainScene->getRoot()->name);

@@ -2,6 +2,7 @@
 #include "Logging.h"
 #include "Texture.h"
 #include "RenderBuffer.h"
+#include "RenderPass.h"
 
 namespace The5
 {
@@ -15,9 +16,14 @@ namespace The5
 		glGenFramebuffers(1, &fboID);
 	}
 
-	void RenderTarget::bindFBO()
+	void RenderTarget::bindFBO() const
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, fboID);
+	}
+
+	void RenderTarget::unbindFBO() const
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0); //resets to onscreen
 	}
 
 	void RenderTarget::attachReadWriteBuffer(Texture * texture, GLenum attachmentType)
@@ -35,10 +41,6 @@ namespace The5
 		checkFramebufferErrors();
 	}
 
-	void RenderTarget::unbindFBO()
-	{
-		glBindFramebuffer(GL_FRAMEBUFFER, 0); //resets to onscreen
-	}
 
 	void RenderTarget::bindWriteFBO()
 	{

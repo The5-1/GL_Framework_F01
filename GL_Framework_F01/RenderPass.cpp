@@ -1,12 +1,11 @@
 #include "RenderPass.h"
+#include "RenderTarget.h"
 
 namespace The5
 {
-
-	void RenderPass::setOnscreenRendering()
+	RenderPass::RenderPass(std::string name) : name(name)
 	{
-		//writing to no specifit Framebuffer renders onscreen
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		
 	}
 
 }

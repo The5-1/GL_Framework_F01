@@ -25,9 +25,6 @@
     <Filter Include="Source Files\asimp">
       <UniqueIdentifier>{81c8222e-5656-4323-9415-79dc683cec19}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GL">
-      <UniqueIdentifier>{ec92354b-5926-40cb-b739-82a2983bb486}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\imgui">
       <UniqueIdentifier>{e00c9e65-819b-4b3f-b551-63a27c0b9a4d}</UniqueIdentifier>
     </Filter>
@@ -46,26 +43,29 @@
     <Filter Include="Source Files\STL">
       <UniqueIdentifier>{a1d74e8b-3298-4ba0-90de-5438f81e9327}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ECS">
-      <UniqueIdentifier>{2132ea7d-3737-4609-b8d4-f07ec4ad8471}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ECS\Enitiy">
-      <UniqueIdentifier>{acf44d07-2345-4aa7-861a-62d7e89c4cab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ECS\ComponentInterfaces">
-      <UniqueIdentifier>{84b70f31-3e3e-45b1-951f-8a8b582a4edd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ECS\ComponentProcessors">
-      <UniqueIdentifier>{4c832da3-2ec3-44a8-b230-384c5ad282b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ECS\Components">
-      <UniqueIdentifier>{c64dfd87-203e-4c9f-b777-ceaa29fa4ad7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Tree">
       <UniqueIdentifier>{971488ff-b7b4-4fc8-acae-8425d7041050}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Rendering">
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{c64dfd87-203e-4c9f-b777-ceaa29fa4ad7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Rendering">
       <UniqueIdentifier>{4757d97b-2e1c-484a-8a54-d1b2a7c0d2f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Timer">
+      <UniqueIdentifier>{00c792e2-bf18-44ba-a40b-7d3608a361e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Position">
+      <UniqueIdentifier>{2f253ec3-b157-4dac-ae0c-0dec715dc423}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Movement">
+      <UniqueIdentifier>{dbfe5f49-45e1-4ac3-ab9d-f3a011fc9957}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ComponentInterfaces">
+      <UniqueIdentifier>{84b70f31-3e3e-45b1-951f-8a8b582a4edd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enitiy">
+      <UniqueIdentifier>{acf44d07-2345-4aa7-861a-62d7e89c4cab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -94,46 +94,49 @@
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="IComponent.cpp">
-      <Filter>Source Files\ECS\ComponentInterfaces</Filter>
+      <Filter>Source Files\ComponentInterfaces</Filter>
     </ClCompile>
     <ClCompile Include="IComponentProcessor.cpp">
-      <Filter>Source Files\ECS\ComponentInterfaces</Filter>
+      <Filter>Source Files\ComponentInterfaces</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\ECS\Enitiy</Filter>
+      <Filter>Source Files\Enitiy</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Source Files\ECS\Enitiy</Filter>
+      <Filter>Source Files\Enitiy</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveableC.cpp">
-      <Filter>Source Files\ECS\Components</Filter>
     </ClCompile>
     <ClCompile Include="ISystem.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="ComponentFactory.cpp">
-      <Filter>Source Files\ECS\ComponentInterfaces</Filter>
+      <Filter>Source Files\ComponentInterfaces</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="RenderableC.cpp">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="RendererCP.cpp">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="RenderTarget.cpp">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="RenderPass.cpp">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="IMaterial.cpp">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformationC.cpp">
+      <Filter>Source Files\Components\Position</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveableC.cpp">
+      <Filter>Source Files\Components\Movement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,9 +166,6 @@
     </ClInclude>
     <ClInclude Include="imgui_init.h">
       <Filter>Source Files\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="drawTriangle.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="assimp_include.h">
       <Filter>Source Files\asimp</Filter>
@@ -197,11 +197,8 @@
     <ClInclude Include="AssetManager.h">
       <Filter>Source Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="ForwardDeclarations.h">
-      <Filter>Source Files\Helper</Filter>
-    </ClInclude>
     <ClInclude Include="IComponent.h">
-      <Filter>Source Files\ECS\ComponentInterfaces</Filter>
+      <Filter>Source Files\ComponentInterfaces</Filter>
     </ClInclude>
     <ClInclude Include="IManager.h">
       <Filter>Source Files\Managers</Filter>
@@ -210,19 +207,16 @@
       <Filter>Source Files\Helper</Filter>
     </ClInclude>
     <ClInclude Include="IComponentProcessor.h">
-      <Filter>Source Files\ECS\ComponentInterfaces</Filter>
+      <Filter>Source Files\ComponentInterfaces</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Source Files\ECS\Enitiy</Filter>
+      <Filter>Source Files\Enitiy</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Source Files\ECS\Enitiy</Filter>
+      <Filter>Source Files\Enitiy</Filter>
     </ClInclude>
     <ClInclude Include="ComponentCommon.h">
-      <Filter>Source Files\ECS\ComponentInterfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveableC.h">
-      <Filter>Source Files\ECS\Components</Filter>
+      <Filter>Source Files\ComponentInterfaces</Filter>
     </ClInclude>
     <ClInclude Include="ISystem.h">
       <Filter>Source Files\Managers</Filter>
@@ -231,37 +225,34 @@
       <Filter>Source Files\Tree</Filter>
     </ClInclude>
     <ClInclude Include="ComponentFactory.h">
-      <Filter>Source Files\ECS\ComponentInterfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="The5_Config.h">
-      <Filter>Source Files\Helper</Filter>
+      <Filter>Source Files\ComponentInterfaces</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="RenderableC.h">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="RendererCP.h">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="GL_include.h">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="RenderPass.h">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="RenderTarget.h">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="LoggingGL_DebugOutput.h">
       <Filter>Source Files\Logging</Filter>
@@ -273,13 +264,31 @@
       <Filter>Source Files\Assets</Filter>
     </ClInclude>
     <ClInclude Include="IMaterial.h">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="RenderBuffer.h">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="IPixelBuffer.h">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Source Files\Components\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerC.h">
+      <Filter>Source Files\Components\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerCP.h">
+      <Filter>Source Files\Components\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformationC.h">
+      <Filter>Source Files\Components\Position</Filter>
+    </ClInclude>
+    <ClInclude Include="ForwardDeclarations.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="The5_Config.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveableC.h">
+      <Filter>Source Files\Components\Movement</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

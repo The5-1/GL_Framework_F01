@@ -9,12 +9,14 @@ namespace The5 {
 	class IMaterial 
 	{
 	public:
+		/** name */
 		std::string name;
+		MaterialBlendMode blendMode = MaterialBlendMode::BlendAlpha;
 
 		///Uniforms
 		vec4 uObjectColor;
 
-		IMaterial(std::string name, Shader* mShader);
+		IMaterial(std::string name, Shader* mShader, MaterialBlendMode blendMode = MaterialBlendMode::BlendAlpha);
 
 		Shader* createShader(std::string vertexFile = "", std::string fragmentFile = "",
 			std::string geometryFile = "",

@@ -136,6 +136,7 @@
     <ClCompile Include="RenderPass.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="TransformationC.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -152,8 +153,8 @@
     <ClInclude Include="ComponentCommon.h" />
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="ForwardDeclarations.h" />
+    <ClInclude Include="TimerCP.h" />
     <ClInclude Include="IComponent.h" />
-    <ClInclude Include="drawTriangle.h" />
     <ClInclude Include="IComponentProcessor.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="imgui_impl_glfw_gl3.h" />
@@ -185,6 +186,8 @@
     <ClInclude Include="stl_include.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="The5_Config.h" />
+    <ClInclude Include="TimerC.h" />
+    <ClInclude Include="TransformationC.h" />
     <ClInclude Include="tree_include.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
