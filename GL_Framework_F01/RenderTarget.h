@@ -10,10 +10,8 @@ namespace The5 {
 	{
 	public:
 		///public Fields
+		/** Render Targets name */
 		std::string name;
-		/** Frame Buffer Dimensions */
-		unsigned int height;
-		unsigned int width;
 
 		///Constructor / Destructor
 		/** Constructor */
@@ -35,20 +33,27 @@ namespace The5 {
 		/** documentation */
 
 		///private Fields
-		/** FBO */
-		GLuint fboID;
-		/** window to get resolution from --> dynamic scaling requires extra effort for FBOs */
-		Window* window;
+		/** Framebuffer Object ID */
+		GLuint fboID = 0;
+		/** Framebuffer Object ID */
+		std::vector<Texture*> textures;
+		/** window to get resolution from*/
+		//Window* window; //--> dynamic scaling requires extra effort for FBOs and handling callbacks
+		/** use the windows resolution */
+		//bool useWindowResolution = true;
 
 		///private Methods
-		/** create FBO */
+		/** create FBO*/
 		void createFBO();
 
 		void bindFBO();
+
+		void attachTexture(Texture* texture);
+
 		void bindWriteFBO();
 		void bindReadFBO();
 
-		bool checkErrors();
+		bool checkFramebufferErrors();
 
 	};
 }

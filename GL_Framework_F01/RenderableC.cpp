@@ -58,6 +58,13 @@ namespace The5
 		}
 	}
 
+	IMaterial* RenderableC::getRenderpassMaterial(RenderPass * renderpass)
+	{
+		auto it = renderPasses.find(renderpass);
+		if (it == renderPasses.end()) return nullptr;
+		else return it->second;
+	}
+
 	void RenderableC::checkRecompileShader()
 	{
 		if (flagRecompileShader)

@@ -1,47 +1,39 @@
 #pragma once
 
 #include "ForwardDeclarations.h"
-#include "GL_include.h"
 
 namespace The5 {
 
 	/** documentation */
-	class RenderPass
+	class Image
 	{
 	public:
 
 		///public Fields
-		/** documentation */
+		/** name */
+		std::string name;
 
 		///Constructor / Destructor
 		/** Constructor */
-		RenderPass();
+		Image() = default;
 		/** Destructor */
-		~RenderPass() = default;
+		~Image() = default;
 
 		///Getters / Setters
 		/** documentation */
 
 		///Methods
 		/** documentation */
-		void setOnscreenRendering();
 
 	protected:
 		///friend classes
-		friend RenderTarget;
 		/** documentation */
 
 		///private Constructor
 		/** documentation */
 
 		///private Fields
-		/** clear color active */
-		bool clearColorActive = true;
-		/** clear depth active */
-		bool clearDepthActive = true;
-
-		/** a RenderTarget this RenderPass renders to, render Targets can be drawn to from multiple passes */
-		RenderTarget* mRenderTarget;
+		/** documentation */
 
 		///private Methods
 		/** documentation */

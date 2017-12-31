@@ -34,6 +34,9 @@ namespace The5
 
 	class Texture;
 	using Texture_uptr = std::unique_ptr<The5::Texture>;
+	enum TextureAttachmentType { ColorAttachment, DepthAttachment, StencilAttachment };
+	enum TextureFormatArchetype { noTextureFormatArchetype, R8, R16, R32, RGB8, RGB16, RGB32, RGBA8 };
+	enum FBOArchetype { noFBOArchetype, FBO_RGBA8, FBO_RGBA8_Depth32, FBO_GBuffer8_Depth32};
 
 	class Shader;
 	using Shader_uptr = std::unique_ptr<The5::Shader>;
@@ -54,6 +57,13 @@ namespace The5
 
 	class AssetManager;
 	using AssetManager_uptr = std::unique_ptr<The5::AssetManager>;
+
+	//Asset
+	class Image;
+	using Image_uptr = std::unique_ptr<The5::Image>;
+
+	class Model;
+	using Model_uptr = std::unique_ptr<The5::Model>;
 
 	//Rendering
 	class RenderPass;

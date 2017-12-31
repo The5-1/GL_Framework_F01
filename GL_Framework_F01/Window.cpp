@@ -55,19 +55,35 @@ namespace The5
 
 	void Window::createGLFWwindow(unsigned int width = 1024, unsigned int height = 720, std::string title = "GLFW window", GLFWwindow* sharedContext)
 	{
+#define WINDOWED_FULLSCREEN 0
+#if WINDOWED_FULLSCREEN == 1
+		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+		
+		//glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+		//glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+		//glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+		//glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+#endif
 		//The second NULL can be used to share OpenGL context (textures, vertex and element buffers, etc.) from an existing GLFWwindow.
 		//But only one context and be active at a time!
-		mGLFWwindow_uptr = GLFWwindow_uptr(glfwCreateWindow(width, height, title.c_str(), NULL, sharedContext));
+		mGLFWwindow_uptr = GLFWwindow_uptr(glfwCreateWindow(width, height, title.c_str(), NULL , sharedContext));
+
 		if (getGLFWwindow() == NULL)
 		{
 			ERR("Failed to create GLFW window! Terminating GLFW!");
 			glfwTerminate();
 			return;
 		}
+#if WINDOWED_FULLSCREEN == 1
+		glfwSetWindowMonitor(getGLFWwindow(), monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+#endif
 	}
 
 	void Window::initWindowInput()
 	{
+		glfwSetWindowSizeLimits(getGLFWwindow(), 64, 64, GLFW_DONT_CARE, GLFW_DONT_CARE); //set minimum WINDOW size, not active area!
+
 		glfwSetInputMode(getGLFWwindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);	//GLFW_CURSOR_DISABLED = lock mouse in screen
 
 		initInputManager();

@@ -155,6 +155,7 @@
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="drawTriangle.h" />
     <ClInclude Include="IComponentProcessor.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="imgui_impl_glfw_gl3.h" />
     <ClInclude Include="GL_include.h" />
     <ClInclude Include="imgui_init.h" />

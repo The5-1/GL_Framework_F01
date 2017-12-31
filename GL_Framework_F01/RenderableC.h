@@ -16,6 +16,8 @@ namespace The5 {
 	public:
 		IMaterial* material;
 		Mesh* mesh;
+		/** renderpass with assigned material that is used to draw in that pass */
+		std::map<RenderPass*, IMaterial*> renderPasses;
 		//Shader* shader;
 
 		void setMesh(Mesh* mesh);
@@ -28,11 +30,11 @@ namespace The5 {
 	
 		void draw(double deltaTime);
 		void setRecompileShader();
+		IMaterial* getRenderpassMaterial(RenderPass* renderpass);
 
 	private:
 		friend ComponentFactory;
 		friend RendererCP;
-
 
 		bool flagRecompileShader = false;
 		void checkRecompileShader();

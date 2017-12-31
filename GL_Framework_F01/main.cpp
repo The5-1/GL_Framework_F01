@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
 	//B_renderalbeC->setShader(shader01);
 
 	IMaterial* defaultMaterial = new IMaterial("defaultMaterial",nullptr);
-	Shader* defaultShader = defaultMaterial->createShader(DEFAULT_SHADER_VERT, DEFAULT_SHADER_FRAG);
+	Shader* defaultShader = defaultMaterial->createShader(DEFAULT_SHADER_VERT, SHADER_PATH + "worldGrid.frag.glsl");
 	IMaterial* objectColorMaterial = new IMaterial("objectColorMaterial", nullptr);
 	Shader* objectColorShader = objectColorMaterial->createShader(DEFAULT_SHADER_VERT, SHADER_PATH + "solidObjectColor.frag.glsl");
 

@@ -250,7 +250,7 @@ namespace The5 {
 			}
 			else
 			{
-				ERR("Failed to build Shader:\n\tVert: " << vertexFile << "\n\tFrag: " << fragmentFile << "\n\tFallback to Default Shader!");
+				ERR("FALLBACK to Default Shader, see Error above for details!\n\tFailed to build Shader: \"" << name << "\"");//\n\tVert: " << vertexFile << "\n\tFrag: " << fragmentFile);
 				buildProgram(The5::DEFAULT_SHADER_VERT, The5::DEFAULT_SHADER_FRAG);
 				return false;
 			}
@@ -285,7 +285,7 @@ namespace The5 {
 			}
 			catch (std::ifstream::failure e)
 			{
-				ERR("Failed to open Vertex Shader Files from:" << vertexFile);
+				ERR("Failed to open Vertex Shader file!\n\t\"" << vertexFile <<"\""<< The5::getFilePathWarnings(vertexFile));
 				return false;
 			}
 			const char* vShaderCode = vertexCode.c_str();
@@ -304,7 +304,7 @@ namespace The5 {
 			}
 			catch (std::ifstream::failure e)
 			{
-				ERR("Failed to open Fragment Shader Files from:" << fragmentFile);
+				ERR("Failed to open Fragment Shader file!\n\t\"" << fragmentFile << "\"" << The5::getFilePathWarnings(fragmentFile));
 				return false;
 			}
 			const char * fShaderCode = fragmentCode.c_str();
