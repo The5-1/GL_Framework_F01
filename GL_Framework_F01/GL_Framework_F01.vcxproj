@@ -161,6 +161,7 @@
     <ClInclude Include="imgui_init.h" />
     <ClInclude Include="Importer.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="IPixelBuffer.h" />
     <ClInclude Include="ISystem.h" />
     <ClInclude Include="Logging.h" />
     <ClInclude Include="IManager.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="Paths.h" />
     <ClInclude Include="Primitives.h" />
     <ClInclude Include="RenderableC.h" />
+    <ClInclude Include="RenderBuffer.h" />
     <ClInclude Include="RendererCP.h" />
     <ClInclude Include="RenderPass.h" />
     <ClInclude Include="RenderTarget.h" />

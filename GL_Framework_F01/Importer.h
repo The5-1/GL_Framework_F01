@@ -252,8 +252,8 @@ namespace The5 {
 			string filename = string(path);
 			filename = directory + '/' + filename;
 
-			unsigned int textureID;
-			glGenTextures(1, &textureID);
+			unsigned int bufferID;
+			glGenTextures(1, &bufferID);
 
 			int width, height, nrComponents;
 			unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
@@ -267,7 +267,7 @@ namespace The5 {
 				else if (nrComponents == 4)
 					format = GL_RGBA;
 
-				glBindTexture(GL_TEXTURE_2D, textureID);
+				glBindTexture(GL_TEXTURE_2D, bufferID);
 				glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
 				glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -284,7 +284,7 @@ namespace The5 {
 				stbi_image_free(data);
 			}
 
-			return textureID;
+			return bufferID;
 		};
 		*/
 	}

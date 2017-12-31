@@ -23,7 +23,14 @@ namespace The5 {
 		/** documentation */
 
 		///Methods
-		/** documentation */
+		/** activate FBO, required for attaching buffers */
+		void bindFBO();
+		/** attach Buffer for READ and WRITE (FBO must be bound first)*/
+		void attachReadWriteBuffer(Texture* texture, GLenum attachmentType);
+		/** attach Buffer for Writing only (e.g. GL_DEPTH24_STENCIL8) */
+		void attachWriteonlyBuffer(RenderBuffer* renderBuffer, GLenum attachmentType);
+		/** disable FBO, reset to on-screen rendering */
+		void unbindFBO();
 
 	protected:
 		///friend classes
@@ -36,7 +43,7 @@ namespace The5 {
 		/** Framebuffer Object ID */
 		GLuint fboID = 0;
 		/** Framebuffer Object ID */
-		std::vector<Texture*> textures;
+		std::map<Texture*, GLenum> textureAttachments;
 		/** window to get resolution from*/
 		//Window* window; //--> dynamic scaling requires extra effort for FBOs and handling callbacks
 		/** use the windows resolution */
@@ -46,14 +53,11 @@ namespace The5 {
 		/** create FBO*/
 		void createFBO();
 
-		void bindFBO();
-
-		void attachTexture(Texture* texture);
+		/** check if the FBO is complete */
+		bool checkFramebufferErrors();
 
 		void bindWriteFBO();
 		void bindReadFBO();
-
-		bool checkFramebufferErrors();
 
 	};
 }

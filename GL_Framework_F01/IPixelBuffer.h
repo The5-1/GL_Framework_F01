@@ -3,23 +3,20 @@
 #include "ForwardDeclarations.h"
 #include "stl_include.h"
 #include "Logging.h"
-//#include "IPixelBuffer.h"
 
 namespace The5 {
 
-	/** Textures can be writen and READ, Renderbuffers are optimized for Write only */
-	class Texture
+	/** documentation */
+	class IPixelBuffer
 	{
 	public:
 		///public Fields
 		/** Texture name */
 		std::string name;
-		/** path to image file, nullptr if not based on external image*/
-		The5::Image* image;
 
 		///Constructor / Destructor
 		/** Constructor: detailed */
-		Texture(std::string name, int width, unsigned int height, GLint internalFormat, GLint format, GLint type)
+		Texture(std::string name, int width, unsigned int height, GLint internalFormat)
 			: name(name)
 		{
 			generateBuffer(width, height, internalFormat, format, type);
@@ -32,9 +29,6 @@ namespace The5 {
 		/** documentation */
 
 		///Methods
-		/** load a image into the texture */
-		void loadImage();
-
 		GLuint getTextureID()
 		{
 			return textureID;
@@ -63,14 +57,10 @@ namespace The5 {
 		unsigned int depth;
 		/** texture internalformat */
 		GLint internalFormat;
-		/** texture format */
-		GLint format;
-		/** texture type */
-		GLint type;
 
 		///private Methods
 		/** generate Texture */
-		void generateBuffer(unsigned int width, unsigned int height, GLint internalFormat, GLint format, GLint type)
+		virtual void generateBuffer(unsigned int width, unsigned int height, GLint internalFormat, GLint format, GLint type)
 		{
 			if (width < 1 || height < 1)
 			{

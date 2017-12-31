@@ -1,12 +1,13 @@
 #include "RenderTarget.h"
 #include "Logging.h"
 #include "Texture.h"
+#include "RenderBuffer.h"
 
 namespace The5
 {
 	RenderTarget::RenderTarget(std::string name): name(name)
 	{
-
+		createFBO();
 	}
 
 	void RenderTarget::createFBO()
@@ -19,9 +20,24 @@ namespace The5
 		glBindFramebuffer(GL_FRAMEBUFFER, fboID);
 	}
 
-	void RenderTarget::attachTexture(Texture * texture)
+	void RenderTarget::attachReadWriteBuffer(Texture * texture, GLenum attachmentType)
 	{
-		glFramebufferTexture2D(GL_FRAMEBUFFER, texture->getAttachmentType(), GL_TEXTURE_2D, texture->getTextureID(), 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentType, GL_TEXTURE_2D, texture->getTextureID(), 0);
+		textureAttachments.insert(std::make_pair(texture, attachmentType));
+		checkFramebufferErrors();
+	}
+
+	void RenderTarget::attachWriteonlyBuffer(RenderBuffer * renderBuffer, GLenum attachmentType)
+	{
+		//Renderbuffer must not be bound for this to work, just the FBO
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderBuffer->getBufferID());
+		//textureAttachments.insert(std::make_pair(texture, attachmentType));
+		checkFramebufferErrors();
+	}
+
+	void RenderTarget::unbindFBO()
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0); //resets to onscreen
 	}
 
 	void RenderTarget::bindWriteFBO()

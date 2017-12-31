@@ -34,6 +34,10 @@ namespace The5
 
 	class Texture;
 	using Texture_uptr = std::unique_ptr<The5::Texture>;
+
+	class RenderBuffer;
+	using RenderBuffer_uptr = std::unique_ptr<The5::RenderBuffer>;
+	//enum TextureBufferType { TextureBuffer, RenderBuffer };
 	enum TextureAttachmentType { ColorAttachment, DepthAttachment, StencilAttachment };
 	enum TextureFormatArchetype { noTextureFormatArchetype, R8, R16, R32, RGB8, RGB16, RGB32, RGBA8 };
 	enum FBOArchetype { noFBOArchetype, FBO_RGBA8, FBO_RGBA8_Depth32, FBO_GBuffer8_Depth32};
