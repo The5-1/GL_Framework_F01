@@ -166,12 +166,11 @@ namespace The5
 		/** check if this maks has all its bits represented in the other */
 		bool isCompatible(const ComponentBitmask& required)
 		{
-			//this = the mask on the entity!
-			//if( (0110 AND 0111) == 0110)
-			bool b = ((required.mask & this->mask) == required.mask);
+			//"this" is the mask on the entity, it needs to have everything "required"
+			// if(entity(011111) & required(011001) == required(011001))
+			bool b = ((this->mask & required.mask) == required.mask);
 			//std::cout <<(this->mask).to_string() << " & " << (required.mask).to_string() << "--->"  << b << std::endl;
-			//return false;
-			return ((this->mask & required.mask) == this->mask);
+			return b;
 		}
 
 		/** create a bitset with only the given ComponentTypes bit set [static] */

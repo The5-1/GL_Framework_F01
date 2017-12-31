@@ -17,7 +17,7 @@ namespace The5 {
 		IMaterial* material;
 		Mesh* mesh;
 		/** renderpass with assigned material that is used to draw in that pass */
-		std::map<RenderPass*, IMaterial*> renderPasses;
+		std::map<RenderPass*, IMaterial*> renderPassMaterials;
 		//Shader* shader;
 
 		void setMesh(Mesh* mesh);

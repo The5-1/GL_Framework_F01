@@ -10,7 +10,7 @@
 
 namespace The5 
 {
-	RendererCP::RendererCP(Application * application) : IComponentProcessor(application, initRequiredComponentBitmask(), 0.0)
+	RendererCP::RendererCP(Application * application) : IComponentProcessor(ComponentProcessorTypeString.at(this->getType()), application, initRequiredComponentBitmask(), 0.0)
 	{
 
 	}
@@ -39,7 +39,7 @@ namespace The5
 
 	void RendererCP::doProcessing(Entity * entity, double deltaTime)
 	{
-		if (entity->getComponent(ComponentType::RenderableType) == nullptr) return;
+		//if (entity->getComponent(ComponentType::RenderableType) == nullptr) return; //! the bitmask check takes care of this!
 		RenderableC* renderable = (RenderableC*)(entity->getComponent(ComponentType::RenderableType));
 		draw(renderable, entity, deltaTime);
 	}

@@ -25,7 +25,7 @@ namespace The5 {
 
 	bool Entity::checkComponentBitmaskCompatible(ComponentBitmask mask)
 	{
-		return mComponentBitmask.isCompatible(mask);
+		return this->mComponentBitmask.isCompatible(mask);
 	}
 
 	IComponent* Entity::addComponent(ComponentType type)

@@ -2,17 +2,20 @@
 #include "IComponent.h"
 #include "Entity.h"
 #include "Scene.h"
+#include "Logging.h"
 
 namespace The5
 {
-	IComponentProcessor::IComponentProcessor(Application * application, ComponentBitmask mask, double updateRate) 
-		: mApplication(application) , mRequiredComponentBitmask(mask) , updateRate(updateRate)
+	IComponentProcessor::IComponentProcessor(std::string name, Application * application, ComponentBitmask mask, double updateRate)
+		: name(name), mApplication(application) , mRequiredComponentBitmask(mask) , updateRate(updateRate)
 	{
 
 	}
 
 	bool IComponentProcessor::checkComponentsCompatible(Entity * entity)
 	{
+		//LOG("Checking Bitmask: " << this->name << ": " << this->mRequiredComponentBitmask.mask.to_string() << " & " << entity->name << ": " << entity->getComponentBitmask().mask.to_string() << " result: " << entity->checkComponentBitmaskCompatible(this->mRequiredComponentBitmask));
+
 		return entity->checkComponentBitmaskCompatible(this->mRequiredComponentBitmask);
 	}
 

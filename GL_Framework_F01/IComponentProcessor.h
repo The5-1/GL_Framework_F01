@@ -15,9 +15,13 @@ namespace The5
 	class IComponentProcessor
 	{
 	public:
+		///public fields
+		/** name */
+		std::string name;
+
 		///Constructor
 		/** constructor*/
-		IComponentProcessor(Application* application, ComponentBitmask mask, double updateRate);
+		IComponentProcessor(std::string name, Application* application, ComponentBitmask mask, double updateRate);
 
 		virtual ComponentProcessorType getType() = 0;
 
