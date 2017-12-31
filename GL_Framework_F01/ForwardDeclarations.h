@@ -47,7 +47,8 @@ namespace The5
 
 	class IMaterial;
 	using IMaterial_uptr = std::unique_ptr<The5::IMaterial>;
-
+	enum MaterialBlendMode { BlendDisabled, BlendAlpha, BlendPremultipliedAplha, BlendAdditive, BlendMultiplicative };
+	enum MaterialDepthMode { DepthDisabled, DepthReadWrite, DepthReadOnly };
 
 	//Main Application & Managers
 	class Application;
@@ -114,23 +115,26 @@ namespace The5
 	using MoveableCP_uptr = std::unique_ptr<The5::MoveableCP>;
 
 	/** total number of component types derived from IComonent*/
-	const unsigned int COMPONENT_NUMBER = 2;
+	const unsigned int COMPONENT_NUMBER = 5;
 
 	/** enum to get Component Type at runtime */
-	enum ComponentType { noComponent = 0, RenderableType = 1, MoveableType = 2 };
+	enum ComponentType { noComponent = 0, TransformationCType = 1, RenderableCType = 2, MoveableCType = 3, TimerCType = 4};
 
 	/** enum to string for Component Types */	
 	const std::map<ComponentType, std::string> ComponentTypeString {
-		std::make_pair(ComponentType::RenderableType, "RenderableType"),
-		std::make_pair(ComponentType::MoveableType, "MoveableType"),
+		std::make_pair(ComponentType::TransformationCType, "TransformationComponent"),
+		std::make_pair(ComponentType::RenderableCType, "RenderableComponent"),
+		std::make_pair(ComponentType::MoveableCType, "MoveableComponent"),
+		std::make_pair(ComponentType::TimerCType, "TimerComponent"),
 	};
 
 	/** enum to get Component Type at runtime */
-	enum ComponentProcessorType { noComponentProcessor = 0, RendererType = 1};
+	enum ComponentProcessorType { noComponentProcessor = 0, RendererCPType = 1, TimerCPType = 3};
 
 	/** enum to string for Component Types */
 	const std::map<ComponentProcessorType, std::string> ComponentProcessorTypeString{
-		std::make_pair(ComponentProcessorType::RendererType, "RendererType"),
+		std::make_pair(ComponentProcessorType::RendererCPType, "RendererProcessor"),
+		std::make_pair(ComponentProcessorType::TimerCPType, "TimerProcessor"),
 	};
 	
 	/** Bitmask that holds what component types are present/required for fast checking, based on std::bitmask */
@@ -169,7 +173,7 @@ namespace The5
 			//"this" is the mask on the entity, it needs to have everything "required"
 			// if(entity(011111) & required(011001) == required(011001))
 			bool b = ((this->mask & required.mask) == required.mask);
-			//std::cout <<(this->mask).to_string() << " & " << (required.mask).to_string() << "--->"  << b << std::endl;
+			//std::cout <<(this->mask).to_string() << " & " << (required.mask).to_string() << " compatible: "  << b << std::endl;
 			return b;
 		}
 
